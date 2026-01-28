@@ -1,27 +1,21 @@
-import { useEffect, useState, ReactNode } from "react";
-import UserContext from "./UserContext";
+// src/context/UserContext.tsx
+import { useState, useEffect, ReactNode } from "react";
+import userContext from "./UserContext";
 import { getUser } from "../storage/stogare";
 
-type Props = {
-  children: ReactNode;
-};
+type Props = { children: ReactNode };
 
-const UserContextProvider = ({ children }: Props) => {
+export default function UserContextProvider({ children }: Props) {
   const [hasAccount, setHasAccount] = useState(false);
 
   useEffect(() => {
     const user = getUser();
-
-    if (user) {
-      setHasAccount(true);
-    }
+    if (user) setHasAccount(true);
   }, []);
 
   return (
-    <UserContext.Provider value={{ hasAccount }}>
+    <userContext.Provider value={{ hasAccount, setHasAccount }}>
       {children}
-    </UserContext.Provider>
+    </userContext.Provider>
   );
-};
-
-export default UserContextProvider;
+}
