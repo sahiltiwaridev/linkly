@@ -1,0 +1,36 @@
+import { useState, useEffect, ReactNode, useContext } from "react";
+import userContext from "./userContext";
+import { getUser } from "../../storage/stogare";
+import LoadingContextProvider from "../loading/LoadingContextProvider";
+import loadingContext from "../loading/loadingContext";
+
+type Props = { children: ReactNode };
+
+export default function UserContextProvider({ children }: Props) {
+  const [hasAccount, setHasAccount] = useState(false);
+  const { setIsLoading } = useContext(loadingContext)!;
+
+  useEffect(() => {
+    const checkUser = async () => {
+      // Check if loading context exists
+      const loadingCtx = (loadingContext as any)._currentValue;
+      if (loadingCtx?.setIsLoading) {
+        loadingCtx.setIsLoading(true);
+      }
+
+      const user = getUser();
+      if (user) setHasAccount(true);
+
+      if (loadingCtx?.setIsLoading) {
+        loadingCtx.setIsLoading(false);
+      }
+    };
+    checkUser();
+  }, []);
+
+  return (
+    <userContext.Provider value={{ hasAccount, setHasAccount }}>
+      {children}
+    </userContext.Provider>
+  );
+}
