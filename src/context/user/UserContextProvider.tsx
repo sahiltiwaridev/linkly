@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactNode, useContext } from "react";
 import userContext from "./userContext";
-import { getUser } from "../../storage/stogare";
+import { getUser } from "../../lib/storage/stogare";
 import LoadingContextProvider from "../loading/LoadingContextProvider";
 import loadingContext from "../loading/loadingContext";
 
@@ -12,7 +12,6 @@ export default function UserContextProvider({ children }: Props) {
 
   useEffect(() => {
     const checkUser = async () => {
-      // Check if loading context exists
       const loadingCtx = (loadingContext as any)._currentValue;
       if (loadingCtx?.setIsLoading) {
         loadingCtx.setIsLoading(true);
