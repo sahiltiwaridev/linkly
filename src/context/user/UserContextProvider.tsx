@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactNode, useContext } from "react";
 import userContext from "./userContext";
-import { getUser } from "../../lib/storage/stogare";
+import { getUser } from "../../lib/storage/user.storage";
 import LoadingContextProvider from "../loading/LoadingContextProvider";
 import loadingContext from "../loading/loadingContext";
 

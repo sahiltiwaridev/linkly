@@ -1,12 +1,13 @@
 import { View, Text, TextInput, Pressable } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   userEmailValidator,
   userNameValidator,
-} from "../lib/profile/validateUserProfile";
-import { createUser } from "../lib/storage/stogare";
+} from "../lib/profile/user.validators";
+import { createUser } from "../lib/storage/user.storage";
 import { useNavigation } from "@react-navigation/native";
+import userContext from "../context/user/userContext";
 
 type Gender = "male" | "female" | "neutral";
 
@@ -20,11 +21,14 @@ export default function CreateProfileScreen() {
   const [nameError, setNameError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
 
+  const { setHasAccount } = useContext(userContext)!;
+
   const canProceed = !nameError && !emailError && name.length > 0;
   const navigation = useNavigation<any>();
 
   const saveUserData = () => {
     try {
+      setHasAccount(true);
       createUser({ name, gender, profession, email, bio });
       navigation.replace("HomeScreen");
     } catch {

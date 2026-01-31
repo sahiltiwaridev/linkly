@@ -5,7 +5,7 @@ export const userNameValidator = (name: string): string | null => {
 };
 
 export const userEmailValidator = (email: string): string | null => {
-  if (email.trim() === "") return null; // optional field
+  if (email.trim() === "") return null;
   if (!email.includes("@")) return "Invalid email address";
   return null;
 };
