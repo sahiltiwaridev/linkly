@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import userContext from "../context/user/userContext";
-import HomeScreen from "../screens/HomeScreen";
 import OnboardingStack from "./OnboardingStack";
+import HomeStack from "./HomeStack";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +12,7 @@ export default function RootStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {hasAccount ? (
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="HomeStack" component={HomeStack} />
       ) : (
         <Stack.Screen name="OnboardingStack" component={OnboardingStack} />
       )}

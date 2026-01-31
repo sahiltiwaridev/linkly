@@ -6,7 +6,6 @@ import {
   userNameValidator,
 } from "../lib/profile/user.validators";
 import { createUser } from "../lib/storage/user.storage";
-import { useNavigation } from "@react-navigation/native";
 import userContext from "../context/user/userContext";
 
 type Gender = "male" | "female" | "neutral";
@@ -24,13 +23,11 @@ export default function CreateProfileScreen() {
   const { setHasAccount } = useContext(userContext)!;
 
   const canProceed = !nameError && !emailError && name.length > 0;
-  const navigation = useNavigation<any>();
 
   const saveUserData = () => {
     try {
-      setHasAccount(true);
       createUser({ name, gender, profession, email, bio });
-      navigation.replace("HomeScreen");
+      setHasAccount(true);
     } catch {
       alert("Something went wrong! Please try again.");
     }
