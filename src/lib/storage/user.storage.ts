@@ -1,15 +1,8 @@
-import { USER_KEY } from "../../config/storageKeys";
-import storage from "./mmkv";
+import { getStorage } from "./mmkv";
+import { STORAGE_KEYS } from "./storageKeys";
 import { deserializeUserData, serializeUserData } from "./storage.utils";
 
-type UserData = {
-  name: string;
-  gender: "male" | "female" | "neutral";
-  profession: string;
-  email: string;
-  bio: string;
-};
-type StoredUser = {
+export type UserData = {
   name: string;
   gender: "male" | "female" | "neutral";
   profession: string;
@@ -18,18 +11,22 @@ type StoredUser = {
 };
 
 export const createUser = (user: UserData) => {
-  const userData = {
+  const storage = getStorage();
+
+  const userString = serializeUserData({
     name: user.name,
     gender: user.gender,
     profession: user.profession || "",
     email: user.email || "",
     bio: user.bio || "",
-  };
-  const userString = serializeUserData(userData);
-  storage.set(USER_KEY, userString);
+  });
+
+  storage.set(STORAGE_KEYS.USER_PROFILE, userString);
 };
 
-export const getUser = (): StoredUser | null => {
-  const storedUser: string | undefined = storage.getString(USER_KEY);
+export const getUser = (): UserData | null => {
+  const storage = getStorage();
+  const storedUser = storage.getString(STORAGE_KEYS.USER_PROFILE);
+
   return storedUser ? deserializeUserData(storedUser) : null;
 };

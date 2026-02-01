@@ -1,5 +1,20 @@
-import { createMMKV } from "react-native-mmkv";
+import { createMMKV, MMKV } from "react-native-mmkv";
+import { getEncryptionKey } from "./secureKey";
 
-const storage = createMMKV();
+let storage: MMKV | null = null;
 
-export default storage;
+export async function initStorage() {
+  const encryptionKey = await getEncryptionKey();
+
+  storage = createMMKV({
+    id: "secure-storage",
+    encryptionKey,
+  });
+}
+
+export function getStorage(): MMKV {
+  if (!storage) {
+    throw new Error("MMKV not initialized. Call initStorage() first.");
+  }
+  return storage;
+}
