@@ -7,7 +7,15 @@ import HomeStack from "./HomeStack";
 const Stack = createNativeStackNavigator();
 
 export default function RootStack() {
-  const { hasAccount } = useContext(userContext)!;
+  const userCtx = useContext(userContext);
+
+  if (!userCtx) {
+    throw new Error("RootStack must be wrapped in UserContextProvider");
+  }
+
+  const { hasAccount, isUserChecked } = userCtx;
+
+  if (!isUserChecked) return null;
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

@@ -7,26 +7,34 @@ type Props = { children: ReactNode };
 
 export default function UserContextProvider({ children }: Props) {
   const [hasAccount, setHasAccount] = useState(false);
+  const [isUserChecked, setIsUserChecked] = useState(false);
+
+  const loadingCtx = useContext(loadingContext);
+
+  if (!loadingCtx) {
+    throw new Error(
+      "UserContextProvider must be wrapped in LoadingContextProvider",
+    );
+  }
+
+  const { setIsLoading } = loadingCtx;
 
   useEffect(() => {
     const checkUser = async () => {
-      const loadingCtx = (loadingContext as any)._currentValue;
-      if (loadingCtx?.setIsLoading) {
-        loadingCtx.setIsLoading(true);
-      }
+      setIsLoading(true);
 
       const user = getUser();
       if (user) setHasAccount(true);
 
-      if (loadingCtx?.setIsLoading) {
-        loadingCtx.setIsLoading(false);
-      }
+      setIsUserChecked(true);
+      setIsLoading(false);
     };
+
     checkUser();
   }, []);
 
   return (
-    <userContext.Provider value={{ hasAccount, setHasAccount }}>
+    <userContext.Provider value={{ hasAccount, setHasAccount, isUserChecked }}>
       {children}
     </userContext.Provider>
   );

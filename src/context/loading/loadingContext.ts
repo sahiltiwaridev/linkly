@@ -1,10 +1,10 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext } from "react";
 
-export type loadingContextType = {
+export type LoadingContextType = {
   isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  setIsLoading: (value: boolean) => void;
 };
 
-const loadingContext = createContext<loadingContextType | undefined>(undefined);
+const loadingContext = createContext<LoadingContextType | undefined>(undefined);
 
 export default loadingContext;

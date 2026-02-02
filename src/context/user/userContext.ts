@@ -1,10 +1,11 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext } from "react";
 
-export type userContextType = {
+export type UserContextType = {
   hasAccount: boolean;
-  setHasAccount: Dispatch<SetStateAction<boolean>>;
+  setHasAccount: (value: boolean) => void;
+  isUserChecked: boolean;
 };
 
-const userContext = createContext<userContextType | undefined>(undefined);
+const userContext = createContext<UserContextType | undefined>(undefined);
 
 export default userContext;
