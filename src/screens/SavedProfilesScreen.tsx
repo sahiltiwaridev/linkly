@@ -1,33 +1,31 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getContactsStorage } from "../lib/storage/contacs.storage";
+import { getContactsStorage } from "../lib/storage/contacts.storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SavedProfilesScreen() {
-  const [allContacts, setAllContacts] = useState<any | null>(null);
+  const [allContacts, setAllContacts] = useState<any[]>([]);
 
   useEffect(() => {
-    const getContactsDetails = () => {
-      const contacts = getContactsStorage();
-      return setAllContacts(contacts);
-    };
+    const contacts = getContactsStorage();
+    setAllContacts(contacts ?? []);
   }, []);
+
+  const firstContact = allContacts.length > 0 ? allContacts[0] : null; // For testing
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
         style={{
           flex: 1,
-          height: "100%",
-          width: "auto",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
         <Text>
-          {allContacts === null
-            ? "You don't have any contacts right now."
-            : allContacts}
+          {firstContact
+            ? firstContact.name
+            : "You don't have any contacts right now."}
         </Text>
       </View>
     </SafeAreaView>

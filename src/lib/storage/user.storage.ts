@@ -1,7 +1,7 @@
 import { getStorage } from "./mmkv";
 import { STORAGE_KEYS } from "./storageKeys";
 import { deserializeUserData, serializeUserData } from "./storage.utils";
-import { createContactsStorage } from "./contacs.storage";
+import { createContactsStorage } from "./contacts.storage";
 
 export type UserData = {
   name: string;
