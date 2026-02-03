@@ -15,3 +15,13 @@ export const deserializeUserData = (param: string): StoredUser => {
   const deserializedData = JSON.parse(param);
   return deserializedData;
 };
+
+export const serializeContactsData = (param: any) => {
+  const serializedData = JSON.stringify(param);
+  return serializedData;
+};
+
+export const deserializeContactsData = (param: any) => {
+  const deserializedData = JSON.parse(param);
+  return deserializedData;
+};
