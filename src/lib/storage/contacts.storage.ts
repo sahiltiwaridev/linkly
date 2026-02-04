@@ -1,10 +1,11 @@
+import { generateUniqueId } from "../utils/id.utils";
 import { getStorage } from "./mmkv";
 import {
   deserializeContactsData,
   serializeContactsData,
 } from "./storage.utils";
 import { STORAGE_KEYS } from "./storageKeys";
-import { UserData } from "./user.storage";
+import { Contact, UserData } from "./user.storage";
 
 export const createContactsStorage = () => {
   const storage = getStorage();
@@ -33,13 +34,18 @@ export const saveContact = (param: UserData | null) => {
   if (!param) return;
 
   const storage = getStorage();
-  const contactsArray = getContactsStorage();
 
-  contactsArray.push(param);
+  const existingContacts: Contact[] = getContactsStorage() ?? [];
+
+  const newContact: Contact = {
+    ...param,
+    id: generateUniqueId(),
+  };
+
+  const updatedContacts = [...existingContacts, newContact];
 
   storage.set(
     STORAGE_KEYS.SAVED_CONTACTS,
-    serializeContactsData(contactsArray)
+    serializeContactsData(updatedContacts),
   );
 };
-
