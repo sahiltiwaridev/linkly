@@ -6,7 +6,7 @@ import {
   userNameValidator,
 } from "../lib/profile/user.validators";
 import { createUser } from "../lib/storage/user.storage";
-import userContext from "../context/user/userContext";
+import userContext from "../context/user/UserContext";
 
 type Gender = "male" | "female" | "neutral";
 

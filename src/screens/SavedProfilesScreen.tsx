@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getContactsStorage } from "../lib/storage/contacts.storage";
+import {getAllContacts} from "../lib/storage/contacts.storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
@@ -9,7 +9,7 @@ export default function SavedProfilesScreen() {
   const [allContacts, setAllContacts] = useState<any[]>([]);
 
   useEffect(() => {
-    const contacts = getContactsStorage();
+    const contacts = getAllContacts();
     setAllContacts(contacts ?? []);
   }, []);
 

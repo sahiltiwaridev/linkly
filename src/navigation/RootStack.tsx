@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import userContext from "../context/user/userContext";
+import userContext from "../context/user/UserContext";
 import OnboardingStack from "./OnboardingStack";
 import HomeStack from "./HomeStack";
 import { initStorage } from "../lib/storage/mmkv";
@@ -15,9 +15,9 @@ export default function RootStack() {
     throw new Error("RootStack must be wrapped in UserContextProvider");
   }
 
-  const { hasAccount, isUserChecked } = userCtx;
+  const { hasAccount, isUserInitialized } = userCtx;
 
-  if (!isUserChecked) return null;
+  if (!isUserInitialized) return null;
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

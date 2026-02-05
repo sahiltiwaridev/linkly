@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import QRCode from "react-native-qrcode-svg";
-import { buildUserQRPayload } from "../lib/qr/qrParser";
+import { generateUserQRPayload } from "../lib/qr/qrParser";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function MyQRScreen() {
-  const qrPayload = buildUserQRPayload();
+  const qrPayload = generateUserQRPayload();
 
   if (!qrPayload) {
     return (

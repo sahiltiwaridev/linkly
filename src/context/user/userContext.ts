@@ -3,7 +3,7 @@ import { createContext } from "react";
 export type UserContextType = {
   hasAccount: boolean;
   setHasAccount: (value: boolean) => void;
-  isUserChecked: boolean;
+  isUserInitialized: boolean;
 };
 
 const userContext = createContext<UserContextType | undefined>(undefined);

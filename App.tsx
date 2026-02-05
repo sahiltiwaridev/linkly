@@ -5,7 +5,7 @@ import { initStorage } from "./src/lib/storage/mmkv";
 
 import UserContextProvider from "./src/context/user/UserContextProvider";
 import LoadingContextProvider from "./src/context/loading/LoadingContextProvider";
-import loadingContext from "./src/context/loading/loadingContext";
+import loadingContext from "./src/context/loading/LoadingContext";
 
 import RootStack from "./src/navigation/RootStack";
 import LoadingScreen from "./src/screens/LoadingScreen";

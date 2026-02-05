@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function QRScannerView() {
   const navigation = useNavigation<any>();
-  const { permission, hasScanned, handleScan } = useQRScanner();
+  const { permission, isScanLocked, handleQRCodeScanned } = useQRScanner();
   const [scannedData, setScannedData] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,9 +26,9 @@ export default function QRScannerView() {
         style={{ flex: 1 }}
         barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
         onBarcodeScanned={({ data }) => {
-          if (hasScanned) return;
+          if (isScanLocked) return;
 
-          const result = handleScan(data);
+          const result = handleQRCodeScanned(data);
           if (result) {
             setScannedData(result);
           }
@@ -44,7 +44,7 @@ export default function QRScannerView() {
           alignSelf: "center",
         }}
       >
-        {hasScanned ? "Scanned" : "Scanning..."}
+        {isScanLocked ? "Scanned" : "Scanning..."}
       </Text>
     </View>
   );

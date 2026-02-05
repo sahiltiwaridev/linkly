@@ -7,7 +7,7 @@ import {
 import { STORAGE_KEYS } from "./storageKeys";
 import { Contact, UserData } from "./user.storage";
 
-export const createContactsStorage = () => {
+export const initializeContactsStorage = () => {
   const storage = getStorage();
   const contactsContainer: any = [];
 
@@ -17,7 +17,7 @@ export const createContactsStorage = () => {
   );
 };
 
-export const getContactsStorage = () => {
+export const getAllContacts = () => {
   const storage = getStorage();
   const data = storage.getString(STORAGE_KEYS.SAVED_CONTACTS);
 
@@ -30,12 +30,12 @@ export const getContactsStorage = () => {
   return deserializeContactsData(data);
 };
 
-export const saveContact = (param: UserData | null) => {
+export const addContact = (param: UserData | null) => {
   if (!param) return;
 
   const storage = getStorage();
 
-  const existingContacts: Contact[] = getContactsStorage() ?? [];
+  const existingContacts: Contact[] = getAllContacts() ?? [];
 
   const newContact: Contact = {
     ...param,

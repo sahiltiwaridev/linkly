@@ -1,7 +1,7 @@
 import { getStorage } from "./mmkv";
 import { STORAGE_KEYS } from "./storageKeys";
 import { deserializeUserData, serializeUserData } from "./storage.utils";
-import { createContactsStorage } from "./contacts.storage";
+import { initializeContactsStorage } from "./contacts.storage";
 
 export type UserData = {
   name: string;
@@ -27,7 +27,7 @@ export const createUser = (user: UserData) => {
   });
 
   storage.set(STORAGE_KEYS.USER_PROFILE, userString);
-  createContactsStorage();
+  initializeContactsStorage();
 };
 
 export const getUser = (): UserData | null => {

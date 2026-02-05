@@ -1,13 +1,14 @@
 import { useState, useEffect, ReactNode, useContext } from "react";
-import userContext from "./userContext";
+import userContext from "./UserContext";
 import { getUser } from "../../lib/storage/user.storage";
-import loadingContext from "../loading/loadingContext";
+import loadingContext from "../loading/LoadingContext";
+
 
 type Props = { children: ReactNode };
 
 export default function UserContextProvider({ children }: Props) {
   const [hasAccount, setHasAccount] = useState(false);
-  const [isUserChecked, setIsUserChecked] = useState(false);
+  const [isUserInitialized, setIsUserInitialized] = useState(false);
 
   const loadingCtx = useContext(loadingContext);
 
@@ -26,7 +27,7 @@ export default function UserContextProvider({ children }: Props) {
       const user = getUser();
       if (user) setHasAccount(true);
 
-      setIsUserChecked(true);
+      setIsUserInitialized(true);
       setIsLoading(false);
     };
 
@@ -34,7 +35,7 @@ export default function UserContextProvider({ children }: Props) {
   }, []);
 
   return (
-    <userContext.Provider value={{ hasAccount, setHasAccount, isUserChecked }}>
+    <userContext.Provider value={{ hasAccount, setHasAccount, isUserInitialized }}>
       {children}
     </userContext.Provider>
   );

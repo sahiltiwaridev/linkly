@@ -1,5 +1,5 @@
-import { parseScannedUserQRPayload } from "../qr/qrParser";
-import { getContactsStorage } from "../storage/contacts.storage";
+import { decodeUserQRPayload } from "../qr/qrParser";
+import { getAllContacts } from "../storage/contacts.storage";
 
 export type PreviewProfileResult = {
   contact: any | null;
@@ -7,11 +7,11 @@ export type PreviewProfileResult = {
   isExistingContactFlow: boolean;
 };
 
-export function resolvePreviewProfile(params: any): PreviewProfileResult {
+export function resolvePreviewProfileSource(params: any): PreviewProfileResult {
   const { result, contactId } = params ?? {};
 
   if (typeof contactId === "string") {
-    const contacts = getContactsStorage() ?? [];
+    const contacts = getAllContacts() ?? [];
     const existingContact = contacts.find((c: any) => c.id === contactId);
 
     return {
@@ -22,7 +22,7 @@ export function resolvePreviewProfile(params: any): PreviewProfileResult {
   }
 
   if (typeof result === "string") {
-    const scannedData = parseScannedUserQRPayload(result);
+    const scannedData = decodeUserQRPayload(result);
 
     return {
       contact: scannedData ?? null,
