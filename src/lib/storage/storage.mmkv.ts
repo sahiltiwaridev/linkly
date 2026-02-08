@@ -1,5 +1,5 @@
 import { createMMKV } from "react-native-mmkv";
-import { getEncryptionKey } from "./secureKey";
+import { getEncryptionKey } from "./secure.key";
 
 let encryptionKey;
 

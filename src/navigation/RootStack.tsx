@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import userContext from "../context/user/UserContext";
+import userContext from "../context/user/user.context";
 import OnboardingStack from "./OnboardingStack";
 import HomeStack from "./HomeStack";
-import { initStorage } from "../lib/storage/mmkv";
 
 const Stack = createNativeStackNavigator();
 
 export default function RootStack() {
-  
   const userCtx = useContext(userContext);
 
   if (!userCtx) {

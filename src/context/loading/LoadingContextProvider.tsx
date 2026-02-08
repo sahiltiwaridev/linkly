@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import loadingContext from "./LoadingContext";
+import loadingContext from "./loading.context";
 
 type Props = { children: ReactNode };
 

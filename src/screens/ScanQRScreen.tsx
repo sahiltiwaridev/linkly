@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { CameraView } from "expo-camera";
-import { useQRScanner } from "../lib/qr/qrScanner";
+import { useQRScanner } from "../lib/qr/qr.scanner";
 import { useEffect, useState, useCallback } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 

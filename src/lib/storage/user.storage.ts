@@ -1,5 +1,5 @@
-import { getStorage } from "./mmkv";
-import { STORAGE_KEYS } from "./storageKeys";
+import { getStorage } from "./storage.mmkv";
+import { STORAGE_KEYS } from "./storage.keys";
 import { deserializeUserData, serializeUserData } from "./storage.utils";
 import { initializeContactsStorage } from "./contacts.storage";
 

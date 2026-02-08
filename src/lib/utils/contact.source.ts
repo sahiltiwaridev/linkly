@@ -1,4 +1,4 @@
-import { decodeUserQRPayload } from "../qr/qrParser";
+import { decodeUserQRPayload } from "../qr/qr.parser";
 import { getAllContacts } from "../storage/contacts.storage";
 
 export type PreviewProfileResult = {

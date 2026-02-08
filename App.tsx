@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { initStorage } from "./src/lib/storage/mmkv";
+import { initStorage } from "./src/lib/storage/storage.mmkv";
 
 import UserContextProvider from "./src/context/user/UserContextProvider";
 import LoadingContextProvider from "./src/context/loading/LoadingContextProvider";
-import loadingContext from "./src/context/loading/LoadingContext";
+import loadingContext from "./src/context/loading/loading.context";
 
 import RootStack from "./src/navigation/RootStack";
 import LoadingScreen from "./src/screens/LoadingScreen";

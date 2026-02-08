@@ -1,10 +1,10 @@
 import { generateUniqueId } from "../utils/id.utils";
-import { getStorage } from "./mmkv";
+import { getStorage } from "./storage.mmkv";
 import {
   deserializeContactsData,
   serializeContactsData,
 } from "./storage.utils";
-import { STORAGE_KEYS } from "./storageKeys";
+import { STORAGE_KEYS } from "./storage.keys";
 import { Contact, UserData } from "./user.storage";
 
 export const initializeContactsStorage = () => {

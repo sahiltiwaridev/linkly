@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode, useContext } from "react";
-import userContext from "./UserContext";
+import userContext from "./user.context";
 import { getUser } from "../../lib/storage/user.storage";
-import loadingContext from "../loading/LoadingContext";
+import loadingContext from "../loading/loading.context";
 
 
 type Props = { children: ReactNode };

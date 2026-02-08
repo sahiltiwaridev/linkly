@@ -4,9 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {
   userEmailValidator,
   userNameValidator,
-} from "../lib/profile/user.validators";
+} from "../lib/validation/user.validators";
 import { createUser } from "../lib/storage/user.storage";
-import userContext from "../context/user/UserContext";
+import userContext from "../context/user/user.context";
 
 type Gender = "male" | "female" | "neutral";
 
