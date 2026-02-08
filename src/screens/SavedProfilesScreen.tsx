@@ -1,17 +1,19 @@
 import { View, Text, FlatList, Pressable } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {getAllContacts} from "../lib/storage/contacts.storage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 export default function SavedProfilesScreen() {
   const navigation = useNavigation<any>();
   const [allContacts, setAllContacts] = useState<any[]>([]);
 
-  useEffect(() => {
-    const contacts = getAllContacts();
-    setAllContacts(contacts ?? []);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const contacts = getAllContacts();
+      setAllContacts(contacts ?? []);
+    }, []),
+  );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

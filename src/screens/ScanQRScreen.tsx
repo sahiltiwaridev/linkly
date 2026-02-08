@@ -1,12 +1,13 @@
 import { View, Text } from "react-native";
 import { CameraView } from "expo-camera";
 import { useQRScanner } from "../lib/qr/qrScanner";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState, useCallback } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 export default function QRScannerView() {
   const navigation = useNavigation<any>();
-  const { permission, isScanLocked, handleQRCodeScanned } = useQRScanner();
+  const { permission, isScanLocked, handleQRCodeScanned, resetScan } =
+    useQRScanner();
   const [scannedData, setScannedData] = useState<string | null>(null);
 
   useEffect(() => {
@@ -16,6 +17,13 @@ export default function QRScannerView() {
       });
     }
   }, [scannedData, navigation]);
+
+  useFocusEffect(
+    useCallback(() => {
+      setScannedData(null);
+      resetScan();
+    }, [resetScan]),
+  );
 
   if (!permission) return <Text>Requesting permission...</Text>;
   if (!permission.granted) return <Text>Camera permission denied</Text>;

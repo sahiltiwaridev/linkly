@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { addContact } from "../lib/storage/contacts.storage";
+import { addContact, deleteContact } from "../lib/storage/contacts.storage";
 import { resolvePreviewProfileSource } from "../lib/utils/contactResolver";
 
 export default function PreviewProfileScreen() {
@@ -34,7 +34,7 @@ export default function PreviewProfileScreen() {
           <Pressable
             onPress={() => {
               addContact(contact);
-              navigation.navigate("SavedProfilesScreen");
+              navigation.replace("SavedProfilesScreen");
             }}
           >
             <Text>Save Contact</Text>
@@ -42,7 +42,12 @@ export default function PreviewProfileScreen() {
         )}
 
         {isExistingContactFlow && (
-          <Pressable onPress={() => {}}>
+          <Pressable
+            onPress={() => {
+              deleteContact(contact);
+              navigation.goBack();
+            }}
+          >
             <Text>Delete Contact</Text>
           </Pressable>
         )}
