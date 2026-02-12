@@ -1,3 +1,4 @@
+import "./global.css"
 import { useEffect, useState, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 

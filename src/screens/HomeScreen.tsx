@@ -11,7 +11,7 @@ export default function HomeScreen() {
         <Text>
           {getUser() ? JSON.stringify(getUser(), null, 2) : "No user found"}
         </Text> */}
-        <View>
+        <View className="bg-amber-600">
           <Text>Linkly</Text>
           <Pressable
             onPress={() => {
