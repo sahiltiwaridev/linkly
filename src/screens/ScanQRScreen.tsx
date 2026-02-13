@@ -30,30 +30,30 @@ export default function QRScannerView() {
 
   return (
     <View style={{ flex: 1 }}>
-      <CameraView
-        style={{ flex: 1 }}
-        barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
-        onBarcodeScanned={({ data }) => {
-          if (isScanLocked) return;
+        <CameraView
+          style={{ flex: 1 }}
+          barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
+          onBarcodeScanned={({ data }) => {
+            if (isScanLocked) return;
 
-          const result = handleQRCodeScanned(data);
-          if (result) {
-            setScannedData(result);
-          }
-        }}
-      />
+            const result = handleQRCodeScanned(data);
+            if (result) {
+              setScannedData(result);
+            }
+          }}
+        />
 
-      {/* debug / testing */}
-      <Text
-        style={{
-          position: "absolute",
-          bottom: 40,
-          color: "white",
-          alignSelf: "center",
-        }}
-      >
-        {isScanLocked ? "Scanned" : "Scanning..."}
-      </Text>
+        {/* debug / testing */}
+        <Text
+          style={{
+            position: "absolute",
+            bottom: 40,
+            color: "white",
+            alignSelf: "center",
+          }}
+        >
+          {isScanLocked ? "Scanned" : "Scanning..."}
+        </Text>
     </View>
   );
 }

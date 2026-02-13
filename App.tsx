@@ -1,6 +1,6 @@
-import "./global.css"
+import "./global.css";
 import { useEffect, useState, useContext } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
 import { initStorage } from "./src/lib/storage/storage.mmkv";
 
@@ -10,6 +10,17 @@ import loadingContext from "./src/context/loading/loading.context";
 
 import RootStack from "./src/navigation/RootStack";
 import LoadingScreen from "./src/screens/LoadingScreen";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#0f0f0f",
+  },
+};
+
+
 
 function AppContent() {
   const { isLoading } = useContext(loadingContext)!;
@@ -41,9 +52,13 @@ export default function App() {
   return (
     <LoadingContextProvider>
       <UserContextProvider>
-        <NavigationContainer>
-          <AppContent />
-        </NavigationContainer>
+        <SafeAreaProvider>
+          <SafeAreaView style={{ flex: 1, backgroundColor: "#0f0f0f" }}>
+            <NavigationContainer theme={navTheme}>
+              <AppContent />
+            </NavigationContainer>
+          </SafeAreaView>
+        </SafeAreaProvider>
       </UserContextProvider>
     </LoadingContextProvider>
   );
