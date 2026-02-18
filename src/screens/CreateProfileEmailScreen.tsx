@@ -5,8 +5,10 @@ import { useAccount } from "../context/account/AccountContextProvider";
 import { userEmailValidator } from "../lib/validation/user.validators";
 import PrimaryButton from "../components/PrimaryButton";
 import NextIcon from "../assets/icons/next.svg";
+import MailIcon from "../assets/icons/mail.svg";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type RootStackParamList = {
   CreateProfileEmailScreen: undefined;
@@ -25,19 +27,26 @@ export default function CreateProfileEmailScreen() {
 
   const canProceed = !emailError;
   return (
-    <View>
-      <PrimaryInput
-        label={"Email ID"}
-        value={email}
-        onChangeText={(text) => {
-          setEmail(text);
-          setEmailError(userEmailValidator(text));
-        }}
-        placeholder={"e.g. name@example.com"}
-      />
+    <SafeAreaView>
+      <View className="h-full w-full px-5 justify-between">
+        <View className="w-full gap-5 items-center">
+          <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
+            <MailIcon width={80} height={80} fill={"#4f8cff"} />
+          </View>
+          <Text className="text-white text-2xl font-bold">
+            What's your mail address?
+          </Text>
+          <PrimaryInput
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+              setEmailError(userEmailValidator(text));
+            }}
+            placeholder={"e.g. name@example.com"}
+          />
 
-      {emailError && <Text className="text-red-600">{emailError}</Text>}
-      <View>
+          {emailError && <Text className="text-red-600">{emailError}</Text>}
+        </View>
         <PrimaryButton
           icon={NextIcon}
           text="Save Profile"
@@ -47,6 +56,6 @@ export default function CreateProfileEmailScreen() {
           }}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
