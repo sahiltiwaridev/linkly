@@ -23,7 +23,6 @@ export default function HomeStack() {
         component={SavedProfilesScreen}
       />
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-      {/* <Stack.Screen name="" component={} /> */}
     </Stack.Navigator>
   );
 }

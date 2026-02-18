@@ -7,11 +7,12 @@ import PrimaryButton from "../components/PrimaryButton";
 import QRIcon from "../assets/icons/qr.svg";
 import UserIcon from "../assets/icons/user.svg";
 import ShareIcon from "../assets/icons/share.svg";
+import CreateIcon from "../assets/icons/add.svg";
 import FeatureHighlighter from "../components/FeatureHighlighter";
 
 type RootStackParamList = {
   WelcomeScreen: undefined;
-  CreateProfileScreen: undefined;
+  CreateProfileStack: undefined;
   HomeScreen: undefined;
 };
 
@@ -57,8 +58,9 @@ export default function WelcomeScreen() {
           />
         </View>
         <PrimaryButton
+          icon={CreateIcon}
           text="Create Profile"
-          onPress={() => navigation.navigate("CreateProfileScreen")}
+          onPress={() => navigation.navigate("CreateProfileStack")}
         />
       </View>
     </SafeAreaView>

@@ -11,6 +11,7 @@ import loadingContext from "./src/context/loading/loading.context";
 import RootStack from "./src/navigation/RootStack";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import AccountContextProvider from "./src/context/account/AccountContextProvider";
 
 const navTheme = {
   ...DefaultTheme,
@@ -19,8 +20,6 @@ const navTheme = {
     background: "#0f0f0f",
   },
 };
-
-
 
 function AppContent() {
   const { isLoading } = useContext(loadingContext)!;
@@ -52,13 +51,15 @@ export default function App() {
   return (
     <LoadingContextProvider>
       <UserContextProvider>
-        <SafeAreaProvider>
-          <SafeAreaView style={{ flex: 1, backgroundColor: "#0f0f0f" }}>
-            <NavigationContainer theme={navTheme}>
-              <AppContent />
-            </NavigationContainer>
-          </SafeAreaView>
-        </SafeAreaProvider>
+        <AccountContextProvider>
+          <SafeAreaProvider>
+            <SafeAreaView style={{ flex: 1, backgroundColor: "#0f0f0f" }}>
+              <NavigationContainer theme={navTheme}>
+                <AppContent />
+              </NavigationContainer>
+            </SafeAreaView>
+          </SafeAreaProvider>
+        </AccountContextProvider>
       </UserContextProvider>
     </LoadingContextProvider>
   );

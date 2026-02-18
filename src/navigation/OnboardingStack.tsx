@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
-import CreateProfileScreen from "../screens/CreateProfileScreen";
+import CreateProfileStack from "./CreateProfileStack";
 
 const Stack = createNativeStackNavigator();
 
@@ -9,8 +9,8 @@ export default function OnboardingStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <Stack.Screen
-        name="CreateProfileScreen"
-        component={CreateProfileScreen}
+        name="CreateProfileStack"
+        component={CreateProfileStack}
       />
     </Stack.Navigator>
   );

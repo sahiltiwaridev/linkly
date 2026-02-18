@@ -1,20 +1,40 @@
-import { Pressable, Text, View } from "react-native";
-import AddIcon from "../assets/icons/add.svg";
+import { Pressable, Text, View, PressableProps } from "react-native";
 
 type PrimaryButtonProps = {
   text: string;
-  onPress?: () => void;
-};
+  icon?: React.ComponentType<any>;
+} & PressableProps;
 
-export default function PrimaryButton({ text, onPress }: PrimaryButtonProps) {
+export default function PrimaryButton({
+  text,
+  icon: Icon,
+  disabled,
+  ...rest
+}: PrimaryButtonProps) {
   return (
     <Pressable
-      onPress={onPress}
-      className="w-full h-14 justify-center items-center bg-[#4f8cff] rounded-xl"
+      disabled={disabled}
+      className={`w-full h-14 justify-center items-center rounded-xl ${
+        disabled ? "bg-[#4f8cff]/50" : "bg-[#4f8cff]"
+      }`}
+      {...rest}
     >
-      <View className="w-full flex-row justify-center items-center gap-2">
-        <AddIcon width={18} height={18} fill={"#ffffff"}/>
-        <Text className="text-white font-semibold text-lg">{text}</Text>
+      <View className="flex-row justify-center items-center gap-2">
+        {Icon && (
+          <Icon
+            width={18}
+            height={18}
+            fill="#ffffff"
+            opacity={disabled ? 0.6 : 1}
+          />
+        )}
+        <Text
+          className={`text-white font-semibold text-lg ${
+            disabled ? "opacity-60" : ""
+          }`}
+        >
+          {text}
+        </Text>
       </View>
     </Pressable>
   );
