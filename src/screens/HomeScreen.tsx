@@ -5,15 +5,19 @@ import SettingsIcon from "../assets/icons/settings.svg";
 import ScannerIcon from "../assets/icons/qr-scan.svg";
 import NextIcon from "../assets/icons/next.svg";
 import QRIcon from "../assets/icons/qr.svg";
+import ConnectingIcon from "../assets/icons/connecting.svg";
 import PrimaryCard from "../components/PrimaryCard";
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
   return (
     <SafeAreaView>
-      <View className="px-5 h-full justify-between">
+      <View className="px-5 h-full justify-between items-center">
         <View className="w-full flex-row items-center justify-between">
-          <Text className="text-white font-bold text-2xl">Linkly</Text>
+          <View className="flex-row items-center justify-between gap-3">
+            <QRIcon width={24} height={24} fill={"#4f8cff"} />
+            <Text className="text-white font-bold text-2xl">Linkly</Text>
+          </View>
           <Pressable
             onPress={() => {
               navigation.navigate("SettingsScreen");
@@ -22,9 +26,15 @@ export default function HomeScreen() {
             <SettingsIcon width={24} height={24} fill={"#ffffff"} />
           </Pressable>
         </View>
-        <View>
+        <View className="h-56 w-56 justify-center items-center">
+          <View className="absolute h-60 w-60 rounded-full border border-[#4f8cff]/25" />
+          <View className="absolute h-48 w-48 rounded-full border border-[#4f8cff]/50" />
+          <View className="absolute h-36 w-36 rounded-full border border-[#4f8cff]/75" />
+          <ConnectingIcon width={72} height={72} fill="#4f8cff" />
+        </View>
+        <View className="w-full gap-4">
           <Pressable
-            className="bg-[#4f8cff] p-3 flex-row items-center justify-between rounded-xl"
+            className="bg-[#4f8cff] py-5 px-3 flex-row items-center justify-between rounded-xl"
             onPress={() => {
               navigation.navigate("ScanQRScreen");
             }}
@@ -48,7 +58,6 @@ export default function HomeScreen() {
                 navigation.navigate("MyQRScreen");
               }}
             />
-
             <PrimaryCard
               icon={QRIcon}
               text="Saved"
