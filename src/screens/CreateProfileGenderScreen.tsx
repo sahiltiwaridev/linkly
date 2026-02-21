@@ -5,7 +5,9 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import PrimaryButton from "../components/PrimaryButton";
 import NextIcon from "../assets/icons/next.svg";
-import NameScreenIcon from "../assets/icons/user.svg";
+import NutralIcon from "../assets/icons/user.svg";
+import MaleIcon from "../assets/avatar/male-avatar.svg";
+import FemaleIcon from "../assets/avatar/female-avatar.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type RootStackParamList = {
@@ -21,18 +23,27 @@ type NavigationProp = NativeStackNavigationProp<
 export default function CreateProfileGenderScreen() {
   const navigation = useNavigation<NavigationProp>();
   const { gender, setGender } = useAccount();
+
+  const iconMap = {
+    male: MaleIcon,
+    female: FemaleIcon,
+    neutral: NutralIcon,
+  };
+
+  const SelectedIcon = iconMap[gender];
+
   return (
     <SafeAreaView>
       <View className="h-full w-full px-5 justify-between">
         <View className="w-full gap-5 items-center">
           <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
-            <NameScreenIcon width={70} height={70} fill={"#4f8cff"} /> 
-            {/* I will later change it to dynamic icon  */}
+            {SelectedIcon && (
+              <SelectedIcon width={70} height={70} fill="#4f8cff" />
+            )}
           </View>
           <Text className="text-white text-2xl font-bold">
             Gender (Optional)
           </Text>
-
           <View className="flex-row w-full h-12 justify-between">
             <Pressable
               className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"

@@ -53,7 +53,7 @@ export default function HomeScreen() {
           <View className="flex-row justify-between items-center">
             <PrimaryCard
               icon={QRIcon}
-              text="My Code"
+              text="My QR"
               onPress={() => {
                 navigation.navigate("MyQRScreen");
               }}
