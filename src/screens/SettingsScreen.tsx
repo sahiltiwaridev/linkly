@@ -10,6 +10,7 @@ import UpdateIcon from "../assets/icons/update.svg";
 import QRIcon from "../assets/icons/qr.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../components/Header";
 
 export default function SettingsScreen() {
   const navigation = useNavigation<any>();
@@ -17,8 +18,11 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView>
-      <View className="px-5 h-full items-center justify-between">
-        <View className=" gap-3">
+      <View className="px-5 h-full justify-between">
+        <View className="gap-3">
+          <Header
+            currentScreenName={"Settings"}
+          />
           <SettingsListItem
             icon={EditIcon}
             heading={"Edit my profile"}
