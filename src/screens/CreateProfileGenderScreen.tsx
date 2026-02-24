@@ -33,50 +33,44 @@ export default function CreateProfileGenderScreen() {
   const SelectedIcon = iconMap[gender];
 
   return (
-    <SafeAreaView>
-      <View className="h-full w-full px-5 justify-between">
-        <View className="w-full gap-5 items-center">
-          <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
-            {SelectedIcon && (
-              <SelectedIcon width={70} height={70} fill="#4f8cff" />
-            )}
-          </View>
-          <Text className="text-white text-2xl font-bold">
-            Gender (Optional)
-          </Text>
-          <View className="flex-row w-full h-12 justify-between">
-            <Pressable
-              className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
-              onPress={() => setGender("male")}
-            >
-              <Text
-                style={{ color: gender === "male" ? "#4F8CFF" : "#ffffff" }}
-              >
-                Male
-              </Text>
-            </Pressable>
-            <Pressable
-              className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
-              onPress={() => setGender("female")}
-            >
-              <Text
-                style={{ color: gender === "female" ? "#4F8CFF" : "#ffffff" }}
-              >
-                Female
-              </Text>
-            </Pressable>
-          </View>
+    <View className="h-full w-full p-5 justify-between">
+      <View className="w-full gap-5 items-center">
+        <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
+          {SelectedIcon && (
+            <SelectedIcon width={70} height={70} fill="#4f8cff" />
+          )}
         </View>
-        <View>
-          <PrimaryButton
-            icon={NextIcon}
-            text="Next"
-            onPress={() => {
-              navigation.navigate("CreateProfileProfessionScreen");
-            }}
-          />
+        <Text className="text-white text-2xl font-bold">Gender (Optional)</Text>
+        <View className="flex-row w-full h-12 justify-between">
+          <Pressable
+            className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
+            onPress={() => setGender("male")}
+          >
+            <Text style={{ color: gender === "male" ? "#4F8CFF" : "#ffffff" }}>
+              Male
+            </Text>
+          </Pressable>
+          <Pressable
+            className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
+            onPress={() => setGender("female")}
+          >
+            <Text
+              style={{ color: gender === "female" ? "#4F8CFF" : "#ffffff" }}
+            >
+              Female
+            </Text>
+          </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+      <View>
+        <PrimaryButton
+          icon={NextIcon}
+          text="Next"
+          onPress={() => {
+            navigation.navigate("CreateProfileProfessionScreen");
+          }}
+        />
+      </View>
+    </View>
   );
 }

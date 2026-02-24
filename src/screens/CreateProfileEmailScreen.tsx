@@ -27,35 +27,33 @@ export default function CreateProfileEmailScreen() {
 
   const canProceed = !emailError;
   return (
-    <SafeAreaView>
-      <View className="h-full w-full px-5 justify-between">
-        <View className="w-full gap-5 items-center">
-          <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
-            <MailIcon width={80} height={80} fill={"#4f8cff"} />
-          </View>
-          <Text className="text-white text-2xl font-bold">
-            What's your mail address?
-          </Text>
-          <PrimaryInput
-            value={email}
-            onChangeText={(text) => {
-              setEmail(text);
-              setEmailError(userEmailValidator(text));
-            }}
-            placeholder={"e.g. name@example.com"}
-          />
-
-          {emailError && <Text className="text-red-600">{emailError}</Text>}
+    <View className="h-full w-full p-5 justify-between">
+      <View className="w-full gap-5 items-center">
+        <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
+          <MailIcon width={80} height={80} fill={"#4f8cff"} />
         </View>
-        <PrimaryButton
-          icon={NextIcon}
-          text="Save Profile"
-          disabled={!canProceed}
-          onPress={() => {
-            navigation.navigate("CreateProfileBioScreen");
+        <Text className="text-white text-2xl font-bold">
+          What's your mail address?
+        </Text>
+        <PrimaryInput
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+            setEmailError(userEmailValidator(text));
           }}
+          placeholder={"e.g. name@example.com"}
         />
+
+        {emailError && <Text className="text-red-600">{emailError}</Text>}
       </View>
-    </SafeAreaView>
+      <PrimaryButton
+        icon={NextIcon}
+        text="Save Profile"
+        disabled={!canProceed}
+        onPress={() => {
+          navigation.navigate("CreateProfileBioScreen");
+        }}
+      />
+    </View>
   );
 }

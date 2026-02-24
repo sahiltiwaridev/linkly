@@ -20,9 +20,7 @@ export default function SettingsScreen() {
     <SafeAreaView>
       <View className="px-5 h-full justify-between">
         <View className="gap-3">
-          <Header
-            currentScreenName={"Settings"}
-          />
+          <Header currentScreenName={"Settings"} />
           <SettingsListItem
             icon={EditIcon}
             heading={"Edit my profile"}

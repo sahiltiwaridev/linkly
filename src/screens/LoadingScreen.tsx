@@ -3,11 +3,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoadingScreen() {
   return (
-    <SafeAreaView>
-      <View className="justify-center items-center bg-[#0f0f0f] h-full gap-5">
-        <ActivityIndicator size="large" color="#4f8cff" />
-        <Text className="text-white">Hang on...</Text>
-      </View>
-    </SafeAreaView>
+    <View className="justify-center items-center bg-[#0f0f0f] h-full gap-5">
+      <ActivityIndicator size="large" color="#4f8cff" />
+      <Text className="text-white">Hang on...</Text>
+    </View>
   );
 }

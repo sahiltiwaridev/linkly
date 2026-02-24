@@ -1,6 +1,5 @@
 import { View, Text, Pressable } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { addContact, deleteContact } from "../lib/storage/contacts.storage";
 import { resolvePreviewProfileSource } from "../lib/utils/contact.source";
 
@@ -13,14 +12,14 @@ export default function PreviewProfileScreen() {
 
   if (!contact) {
     return (
-      <SafeAreaView>
+      <View>
         <Text>Contact not found.</Text>
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <View>
         <Text>Name: {contact.name}</Text>
         <Text>Gender: {contact.gender}</Text>
@@ -52,6 +51,6 @@ export default function PreviewProfileScreen() {
           </Pressable>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
