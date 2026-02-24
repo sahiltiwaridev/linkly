@@ -7,7 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 import NextIcon from "../assets/icons/next.svg";
 import JobIcon from "../assets/icons/job.svg";
 import PrimaryButton from "../components/PrimaryButton";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type RootStackParamList = {
   CreateProfileGenderScreen: undefined;
