@@ -9,7 +9,7 @@ import { Contact, UserData } from "./user.storage";
 
 export const initializeContactsStorage = () => {
   const storage = getStorage();
-  const contactsContainer: any = [];
+  const contactsContainer: Contact[] = [];
 
   storage.set(
     STORAGE_KEYS.SAVED_CONTACTS,
@@ -17,12 +17,12 @@ export const initializeContactsStorage = () => {
   );
 };
 
-export const getAllContacts = () => {
+export const getAllContacts = (): Contact[] => {
   const storage = getStorage();
   const data = storage.getString(STORAGE_KEYS.SAVED_CONTACTS);
 
   if (!data) {
-    const empty: any[] = [];
+    const empty: Contact[] = [];
     storage.set(STORAGE_KEYS.SAVED_CONTACTS, serializeContactsData(empty));
     return empty;
   }
@@ -34,7 +34,6 @@ export const addContact = (param: UserData | null) => {
   if (!param) return;
 
   const storage = getStorage();
-
   const existingContacts: Contact[] = getAllContacts() ?? [];
 
   const newContact: Contact = {

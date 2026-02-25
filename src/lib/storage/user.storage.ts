@@ -15,9 +15,9 @@ export type Contact = UserData & {
   id: string;
 };
 
-
 export const createUser = (user: UserData) => {
   const storage = getStorage();
+
   const userString = serializeUserData({
     name: user.name,
     gender: user.gender,
