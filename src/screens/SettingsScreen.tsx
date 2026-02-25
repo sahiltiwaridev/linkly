@@ -8,7 +8,6 @@ import UserManualIcon from "../assets/icons/user-manual.svg";
 import AboutIcon from "../assets/icons/about.svg";
 import UpdateIcon from "../assets/icons/update.svg";
 import QRIcon from "../assets/icons/qr.svg";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 
@@ -17,10 +16,12 @@ export default function SettingsScreen() {
   const version = Constants.expoConfig?.version ?? "1.0.0";
 
   return (
-    <SafeAreaView>
-      <View className="px-5 h-full justify-between">
-        <View className="gap-3">
+    <View className="justify-between h-full p-5">
+      <View>
+        <View className="pb-10">
           <Header currentScreenName={"Settings"} />
+        </View>
+        <View className="gap-3">
           <SettingsListItem
             icon={EditIcon}
             heading={"Edit my profile"}
@@ -57,15 +58,15 @@ export default function SettingsScreen() {
             }}
           />
         </View>
-        <View>
-          <View className="justify-center items-center gap-2">
-            <View className="h-14 w-14 justify-center items-center bg-[#4f8cff]/40 rounded-2xl">
-              <QRIcon width={24} height={24} fill={"#4f8cff"} />
-            </View>
-            <Text className="text-[#B3B3B3]">Linkly v{version}</Text>
+      </View>
+      <View>
+        <View className="justify-center items-center gap-2">
+          <View className="h-14 w-14 justify-center items-center bg-[#4f8cff]/40 rounded-2xl">
+            <QRIcon width={24} height={24} fill={"#4f8cff"} />
           </View>
+          <Text className="text-[#B3B3B3]">Linkly v{version}</Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
