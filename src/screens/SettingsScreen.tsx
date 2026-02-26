@@ -30,7 +30,14 @@ export default function SettingsScreen() {
               navigation.navigate("EditProfileScreen");
             }}
           />
-
+          <SettingsListItem
+            icon={UpdateIcon}
+            heading={"Update Linkly"}
+            text={"Check for the latest version"}
+            onPress={() => {
+              navigation.navigate("UpdateLinklyScreen");
+            }}
+          />
           <SettingsListItem
             icon={UserManualIcon}
             heading={"User manual"}
@@ -39,22 +46,12 @@ export default function SettingsScreen() {
               navigation.navigate("UserManualScreen");
             }}
           />
-
           <SettingsListItem
             icon={AboutIcon}
             heading={"About Linkly"}
             text={"App version, privacy and details"}
             onPress={() => {
               navigation.navigate("AboutScreen");
-            }}
-          />
-
-          <SettingsListItem
-            icon={UpdateIcon}
-            heading={"Update Linkly"}
-            text={"Check for the latest version"}
-            onPress={() => {
-              navigation.navigate("UpdateLinklyScreen");
             }}
           />
         </View>

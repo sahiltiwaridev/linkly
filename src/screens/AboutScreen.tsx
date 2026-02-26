@@ -8,57 +8,69 @@ export default function AboutScreen() {
   const sectionStyle = "gap-4 mb-12";
 
   return (
-    <View className="flex-1 bg-black">
+    <View className="flex-1 p-5">
       <ScrollView
-        contentContainerStyle={{ padding: 20, paddingBottom: 80 }}
+        contentContainerStyle={{ paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
       >
         <View className="pb-10">
-          <Header currentScreenName={"About"} />
+          <Header currentScreenName={"About Linkly"} />
+        </View>
+        <View className="mb-10 gap-3">
+          <Text className={headingTextStyle}>About Linkly</Text>
+          <Text className={paragraphTextStyle}>Version 1.0.0</Text>
+          <Text className={paragraphTextStyle}>
+            Welcome. If you're exploring this page, you're probably curious
+            about what this app really is beyond the QR screen.
+          </Text>
+          <Text className={paragraphTextStyle}>
+            This project was built intentionally — not as “just another app,”
+            but as a focused solution to a small, real-world friction point.
+          </Text>
         </View>
         <View className={sectionStyle}>
           <Text className={headingTextStyle}>What This App Does</Text>
           <Text className={paragraphTextStyle}>
             Linkly is an offline-first profile sharing app that lets you share
-            exactly what you choose using a simple QR code and a camera. Instead
-            of typing usernames, spelling email addresses twice, or saying “I’ll
-            send it later,” someone can scan once and instantly preview the
-            links you’ve selected — whether that’s WhatsApp, email, portfolio,
-            or social profiles.
+            exactly what you choose using a simple QR code and a camera.
           </Text>
           <Text className={paragraphTextStyle}>
-            It’s designed to work reliably in real-world scenarios like
-            networking events, meetings, interviews, or business interactions —
-            where speed and clarity matter more than extra features.
+            Instead of typing usernames, spelling email addresses twice, or
+            saying “I’ll send it later,” someone can scan once and instantly
+            preview the links you’ve selected — whether that’s WhatsApp, email,
+            portfolio, or social profiles.
+          </Text>
+          <Text className={paragraphTextStyle}>
+            It’s designed for real-world moments like networking events,
+            interviews, meetings, or business interactions — where speed and
+            clarity matter more than extra features.
           </Text>
         </View>
         <View className={sectionStyle}>
           <Text className={headingTextStyle}>Why This Exists</Text>
           <Text className={paragraphTextStyle}>
-            The idea was inspired by how seamless UPI payments have become in
-            India — scan, confirm, done. If money can move that effortlessly,
-            sharing professional identity should be just as simple.
+            The idea was inspired by how seamless UPI payments have become —
+            scan, confirm, done. If money can move that effortlessly, sharing
+            professional identity should be just as simple.
           </Text>
           <Text className={paragraphTextStyle}>
-            This project was built as a serious portfolio piece — not just to
-            demonstrate technical skills, but to show product thinking. Instead
-            of building “another app,” the goal was to build something
-            intentional, practical, and actually usable.
+            This project was also built as a serious portfolio piece — not just
+            to demonstrate technical skills, but to show product thinking,
+            architectural clarity, and long-term maintainability.
           </Text>
           <Text className={paragraphTextStyle}>
-            Also, let’s be honest — typing Instagram handles in 2026 feels
-            slightly outdated.
+            And yes — typing Instagram handles in 2026 feels slightly outdated.
           </Text>
         </View>
         <View className={sectionStyle}>
           <Text className={headingTextStyle}>The Vision Behind It</Text>
           <Text className={paragraphTextStyle}>
             This app doesn’t try to replace LinkedIn, WhatsApp, Instagram, or
-            any existing social platform. Those already do their jobs well.
+            any existing social platform.
           </Text>
           <Text className={paragraphTextStyle}>
-            Instead, this acts as a controlled bridge — allowing you to share
-            only what’s relevant in a specific context.
+            Instead, it acts as a controlled bridge — allowing you to share only
+            what’s relevant in a specific context.
           </Text>
           <Text className={paragraphTextStyle}>
             Meeting an HR manager? Share just your email and portfolio.
@@ -70,32 +82,28 @@ export default function AboutScreen() {
             No oversharing. No noise. No awkward “wait, which one should I
             send?”
           </Text>
-          <Text className={paragraphTextStyle}>
-            It’s not a chat app. It’s not a social network. It’s simply a clean,
-            focused way to exchange digital identity — offline and on your
-            terms.
-          </Text>
         </View>
         <View className={sectionStyle}>
           <Text className={headingTextStyle}>Privacy & Security</Text>
           <Text className={paragraphTextStyle}>
             There is no tracking, no background analytics, and no hidden data
-            collection. The app does not store personal information on external
-            servers. What you share is controlled by you, and the data stays on
-            your device unless explicitly chosen otherwise.
+            collection.
           </Text>
           <Text className={paragraphTextStyle}>
-            It’s built with a straightforward principle: profile sharing should
-            not require surveillance.
+            The app does not store personal information on external servers.
+            What you share stays on your device unless explicitly chosen
+            otherwise.
+          </Text>
+          <Text className={paragraphTextStyle}>
+            The principle is simple: profile sharing should not require
+            surveillance.
           </Text>
         </View>
         <View className={sectionStyle}>
-          <Text className={headingTextStyle}>Version & Contact</Text>
-          <Text className={paragraphTextStyle}>Version: 1.0.0</Text>
+          <Text className={headingTextStyle}>Connect</Text>
           <Text className={paragraphTextStyle}>
             I designed and developed this project end-to-end — from architecture
-            to UI — as a demonstration of production-ready mobile development,
-            built with clarity, structure, and long-term maintainability in
+            to UI — with clarity, structure, and long-term maintainability in
             mind.
           </Text>
           <Text className={paragraphTextStyle}>
@@ -108,7 +116,6 @@ export default function AboutScreen() {
             }
           >
             Send an Email
-            {/* change it later to my personal portfolio */}
           </Text>
           <Text className={paragraphTextStyle}>
             More technical details and project breakdown:
@@ -118,7 +125,6 @@ export default function AboutScreen() {
             onPress={() => Linking.openURL("https://your-portfolio-link.com")}
           >
             Visit Linkly Website
-            {/* change it later to Linkly's website */}
           </Text>
         </View>
       </ScrollView>
