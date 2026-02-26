@@ -36,3 +36,8 @@ export const getUser = (): UserData | null => {
 
   return storedUser ? deserializeUserData(storedUser) : null;
 };
+
+export const removeUser = () => {
+  const storage = getStorage();
+  storage.clearAll();
+};
