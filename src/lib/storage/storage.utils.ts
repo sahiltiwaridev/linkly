@@ -4,6 +4,18 @@ export type StoredUser = {
   profession: string;
   email: string;
   bio: string;
+
+  userLinkFirst: string;
+  userLinkSecond: string;
+  userLinkThird: string;
+  userLinkFourth: string;
+  userLinkFifth: string;
+
+  userLinkTitleFirst: string;
+  userLinkTitleSecond: string;
+  userLinkTitleThird: string;
+  userLinkTitleFourth: string;
+  userLinkTitleFifth: string;
 };
 
 export type StoredContact = StoredUser & {
@@ -21,6 +33,18 @@ const sanitizeUserFields = (user: StoredUser): StoredUser => {
     profession: normalizeText(user.profession),
     email: normalizeText(user.email).toLowerCase(),
     bio: normalizeText(user.bio),
+
+    userLinkFirst: normalizeText(user.userLinkFirst),
+    userLinkSecond: normalizeText(user.userLinkSecond),
+    userLinkThird: normalizeText(user.userLinkThird),
+    userLinkFourth: normalizeText(user.userLinkFourth),
+    userLinkFifth: normalizeText(user.userLinkFifth),
+
+    userLinkTitleFirst: normalizeText(user.userLinkTitleFirst),
+    userLinkTitleSecond: normalizeText(user.userLinkTitleSecond),
+    userLinkTitleThird: normalizeText(user.userLinkTitleThird),
+    userLinkTitleFourth: normalizeText(user.userLinkTitleFourth),
+    userLinkTitleFifth: normalizeText(user.userLinkTitleFifth),
   };
 };
 

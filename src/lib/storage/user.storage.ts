@@ -9,8 +9,19 @@ export type UserData = {
   profession: string;
   email: string;
   bio: string;
-};
 
+  userLinkFirst?: string;
+  userLinkSecond?: string;
+  userLinkThird?: string;
+  userLinkFourth?: string;
+  userLinkFifth?: string;
+
+  userLinkTitleFirst?: string;
+  userLinkTitleSecond?: string;
+  userLinkTitleThird?: string;
+  userLinkTitleFourth?: string;
+  userLinkTitleFifth?: string;
+};
 export type Contact = UserData & {
   id: string;
 };
@@ -24,6 +35,18 @@ export const createUser = (user: UserData) => {
     profession: user.profession || "",
     email: user.email || "",
     bio: user.bio || "",
+
+    userLinkFirst: user.userLinkFirst || "",
+    userLinkSecond: user.userLinkSecond || "",
+    userLinkThird: user.userLinkThird || "",
+    userLinkFourth: user.userLinkFourth || "",
+    userLinkFifth: user.userLinkFifth || "",
+
+    userLinkTitleFirst: user.userLinkTitleFirst || "",
+    userLinkTitleSecond: user.userLinkTitleSecond || "",
+    userLinkTitleThird: user.userLinkTitleThird || "",
+    userLinkTitleFourth: user.userLinkTitleFourth || "",
+    userLinkTitleFifth: user.userLinkTitleFifth || "",
   });
 
   storage.set(STORAGE_KEYS.USER_PROFILE, userString);

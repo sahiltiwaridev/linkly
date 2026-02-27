@@ -11,6 +11,18 @@ export type AccountContextType = {
   setProfession: (profession: string) => void;
   email: string;
   setEmail: (email: string) => void;
+  userLinkFirst: string;
+  setUserLinkFirst: (userLinkFirst: string) => void;
+  userLinkSecond: string;
+  setUserLinkSecond: (userLinkSecond: string) => void;
+  userLinkThird: string;
+  setUserLinkThird: (userLinkThird: string) => void;
+  userLinkTitleFirst: string;
+  setUserLinkTitleFirst: (userLinkTitleFirst: string) => void;
+  userLinkTitleSecond: string;
+  setUserLinkTitleSecond: (userLinkTitleSecond: string) => void;
+  userLinkTitleThird: string;
+  setUserLinkTitleThird: (userLinkTitleThird: string) => void;
   bio: string;
   setBio: (bio: string) => void;
 };
@@ -25,6 +37,12 @@ export default function AccountContextProvider({ children }: Props) {
   const [profession, setProfession] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
+  const [userLinkFirst, setUserLinkFirst] = useState("");
+  const [userLinkSecond, setUserLinkSecond] = useState("");
+  const [userLinkThird, setUserLinkThird] = useState("");
+  const [userLinkTitleFirst, setUserLinkTitleFirst] = useState("");
+  const [userLinkTitleSecond, setUserLinkTitleSecond] = useState("");
+  const [userLinkTitleThird, setUserLinkTitleThird] = useState("");
 
   const value: AccountContextType = {
     name,
@@ -35,6 +53,18 @@ export default function AccountContextProvider({ children }: Props) {
     setProfession,
     email,
     setEmail,
+    userLinkFirst,
+    setUserLinkFirst,
+    userLinkSecond,
+    setUserLinkSecond,
+    userLinkThird,
+    setUserLinkThird,
+    userLinkTitleFirst,
+    setUserLinkTitleFirst,
+    userLinkTitleSecond,
+    setUserLinkTitleSecond,
+    userLinkTitleThird,
+    setUserLinkTitleThird,
     bio,
     setBio,
   };
