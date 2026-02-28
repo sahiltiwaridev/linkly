@@ -1,35 +1,18 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CreateProfileBioScreen from "../screens/CreateProfileBioScreen";
-import CreateProfileEmailScreen from "../screens/CreateProfileEmailScreen";
-import CreateProfileGenderScreen from "../screens/CreateProfileGenderScreen";
-import CreateProfileNameScreen from "../screens/CreateProfileNameScreen";
-import CreateProfileProfessionScreen from "../screens/CreateProfileProfessionScreen";
+import BasicInfoScreen from "../screens/BasicInfoScreen";
+import AboutInfoScreen from "../screens/AboutInfoScreen";
+import ContactInfoScreen from "../screens/ContactInfoScreen";
+import ProfileLinksScreen from "../screens/ProfileLinksScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function CreateProfileStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="CreateProfileNameScreen"
-        component={CreateProfileNameScreen}
-      />
-      <Stack.Screen
-        name="CreateProfileGenderScreen"
-        component={CreateProfileGenderScreen}
-      />
-      <Stack.Screen
-        name="CreateProfileProfessionScreen"
-        component={CreateProfileProfessionScreen}
-      />
-      <Stack.Screen
-        name="CreateProfileEmailScreen"
-        component={CreateProfileEmailScreen}
-      />
-      <Stack.Screen
-        name="CreateProfileBioScreen"
-        component={CreateProfileBioScreen}
-      />
+      <Stack.Screen name="BasicInfoScreen" component={BasicInfoScreen} />
+      <Stack.Screen name="AboutInfoScreen" component={AboutInfoScreen} />
+      <Stack.Screen name="ContactInfoScreen" component={ContactInfoScreen} />
+      <Stack.Screen name="ProfileLinksScreen" component={ProfileLinksScreen} />
     </Stack.Navigator>
   );
 }

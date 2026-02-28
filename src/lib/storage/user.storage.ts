@@ -9,18 +9,20 @@ export type UserData = {
   profession: string;
   email: string;
   bio: string;
+  phone: string;
+  whatsapp: string;
 
-  userLinkFirst?: string;
-  userLinkSecond?: string;
-  userLinkThird?: string;
-  userLinkFourth?: string;
-  userLinkFifth?: string;
+  userLinkFirst: string;
+  userLinkSecond: string;
+  userLinkThird: string;
+  userLinkFourth: string;
+  userLinkFifth: string;
 
-  userLinkTitleFirst?: string;
-  userLinkTitleSecond?: string;
-  userLinkTitleThird?: string;
-  userLinkTitleFourth?: string;
-  userLinkTitleFifth?: string;
+  userLinkTitleFirst: string;
+  userLinkTitleSecond: string;
+  userLinkTitleThird: string;
+  userLinkTitleFourth: string;
+  userLinkTitleFifth: string;
 };
 export type Contact = UserData & {
   id: string;
@@ -32,8 +34,10 @@ export const createUser = (user: UserData) => {
   const userString = serializeUserData({
     name: user.name,
     gender: user.gender,
-    profession: user.profession || "",
     email: user.email || "",
+    phone: user.phone || "" ,
+    whatsapp: user.whatsapp || "", 
+    profession: user.profession || "",
     bio: user.bio || "",
 
     userLinkFirst: user.userLinkFirst || "",

@@ -41,7 +41,7 @@ export default function MyQRScreen() {
 
   return (
     <View className="h-full justify-between items-center gap-10 p-5">
-      <View className="items-center  gap-3">
+      <View className="items-center gap-3">
         <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
           {SelectedIcon && (
             <SelectedIcon width={70} height={70} fill="#4f8cff" />

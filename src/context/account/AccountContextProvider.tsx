@@ -11,18 +11,30 @@ export type AccountContextType = {
   setProfession: (profession: string) => void;
   email: string;
   setEmail: (email: string) => void;
+  phone: string;
+  setPhone: (email: string) => void;
+  whatsapp: string;
+  setWhatsapp: (email: string) => void;
   userLinkFirst: string;
   setUserLinkFirst: (userLinkFirst: string) => void;
   userLinkSecond: string;
   setUserLinkSecond: (userLinkSecond: string) => void;
   userLinkThird: string;
   setUserLinkThird: (userLinkThird: string) => void;
+  userLinkFourth: string;
+  setUserLinkFourth: (userLinkFourth: string) => void;
+  userLinkFifth: string;
+  setUserLinkFifth: (userLinkFifth: string) => void;
   userLinkTitleFirst: string;
   setUserLinkTitleFirst: (userLinkTitleFirst: string) => void;
   userLinkTitleSecond: string;
   setUserLinkTitleSecond: (userLinkTitleSecond: string) => void;
   userLinkTitleThird: string;
   setUserLinkTitleThird: (userLinkTitleThird: string) => void;
+  userLinkTitleFourth: string;
+  setUserLinkTitleFourth: (userLinkTitleFourth: string) => void;
+  userLinkTitleFifth: string;
+  setUserLinkTitleFifth: (userLinkTiuserLinkTitleFifthtleThird: string) => void;
   bio: string;
   setBio: (bio: string) => void;
 };
@@ -36,6 +48,8 @@ export default function AccountContextProvider({ children }: Props) {
   const [gender, setGender] = useState<Gender>("neutral");
   const [profession, setProfession] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [bio, setBio] = useState("");
   const [userLinkFirst, setUserLinkFirst] = useState("");
   const [userLinkSecond, setUserLinkSecond] = useState("");
@@ -43,6 +57,10 @@ export default function AccountContextProvider({ children }: Props) {
   const [userLinkTitleFirst, setUserLinkTitleFirst] = useState("");
   const [userLinkTitleSecond, setUserLinkTitleSecond] = useState("");
   const [userLinkTitleThird, setUserLinkTitleThird] = useState("");
+  const [userLinkTitleFourth, setUserLinkTitleFourth] = useState("");
+  const [userLinkTitleFifth, setUserLinkTitleFifth] = useState("");
+  const [userLinkFourth, setUserLinkFourth] = useState("");
+  const [userLinkFifth, setUserLinkFifth] = useState("");
 
   const value: AccountContextType = {
     name,
@@ -53,6 +71,10 @@ export default function AccountContextProvider({ children }: Props) {
     setProfession,
     email,
     setEmail,
+    phone,
+    setPhone,
+    whatsapp,
+    setWhatsapp,
     userLinkFirst,
     setUserLinkFirst,
     userLinkSecond,
@@ -67,6 +89,14 @@ export default function AccountContextProvider({ children }: Props) {
     setUserLinkTitleThird,
     bio,
     setBio,
+    userLinkTitleFourth,
+    setUserLinkTitleFourth,
+    userLinkTitleFifth,
+    setUserLinkTitleFifth,
+    userLinkFifth,
+    setUserLinkFifth,
+    userLinkFourth,
+    setUserLinkFourth,
   };
 
   return (

@@ -1,8 +1,10 @@
 export type StoredUser = {
   name: string;
   gender: "male" | "female" | "neutral";
-  profession: string;
   email: string;
+  phone: string;
+  whatsapp: string;
+  profession: string;
   bio: string;
 
   userLinkFirst: string;
@@ -30,8 +32,10 @@ const sanitizeUserFields = (user: StoredUser): StoredUser => {
   return {
     name: normalizeText(user.name),
     gender: user.gender,
-    profession: normalizeText(user.profession),
     email: normalizeText(user.email).toLowerCase(),
+    phone: normalizeText(user.profession),
+    whatsapp: normalizeText(user.profession),
+    profession: normalizeText(user.profession),
     bio: normalizeText(user.bio),
 
     userLinkFirst: normalizeText(user.userLinkFirst),
