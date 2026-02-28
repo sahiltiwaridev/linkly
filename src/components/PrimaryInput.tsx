@@ -15,7 +15,7 @@ export default function PrimaryInput({
 }: PrimaryInputProps) {
   return (
     <TextInput
-      className="bg-[#222222] w-full h-14 text-white rounded-md p-5"
+      className="bg-[#222222] w-full h-14 text-white rounded-md p-3"
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}

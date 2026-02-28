@@ -9,7 +9,6 @@ type PrimaryCardProps = {
 export default function PrimaryCard({
   text,
   icon: Icon,
-
   ...rest
 }: PrimaryCardProps) {
   return (
