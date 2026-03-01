@@ -1,11 +1,11 @@
-import { View, Text, Pressable } from "react-native";
-import { useState } from "react";
+import { View, Text, Pressable, BackHandler } from "react-native";
+import { useState, useCallback } from "react";
 import Header from "../components/Header";
 import NutralIcon from "../assets/icons/user.svg";
 import MaleIcon from "../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../assets/avatar/female-avatar.svg";
 import NextIcon from "../assets/icons/next.svg";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useAccount } from "../context/account/AccountContextProvider";
 import PrimaryInput from "../components/PrimaryInput";
 import { userNameValidator } from "../lib/validation/user.validators";
@@ -13,7 +13,7 @@ import PrimaryButton from "../components/PrimaryButton";
 
 export default function BasicInfoScreen() {
   const navigation = useNavigation<any>();
-  const { name, setName, gender, setGender } = useAccount();
+  const { name, setName, gender, setGender, resetAccount } = useAccount();
   const [nameError, setNameError] = useState<string | null>(null);
   const iconMap = {
     male: MaleIcon,
@@ -22,11 +22,37 @@ export default function BasicInfoScreen() {
   };
   const SelectedIcon = iconMap[gender];
   const canProceed = !nameError && name.length > 0;
+  const shortNameError = !nameError
+    ? null
+    : nameError === "Name is required"
+      ? "Required"
+      : nameError === "Name must be at least 3 characters"
+        ? "Too short"
+        : "Invalid name";
+
+  const handleBack = useCallback(() => {
+    resetAccount();
+    navigation.goBack();
+  }, [navigation, resetAccount]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+        handleBack();
+        return true;
+      });
+
+      return () => sub.remove();
+    }, [handleBack]),
+  );
 
   return (
     <View className="p-5 h-full justify-between">
       <View className="gap-4">
-        <Header currentScreenName={"Basic Info"} />
+        <Header
+          currentScreenName={"Basic Info"}
+          backButtonProps={{ onPress: handleBack }}
+        />
         <View className="items-center">
           <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center">
             {SelectedIcon && (
@@ -35,9 +61,12 @@ export default function BasicInfoScreen() {
           </View>
         </View>
         <View className="gap-2">
-          <Text className="text-white text-2xl font-bold">
-            What's your name?
-          </Text>
+          <View className="flex-row items-center justify-between">
+            <Text className="text-white text-2xl font-bold">Full name</Text>
+            {shortNameError && (
+              <Text className="text-red-600 text-sm">{shortNameError}</Text>
+            )}
+          </View>
           <PrimaryInput
             value={name}
             onChangeText={(text) => {
@@ -47,11 +76,8 @@ export default function BasicInfoScreen() {
             placeholder={"e.g. Tony Stark"}
           />
         </View>
-        {nameError && <Text className="text-red-600">{nameError}</Text>}
         <View className="gap-2">
-          <Text className="text-white text-2xl font-bold">
-            Gender (Optional)
-          </Text>
+          <Text className="text-white text-2xl font-bold">Gender</Text>
           <View className="flex-row w-full h-12 justify-between">
             <Pressable
               className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"

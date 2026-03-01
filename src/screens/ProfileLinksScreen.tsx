@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { View, Text, Platform, KeyboardAvoidingView } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useContext, useCallback } from "react";
+import { View, Text, BackHandler } from "react-native";
 import ContactIcon from "../assets/icons/contacts.svg";
 import LockIcon from "../assets/icons/secure.svg";
 import SaveIcon from "../assets/icons/save.svg";
@@ -10,8 +9,10 @@ import UserLinkInput from "../components/UserLinkInput";
 import userContext from "../context/user/user.context";
 import { createUser } from "../lib/storage/user.storage";
 import Header from "../components/Header";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 export default function ProfileLinksScreen() {
+  const navigation = useNavigation<any>();
   const {
     name,
     gender,
@@ -34,8 +35,26 @@ export default function ProfileLinksScreen() {
     userLinkFifth,
     userLinkTitleFourth,
     userLinkTitleFifth,
+    resetAccount,
   } = useAccount();
   const { setHasAccount } = useContext(userContext)!;
+
+  const handleBack = useCallback(() => {
+    resetAccount();
+    navigation.goBack();
+  }, [navigation, resetAccount]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+        handleBack();
+        return true;
+      });
+
+      return () => sub.remove();
+    }, [handleBack]),
+  );
+
   const saveUserData = () => {
     try {
       createUser({
@@ -68,30 +87,33 @@ export default function ProfileLinksScreen() {
   return (
     <View className="p-5 h-full justify-between">
       <View className="gap-4">
-        <Header currentScreenName={"About Info"} />
+        <Header
+          currentScreenName={"Profile Links"}
+          backButtonProps={{ onPress: handleBack }}
+        />
         <View className="items-center">
           <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center">
             <ContactIcon width={50} height={50} fill="#4f8cff" />
           </View>
         </View>
         <Text className="text-white text-2xl font-bold text-center">
-          Got some more links to share?
+          Share any other platforms?
         </Text>
         <UserLinkInput
           titleValue={userLinkTitleFirst}
           urlValue={userLinkFirst}
           onChangeTitle={setUserLinkTitleFirst}
           onChangeUrl={setUserLinkFirst}
-          titlePlaceholder="First link name"
-          urlPlaceholder="Social media (Instagram or X)"
+          titlePlaceholder="Link title"
+          urlPlaceholder="e.g. https://instagram.com/username"
         />
         <UserLinkInput
           titleValue={userLinkTitleSecond}
           urlValue={userLinkSecond}
           onChangeTitle={setUserLinkTitleSecond}
           onChangeUrl={setUserLinkSecond}
-          titlePlaceholder="Second link name"
-          urlPlaceholder="Personal portfolio or GitHub"
+          titlePlaceholder="Link title"
+          urlPlaceholder="e.g. https://github.com/username"
         />
       </View>
       <View className="items-center gap-3">

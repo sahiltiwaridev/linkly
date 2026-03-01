@@ -52,6 +52,10 @@ export default function UserLinkInput({
 
   return (
     <View className="gap-2">
+      {errorMessage !== "" && (
+        <Text className="text-[#e53e3e] text-sm">{errorMessage}</Text>
+      )}
+
       <View className="flex-row items-center gap-3">
         <IconSelector icon={SelectedIcon} />
 
@@ -67,12 +71,6 @@ export default function UserLinkInput({
         onChangeText={onChangeUrl}
         placeholder={urlPlaceholder}
       />
-
-      {errorMessage !== "" && (
-        <Text className="text-[#e53e3e] text-sm">
-          {errorMessage}
-        </Text>
-      )}
     </View>
   );
 }

@@ -25,6 +25,8 @@ export default function PreviewProfileScreen() {
   };
 
   const SelectedIcon = iconMap[gender as keyof typeof iconMap];
+  const phoneDigits = contact?.phone?.replace(/\D/g, "") ?? "";
+  const whatsappDigits = contact?.whatsapp?.replace(/\D/g, "") ?? "";
 
   if (!contact) {
     return (
@@ -50,29 +52,33 @@ export default function PreviewProfileScreen() {
           {contact?.profession}
         </Text>
         <Text className="text-white">{contact?.bio}</Text>
-        <View className="w-full justify-between items-center flex-row">
-          <SecondaryCard
-            text={"Call"}
-            disabled={!contact.phone}
-            onPress={() =>
-              contact.phone && Linking.openURL(`tel:${contact.phone}`)
-            }
-          />
-          <SecondaryCard
-            text={"WhatsApp"}
-            disabled={!contact.phone}
-            onPress={() =>
-              contact.phone &&
-              Linking.openURL(
-                `https://wa.me/${contact.phone.replace(/\D/g, "")}`,
-              )
-            }
-          />
-          <SecondaryCard
-            text={"Email"}
-            disabled={!contact.email}
-            onPress={() => Linking.openURL(`mailto:${contact.email}`)}
-          />
+        <View className="gap-3 w-full items-center"> 
+          <View className="w-full justify-between items-center flex-row">
+            <SecondaryCard
+              text={"Call"}
+              disabled={!phoneDigits}
+              onPress={() =>
+                phoneDigits && Linking.openURL(`tel:${phoneDigits}`)
+              }
+            />
+            <SecondaryCard
+              text={"WhatsApp"}
+              disabled={!whatsappDigits}
+              onPress={() =>
+                whatsappDigits &&
+                Linking.openURL(
+                  `https://wa.me/${whatsappDigits}`,
+                )
+              }
+            />
+            <SecondaryCard
+              text={"Email"}
+              disabled={!contact.email}
+              onPress={() => Linking.openURL(`mailto:${contact.email}`)}
+            />
+          </View>
+          <View className="w-full rounded-2xl h-1 bg-[#1A1A1A]"></View>
+          
         </View>
       </View>
 

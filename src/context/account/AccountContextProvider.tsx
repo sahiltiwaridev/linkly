@@ -37,6 +37,7 @@ export type AccountContextType = {
   setUserLinkTitleFifth: (userLinkTiuserLinkTitleFifthtleThird: string) => void;
   bio: string;
   setBio: (bio: string) => void;
+  resetAccount: () => void;
 };
 
 const AccountContext = createContext<AccountContextType | null>(null);
@@ -61,6 +62,26 @@ export default function AccountContextProvider({ children }: Props) {
   const [userLinkTitleFifth, setUserLinkTitleFifth] = useState("");
   const [userLinkFourth, setUserLinkFourth] = useState("");
   const [userLinkFifth, setUserLinkFifth] = useState("");
+
+  const resetAccount = () => {
+    setName("");
+    setGender("neutral");
+    setProfession("");
+    setEmail("");
+    setPhone("");
+    setWhatsapp("");
+    setBio("");
+    setUserLinkFirst("");
+    setUserLinkSecond("");
+    setUserLinkThird("");
+    setUserLinkFourth("");
+    setUserLinkFifth("");
+    setUserLinkTitleFirst("");
+    setUserLinkTitleSecond("");
+    setUserLinkTitleThird("");
+    setUserLinkTitleFourth("");
+    setUserLinkTitleFifth("");
+  };
 
   const value: AccountContextType = {
     name,
@@ -97,6 +118,7 @@ export default function AccountContextProvider({ children }: Props) {
     setUserLinkFifth,
     userLinkFourth,
     setUserLinkFourth,
+    resetAccount,
   };
 
   return (

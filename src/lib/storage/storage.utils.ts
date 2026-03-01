@@ -33,8 +33,8 @@ const sanitizeUserFields = (user: StoredUser): StoredUser => {
     name: normalizeText(user.name),
     gender: user.gender,
     email: normalizeText(user.email).toLowerCase(),
-    phone: normalizeText(user.profession),
-    whatsapp: normalizeText(user.profession),
+    phone: normalizeText(user.phone),
+    whatsapp: normalizeText(user.whatsapp),
     profession: normalizeText(user.profession),
     bio: normalizeText(user.bio),
 
