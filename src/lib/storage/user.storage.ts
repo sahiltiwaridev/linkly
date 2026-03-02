@@ -35,17 +35,15 @@ export const createUser = (user: UserData) => {
     name: user.name,
     gender: user.gender,
     email: user.email || "",
-    phone: user.phone || "" ,
-    whatsapp: user.whatsapp || "", 
+    phone: user.phone || "",
+    whatsapp: user.whatsapp || "",
     profession: user.profession || "",
     bio: user.bio || "",
-
     userLinkFirst: user.userLinkFirst || "",
     userLinkSecond: user.userLinkSecond || "",
     userLinkThird: user.userLinkThird || "",
     userLinkFourth: user.userLinkFourth || "",
     userLinkFifth: user.userLinkFifth || "",
-
     userLinkTitleFirst: user.userLinkTitleFirst || "",
     userLinkTitleSecond: user.userLinkTitleSecond || "",
     userLinkTitleThird: user.userLinkTitleThird || "",
@@ -55,6 +53,32 @@ export const createUser = (user: UserData) => {
 
   storage.set(STORAGE_KEYS.USER_PROFILE, userString);
   initializeContactsStorage();
+};
+
+export const updateUser = (user: UserData) => {
+  const storage = getStorage();
+
+  const userString = serializeUserData({
+    name: user.name,
+    gender: user.gender,
+    email: user.email || "",
+    phone: user.phone || "",
+    whatsapp: user.whatsapp || "",
+    profession: user.profession || "",
+    bio: user.bio || "",
+    userLinkFirst: user.userLinkFirst || "",
+    userLinkSecond: user.userLinkSecond || "",
+    userLinkThird: user.userLinkThird || "",
+    userLinkFourth: user.userLinkFourth || "",
+    userLinkFifth: user.userLinkFifth || "",
+    userLinkTitleFirst: user.userLinkTitleFirst || "",
+    userLinkTitleSecond: user.userLinkTitleSecond || "",
+    userLinkTitleThird: user.userLinkTitleThird || "",
+    userLinkTitleFourth: user.userLinkTitleFourth || "",
+    userLinkTitleFifth: user.userLinkTitleFifth || "",
+  });
+
+  storage.set(STORAGE_KEYS.USER_PROFILE, userString);
 };
 
 export const getUser = (): UserData | null => {

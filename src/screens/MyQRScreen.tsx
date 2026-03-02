@@ -4,7 +4,6 @@ import {
   decodeUserQRPayload,
   generateUserQRPayload,
 } from "../lib/qr/qr.parser";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ErrorIcon from "../assets/icons/error.svg";
 import NutralIcon from "../assets/icons/user.svg";
 import EditIcon from "../assets/icons/edit.svg";
