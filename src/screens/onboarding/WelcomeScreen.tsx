@@ -3,12 +3,12 @@ import React from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import PrimaryButton from "../components/PrimaryButton";
-import QRIcon from "../assets/icons/qr.svg";
-import UserIcon from "../assets/icons/user.svg";
-import ShareIcon from "../assets/icons/share.svg";
-import CreateIcon from "../assets/icons/add.svg";
-import FeatureHighlighter from "../components/FeatureHighlighter";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
+import QRIcon from "../../assets/icons/qr.svg";
+import UserIcon from "../../assets/icons/user.svg";
+import ShareIcon from "../../assets/icons/share.svg";
+import CreateIcon from "../../assets/icons/add.svg";
+import FeatureHighlighter from "../../components/onboarding/FeatureHighlighter";
 
 type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -64,3 +64,4 @@ export default function WelcomeScreen() {
     </View>
   );
 }
+

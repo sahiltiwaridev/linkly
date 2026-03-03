@@ -1,5 +1,5 @@
 import { View, Text, Pressable, PressableProps } from "react-native";
-import BackIcon from "../assets/icons/back.svg";
+import BackIcon from "../../assets/icons/back.svg";
 import { useNavigation } from "@react-navigation/native";
 
 type HeaderProps = {

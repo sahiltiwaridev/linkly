@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, Pressable } from "react-native";
-import SettingsIcon from "../assets/icons/settings.svg";
-import ScannerIcon from "../assets/icons/qr-scan.svg";
-import NextIcon from "../assets/icons/next.svg";
-import QRIcon from "../assets/icons/qr.svg";
-import ConnectingIcon from "../assets/icons/connecting.svg";
-import PrimaryCard from "../components/PrimaryCard";
+import SettingsIcon from "../../assets/icons/settings.svg";
+import ScannerIcon from "../../assets/icons/qr-scan.svg";
+import NextIcon from "../../assets/icons/next.svg";
+import QRIcon from "../../assets/icons/qr.svg";
+import ConnectingIcon from "../../assets/icons/connecting.svg";
+import PrimaryCard from "../../components/cards/PrimaryCard";
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
@@ -74,3 +74,4 @@ export default function HomeScreen() {
     </View>
   );
 }
+

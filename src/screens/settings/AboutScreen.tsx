@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Linking } from "react-native";
 import React from "react";
-import Header from "../components/Header";
+import Header from "../../components/layout/Header";
 
 export default function AboutScreen() {
   const headingTextStyle = "text-white font-bold text-2xl";
@@ -131,3 +131,5 @@ export default function AboutScreen() {
     </View>
   );
 }
+
+

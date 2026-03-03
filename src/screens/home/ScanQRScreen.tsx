@@ -1,11 +1,11 @@
 import { View, Text, Pressable } from "react-native";
 import { CameraView } from "expo-camera";
-import { useQRScanner } from "../lib/qr/qr.scanner";
+import { useQRScanner } from "../../lib/qr/qr.scanner";
 import { useEffect, useState, useCallback } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import NoCameraIcon from "../assets/icons/no-camera.svg";
-import RequestingCameraIcon from "../assets/icons/requesting.svg";
-import CloseIcon from "../assets/icons/close.svg";
+import NoCameraIcon from "../../assets/icons/no-camera.svg";
+import RequestingCameraIcon from "../../assets/icons/requesting.svg";
+import CloseIcon from "../../assets/icons/close.svg";
 
 export default function QRScannerView() {
   const navigation = useNavigation<any>();

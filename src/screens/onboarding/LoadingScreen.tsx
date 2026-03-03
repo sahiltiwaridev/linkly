@@ -1,5 +1,4 @@
 import { View, Text, ActivityIndicator } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoadingScreen() {
   return (

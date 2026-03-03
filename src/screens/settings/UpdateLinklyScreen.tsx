@@ -3,12 +3,12 @@ import { View, Text, BackHandler } from "react-native";
 import Constants from "expo-constants";
 import * as Network from "expo-network";
 
-import CheckingIcon from "../assets/icons/rotate.svg";
-import UpdateIcon from "../assets/icons/update.svg"; // replace path if needed
+import CheckingIcon from "../../assets/icons/rotate.svg";
+import UpdateIcon from "../../assets/icons/update.svg"; // replace path if needed
 
-import Header from "../components/Header";
-import PrimaryButton from "../components/PrimaryButton";
-import ConfirmModal from "../components/ConfirmModal";
+import Header from "../../components/layout/Header";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
+import ConfirmModal from "../../components/modals/ConfirmModal";
 
 interface UpdateData {
   version: string;
@@ -148,3 +148,5 @@ export default function UpdateLinklyScreen({ navigation }: any) {
     </View>
   );
 }
+
+

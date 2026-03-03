@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import React, { useCallback, useState } from "react";
-import { getAllContacts } from "../lib/storage/contacts.storage";
+import { getAllContacts } from "../../lib/storage/contacts.storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 

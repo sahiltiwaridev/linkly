@@ -1,13 +1,13 @@
 import { View, Text, Pressable, Linking } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { addContact, deleteContact } from "../lib/storage/contacts.storage";
-import { resolvePreviewProfileSource } from "../lib/utils/contact.source";
-import Header from "../components/Header";
-import NutralIcon from "../assets/icons/user.svg";
-import MaleIcon from "../assets/avatar/male-avatar.svg";
-import FemaleIcon from "../assets/avatar/female-avatar.svg";
-import PrimaryCard from "../components/PrimaryCard";
-import SecondaryCard from "../components/SecondaryCard";
+import { addContact, deleteContact } from "../../lib/storage/contacts.storage";
+import { resolvePreviewProfileSource } from "../../lib/utils/contact.source";
+import Header from "../../components/layout/Header";
+import NutralIcon from "../../assets/icons/user.svg";
+import MaleIcon from "../../assets/avatar/male-avatar.svg";
+import FemaleIcon from "../../assets/avatar/female-avatar.svg";
+import PrimaryCard from "../../components/cards/PrimaryCard";
+import SecondaryCard from "../../components/cards/SecondaryCard";
 
 export default function PreviewProfileScreen() {
   const navigation = useNavigation<any>();
@@ -108,3 +108,5 @@ export default function PreviewProfileScreen() {
     </View>
   );
 }
+
+

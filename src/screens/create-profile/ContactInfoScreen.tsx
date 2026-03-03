@@ -1,12 +1,12 @@
 import { View, Text, BackHandler } from "react-native";
-import Header from "../components/Header";
-import ContactIcon from "../assets/icons/contacts.svg";
-import NextIcon from "../assets/icons/next.svg";
-import PrimaryInput from "../components/PrimaryInput";
-import { useAccount } from "../context/account/AccountContextProvider";
-import { userEmailValidator } from "../lib/validation/user.validators";
+import Header from "../../components/layout/Header";
+import ContactIcon from "../../assets/icons/contacts.svg";
+import NextIcon from "../../assets/icons/next.svg";
+import PrimaryInput from "../../components/inputs/PrimaryInput";
+import { useAccount } from "../../context/account/AccountContextProvider";
+import { userEmailValidator } from "../../lib/validation/user.validators";
 import { useState, useCallback } from "react";
-import PrimaryButton from "../components/PrimaryButton";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 const phoneValidator = (value: string): string | null => {
@@ -132,3 +132,5 @@ export default function ContactInfoScreen() {
     </View>
   );
 }
+
+

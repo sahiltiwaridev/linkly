@@ -1,15 +1,15 @@
 import { View, Text, Pressable, BackHandler } from "react-native";
 import { useState, useCallback } from "react";
-import Header from "../components/Header";
-import NutralIcon from "../assets/icons/user.svg";
-import MaleIcon from "../assets/avatar/male-avatar.svg";
-import FemaleIcon from "../assets/avatar/female-avatar.svg";
-import NextIcon from "../assets/icons/next.svg";
+import Header from "../../components/layout/Header";
+import NutralIcon from "../../assets/icons/user.svg";
+import MaleIcon from "../../assets/avatar/male-avatar.svg";
+import FemaleIcon from "../../assets/avatar/female-avatar.svg";
+import NextIcon from "../../assets/icons/next.svg";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { useAccount } from "../context/account/AccountContextProvider";
-import PrimaryInput from "../components/PrimaryInput";
-import { userNameValidator } from "../lib/validation/user.validators";
-import PrimaryButton from "../components/PrimaryButton";
+import { useAccount } from "../../context/account/AccountContextProvider";
+import PrimaryInput from "../../components/inputs/PrimaryInput";
+import { userNameValidator } from "../../lib/validation/user.validators";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 export default function BasicInfoScreen() {
   const navigation = useNavigation<any>();
@@ -114,3 +114,5 @@ export default function BasicInfoScreen() {
     </View>
   );
 }
+
+

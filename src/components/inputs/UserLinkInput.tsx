@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
-import LinkIcon from "../assets/icons/link.svg";
-import InstagramIcon from "../assets/icons/instagram.svg";
-import GithubIcon from "../assets/icons/github.svg";
-import LinkedinIcon from "../assets/icons/linkedin.svg";
-import XIcon from "../assets/icons/x.svg";
+import LinkIcon from "../../assets/icons/link.svg";
+import InstagramIcon from "../../assets/icons/instagram.svg";
+import GithubIcon from "../../assets/icons/github.svg";
+import LinkedinIcon from "../../assets/icons/linkedin.svg";
+import XIcon from "../../assets/icons/x.svg";
 import PrimaryInput from "./PrimaryInput";
 import SecondaryInput from "./SecondaryInput";
 import IconSelector from "./IconSelector";

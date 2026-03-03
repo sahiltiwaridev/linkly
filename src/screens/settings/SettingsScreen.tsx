@@ -2,14 +2,14 @@ import Constants from "expo-constants";
 
 import { View, Text } from "react-native";
 import React from "react";
-import SettingsListItem from "../components/SettingsListItem";
-import EditIcon from "../assets/icons/edit.svg";
-import UserManualIcon from "../assets/icons/user-manual.svg";
-import AboutIcon from "../assets/icons/about.svg";
-import UpdateIcon from "../assets/icons/update.svg";
-import QRIcon from "../assets/icons/qr.svg";
+import SettingsListItem from "../../components/settings/SettingsListItem";
+import EditIcon from "../../assets/icons/edit.svg";
+import UserManualIcon from "../../assets/icons/user-manual.svg";
+import AboutIcon from "../../assets/icons/about.svg";
+import UpdateIcon from "../../assets/icons/update.svg";
+import QRIcon from "../../assets/icons/qr.svg";
 import { useNavigation } from "@react-navigation/native";
-import Header from "../components/Header";
+import Header from "../../components/layout/Header";
 
 export default function SettingsScreen() {
   const navigation = useNavigation<any>();
@@ -67,3 +67,5 @@ export default function SettingsScreen() {
     </View>
   );
 }
+
+

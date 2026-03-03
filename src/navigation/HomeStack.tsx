@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../screens/HomeScreen";
-import ScanQRScreen from "../screens/ScanQRScreen";
-import MyQRScreen from "../screens/MyQRScreen";
-import SavedProfilesScreen from "../screens/SavedProfilesScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import PreviewProfileScreen from "../screens/PreviewProfileScreen";
-import EditProfileScreen from "../screens/EditProfileScreen";
-import UpdateLinklyScreen from "../screens/UpdateLinklyScreen";
-import UserManualScreen from "../screens/UserManualScreen";
-import AboutScreen from "../screens/AboutScreen";
+import HomeScreen from "../screens/home/HomeScreen";
+import ScanQRScreen from "../screens/home/ScanQRScreen";
+import MyQRScreen from "../screens/home/MyQRScreen";
+import SavedProfilesScreen from "../screens/home/SavedProfilesScreen";
+import PreviewProfileScreen from "../screens/home/PreviewProfileScreen";
+import SettingsScreen from "../screens/settings/SettingsScreen";
+import EditProfileScreen from "../screens/settings/EditProfileScreen";
+import UpdateLinklyScreen from "../screens/settings/UpdateLinklyScreen";
+import UserManualScreen from "../screens/settings/UserManualScreen";
+import AboutScreen from "../screens/settings/AboutScreen";
 
 const Stack = createNativeStackNavigator();
 

@@ -3,14 +3,14 @@ import QRCode from "react-native-qrcode-svg";
 import {
   decodeUserQRPayload,
   generateUserQRPayload,
-} from "../lib/qr/qr.parser";
-import ErrorIcon from "../assets/icons/error.svg";
-import NutralIcon from "../assets/icons/user.svg";
-import EditIcon from "../assets/icons/edit.svg";
-import LockIcon from "../assets/icons/secure.svg";
-import MaleIcon from "../assets/avatar/male-avatar.svg";
-import FemaleIcon from "../assets/avatar/female-avatar.svg";
-import PrimaryButton from "../components/PrimaryButton";
+} from "../../lib/qr/qr.parser";
+import ErrorIcon from "../../assets/icons/error.svg";
+import NutralIcon from "../../assets/icons/user.svg";
+import EditIcon from "../../assets/icons/edit.svg";
+import LockIcon from "../../assets/icons/secure.svg";
+import MaleIcon from "../../assets/avatar/male-avatar.svg";
+import FemaleIcon from "../../assets/avatar/female-avatar.svg";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 
 export default function MyQRScreen() {
@@ -70,3 +70,4 @@ export default function MyQRScreen() {
     </View>
   );
 }
+

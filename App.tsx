@@ -9,7 +9,7 @@ import LoadingContextProvider from "./src/context/loading/LoadingContextProvider
 import loadingContext from "./src/context/loading/loading.context";
 
 import RootStack from "./src/navigation/RootStack";
-import LoadingScreen from "./src/screens/LoadingScreen";
+import LoadingScreen from "./src/screens/onboarding/LoadingScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import AccountContextProvider from "./src/context/account/AccountContextProvider";
 

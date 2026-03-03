@@ -1,12 +1,12 @@
 import { Text, View } from "react-native";
 import React from "react";
-import PrimaryInput from "../components/PrimaryInput";
-import { useAccount } from "../context/account/AccountContextProvider";
+import PrimaryInput from "../../components/inputs/PrimaryInput";
+import { useAccount } from "../../context/account/AccountContextProvider";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import NextIcon from "../assets/icons/next.svg";
-import JobIcon from "../assets/icons/job.svg";
-import PrimaryButton from "../components/PrimaryButton";
+import NextIcon from "../../assets/icons/next.svg";
+import JobIcon from "../../assets/icons/job.svg";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 type RootStackParamList = {
   CreateProfileGenderScreen: undefined;
@@ -46,3 +46,4 @@ export default function CreateProfileProfessionScreen() {
     </View>
   );
 }
+

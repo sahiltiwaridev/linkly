@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect } from "react";
 import { AppState } from "react-native";
-import BasicInfoScreen from "../screens/BasicInfoScreen";
-import AboutInfoScreen from "../screens/AboutInfoScreen";
-import ContactInfoScreen from "../screens/ContactInfoScreen";
-import ProfileLinksScreen from "../screens/ProfileLinksScreen";
+import BasicInfoScreen from "../screens/create-profile/BasicInfoScreen";
+import AboutInfoScreen from "../screens/create-profile/AboutInfoScreen";
+import ContactInfoScreen from "../screens/create-profile/ContactInfoScreen";
+import ProfileLinksScreen from "../screens/create-profile/ProfileLinksScreen";
 import { useAccount } from "../context/account/AccountContextProvider";
 
 const Stack = createNativeStackNavigator();

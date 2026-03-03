@@ -1,6 +1,6 @@
 import { View, Text, PressableProps, Pressable } from "react-native";
 import React from "react";
-import NextIcon from "../assets/icons/next.svg";
+import NextIcon from "../../assets/icons/next.svg";
 
 type SettingsListItemProps = {
   heading: string;

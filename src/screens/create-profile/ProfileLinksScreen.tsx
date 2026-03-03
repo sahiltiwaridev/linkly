@@ -1,14 +1,14 @@
 import { useContext, useCallback } from "react";
 import { View, Text, BackHandler } from "react-native";
-import ContactIcon from "../assets/icons/contacts.svg";
-import LockIcon from "../assets/icons/secure.svg";
-import SaveIcon from "../assets/icons/save.svg";
-import { useAccount } from "../context/account/AccountContextProvider";
-import PrimaryButton from "../components/PrimaryButton";
-import UserLinkInput from "../components/UserLinkInput";
-import userContext from "../context/user/user.context";
-import { createUser } from "../lib/storage/user.storage";
-import Header from "../components/Header";
+import ContactIcon from "../../assets/icons/contacts.svg";
+import LockIcon from "../../assets/icons/secure.svg";
+import SaveIcon from "../../assets/icons/save.svg";
+import { useAccount } from "../../context/account/AccountContextProvider";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
+import UserLinkInput from "../../components/inputs/UserLinkInput";
+import userContext from "../../context/user/user.context";
+import { createUser } from "../../lib/storage/user.storage";
+import Header from "../../components/layout/Header";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 export default function ProfileLinksScreen() {
@@ -132,3 +132,5 @@ export default function ProfileLinksScreen() {
     </View>
   );
 }
+
+

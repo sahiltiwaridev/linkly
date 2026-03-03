@@ -1,11 +1,11 @@
 import { View, Text, TextInput, BackHandler } from "react-native";
 import { useCallback } from "react";
-import Header from "../components/Header";
-import AboutIcon from "../assets/icons/about.svg";
-import NextIcon from "../assets/icons/next.svg";
-import { useAccount } from "../context/account/AccountContextProvider";
-import PrimaryInput from "../components/PrimaryInput";
-import PrimaryButton from "../components/PrimaryButton";
+import Header from "../../components/layout/Header";
+import AboutIcon from "../../assets/icons/about.svg";
+import NextIcon from "../../assets/icons/next.svg";
+import { useAccount } from "../../context/account/AccountContextProvider";
+import PrimaryInput from "../../components/inputs/PrimaryInput";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 export default function AboutInfoScreen() {
@@ -76,3 +76,5 @@ export default function AboutInfoScreen() {
     </View>
   );
 }
+
+
