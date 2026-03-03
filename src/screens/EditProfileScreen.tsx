@@ -1,4 +1,11 @@
-import { BackHandler, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  BackHandler,
+  Keyboard,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import userContext from "../context/user/user.context";
 import Header from "../components/Header";
@@ -23,6 +30,7 @@ import {
   userNameValidator,
 } from "../lib/validation/user.validators";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const phoneValidator = (value: string): string | null => {
   if (!value) return null;
@@ -41,8 +49,10 @@ const hasLinkPairError = (title: string, url: string) => {
 export default function EditProfileScreen() {
   const navigation = useNavigation<any>();
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showUpdateConfirm, setShowUpdateConfirm] = useState(false);
   const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
   const [userProfile, setUserProfile] = useState<UserData | null>(null);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState<Gender>("neutral");
@@ -120,12 +130,16 @@ export default function EditProfileScreen() {
     !linkError;
 
   const handleAttemptBack = useCallback(() => {
+    if (keyboardVisible) {
+      Keyboard.dismiss();
+      return;
+    }
     if (hasChanges) {
       setShowDiscardConfirm(true);
       return;
     }
     navigation.goBack();
-  }, [hasChanges, navigation]);
+  }, [hasChanges, keyboardVisible, navigation]);
 
   useFocusEffect(
     useCallback(() => {
@@ -137,6 +151,20 @@ export default function EditProfileScreen() {
       return () => sub.remove();
     }, [handleAttemptBack]),
   );
+
+  useEffect(() => {
+    const showSub = Keyboard.addListener("keyboardDidShow", () =>
+      setKeyboardVisible(true),
+    );
+    const hideSub = Keyboard.addListener("keyboardDidHide", () =>
+      setKeyboardVisible(false),
+    );
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   const handleDeleteProfile = () => {
     removeUser();
@@ -169,11 +197,8 @@ export default function EditProfileScreen() {
     }
   }, []);
 
-  const handleSaveProfile = () => {
-    if (!canSave) return;
-
-    if (!userProfile) return;
-
+  const applyProfileUpdate = () => {
+    if (!canSave || !userProfile) return;
     try {
       updateUser({
         ...userProfile,
@@ -197,7 +222,7 @@ export default function EditProfileScreen() {
       });
       const refreshed = getUser();
       setUserProfile(refreshed);
-      alert("Profile updated.");
+      setShowUpdateConfirm(false);
     } catch {
       alert("Something went wrong! Please try again.");
     }
@@ -212,20 +237,30 @@ export default function EditProfileScreen() {
   const SelectedIcon = iconMap[gender as keyof typeof iconMap];
 
   return (
-    <View className="flex-1 p-5 h-full justify-between">
-      <Header
-        currentScreenName={"Edit Profile"}
-        backButtonProps={{ onPress: handleAttemptBack }}
-      />
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: 12 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center self-center">
-          {SelectedIcon && (
-            <SelectedIcon width={50} height={50} fill="#4f8cff" />
-          )}
-        </View>
+    <View className="flex-1 p-5 h-full">
+      <View className="flex-1">
+        <Header
+          currentScreenName={"Edit Profile"}
+          backButtonProps={{ onPress: handleAttemptBack }}
+        />
+        <KeyboardAwareScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingBottom: 180, flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
+          enableOnAndroid
+          enableAutomaticScroll
+          enableResetScrollToCoords={false}
+          keyboardOpeningTime={250}
+          extraScrollHeight={120}
+          extraHeight={150}
+        >
+        <View className="gap-4">
+          <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center self-center">
+            {SelectedIcon && (
+              <SelectedIcon width={50} height={50} fill="#4f8cff" />
+            )}
+          </View>
 
         <View className="gap-2">
           <Text className="text-white text-2xl font-bold">Gender</Text>
@@ -404,6 +439,7 @@ export default function EditProfileScreen() {
             icon={DeleteIcon}
           />
         </View>
+        </View>
         <ConfirmModal
           visible={showConfirm}
           title="Delete Profile?"
@@ -413,7 +449,8 @@ export default function EditProfileScreen() {
           onConfirm={handleDeleteProfile}
           onCancel={() => setShowConfirm(false)}
         />
-      </ScrollView>
+        </KeyboardAwareScrollView>
+      </View>
       <ConfirmModal
         visible={showDiscardConfirm}
         title="Discard changes?"
@@ -426,7 +463,23 @@ export default function EditProfileScreen() {
         }}
         onCancel={() => setShowDiscardConfirm(false)}
       />
-      <PrimaryButton text={"Save"} icon={SaveIcon} onPress={handleSaveProfile} disabled={!canSave} />
+      <ConfirmModal
+        visible={showUpdateConfirm}
+        title="Update profile?"
+        message="Do you want to save these profile changes?"
+        confirmText="Update"
+        cancelText="Cancel"
+        onConfirm={applyProfileUpdate}
+        onCancel={() => setShowUpdateConfirm(false)}
+      />
+      {!keyboardVisible && (
+        <PrimaryButton
+          text={"Save"}
+          icon={SaveIcon}
+          onPress={() => setShowUpdateConfirm(true)}
+          disabled={!canSave}
+        />
+      )}
     </View>
   );
 }

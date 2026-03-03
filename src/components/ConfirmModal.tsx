@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { Modal, View, Text, Pressable } from "react-native";
 import React from "react";
 
 interface ConfirmModalProps {
@@ -20,33 +20,33 @@ export default function ConfirmModal({
   onConfirm,
   onCancel,
 }: ConfirmModalProps) {
-  if (!visible) return null;
-
   return (
-    <View className="absolute inset-0 bg-black/60 justify-center items-center">
-      <View className="w-[85%] bg-[#1c1c1c] p-5 rounded-2xl gap-5">
-        <Text className="text-white text-2xl font-bold">
-          {title}
-        </Text>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onCancel}
+      statusBarTranslucent
+    >
+      <View className="flex-1 bg-black/60 justify-center items-center">
+        <View className="w-[85%] bg-[#1c1c1c] p-5 rounded-2xl gap-5">
+          <Text className="text-white text-2xl font-bold">{title}</Text>
 
-        <Text className="text-[#B3B3B3] text-base">
-          {message}
-        </Text>
+          <Text className="text-[#B3B3B3] text-base">{message}</Text>
 
-        <View className="flex-row justify-end gap-6">
-          <Pressable onPress={onCancel}>
-            <Text className="text-[#B3B3B3] text-lg">
-              {cancelText}
-            </Text>
-          </Pressable>
+          <View className="flex-row justify-end gap-6">
+            <Pressable onPress={onCancel}>
+              <Text className="text-[#B3B3B3] text-lg">{cancelText}</Text>
+            </Pressable>
 
-          <Pressable onPress={onConfirm}>
-            <Text className="text-[#e53e3e] text-lg font-bold">
-              {confirmText}
-            </Text>
-          </Pressable>
+            <Pressable onPress={onConfirm}>
+              <Text className="text-[#e53e3e] text-lg font-bold">
+                {confirmText}
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </View>
-    </View>
+    </Modal>
   );
 }
