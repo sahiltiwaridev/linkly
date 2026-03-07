@@ -2,7 +2,7 @@ import {
   userEmailValidator,
   userNameValidator,
 } from "../../lib/validation/user.validators";
-import { UserData } from "../../lib/storage/user.storage";
+import { UserData } from "../../types/user.types";
 
 export type EditProfileDraft = {
   name: string;

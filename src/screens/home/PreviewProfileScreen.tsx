@@ -1,20 +1,57 @@
 import { View, Text, Pressable, Linking } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { addContact, deleteContact } from "../../lib/storage/contacts.storage";
 import { resolvePreviewProfileSource } from "../../lib/utils/contact.source";
 import Header from "../../components/layout/Header";
+import CalllIcon from "../../assets/icons/call.svg";
+import WhatsappIcon from "../../assets/icons/whatsapp.svg";
+import EmailIcon from "../../assets/icons/mail.svg";
 import NutralIcon from "../../assets/icons/user.svg";
 import ScanIcon from "../../assets/icons/qr-scan.svg";
 import MaleIcon from "../../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../../assets/avatar/female-avatar.svg";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import SecondaryCard from "../../components/cards/SecondaryCard";
+import LinkItem from "../../components/layout/LinkItem";
+import {
+  PreviewProfileResult,
+  PreviewProfileRouteParams,
+} from "../../types/preview.types";
+import { UserLinkPair } from "../../types/link.types";
 
 export default function PreviewProfileScreen() {
   const navigation = useNavigation<any>();
-  const route = useRoute<any>();
+  const route =
+    useRoute<RouteProp<{ PreviewProfileScreen: PreviewProfileRouteParams }, "PreviewProfileScreen">>();
+  const [isResolvingSource, setIsResolvingSource] = useState(true);
+  const [source, setSource] = useState<PreviewProfileResult | null>(null);
 
-  const source = resolvePreviewProfileSource(route?.params);
+  useEffect(() => {
+    let active = true;
+
+    const resolveSource = async () => {
+      setIsResolvingSource(true);
+      const nextSource = await resolvePreviewProfileSource(route?.params);
+      if (!active) return;
+      setSource(nextSource);
+      setIsResolvingSource(false);
+    };
+
+    resolveSource();
+
+    return () => {
+      active = false;
+    };
+  }, [route?.params]);
+
+  if (isResolvingSource) {
+    return (
+      <View className="flex-1 justify-center items-center p-5">
+        <Text className="text-[#B3B3B3] text-lg">Verifying contact...</Text>
+      </View>
+    );
+  }
 
   if (!source || !source.contact) {
     return (
@@ -33,7 +70,7 @@ export default function PreviewProfileScreen() {
         <PrimaryButton
           icon={ScanIcon}
           text="Scan Again"
-          onPress={() => navigation.replace("QRScannerScreen")}
+          onPress={() => navigation.goBack()}
         />
       </View>
     );
@@ -53,6 +90,13 @@ export default function PreviewProfileScreen() {
 
   const phoneDigits = contact.phone?.replace(/\D/g, "") ?? "";
   const whatsappDigits = contact.whatsapp?.replace(/\D/g, "") ?? "";
+  const profileLinks: UserLinkPair[] = [
+    { title: contact.userLinkTitleFirst, url: contact.userLinkFirst },
+    { title: contact.userLinkTitleSecond, url: contact.userLinkSecond },
+    { title: contact.userLinkTitleThird, url: contact.userLinkThird },
+    { title: contact.userLinkTitleFourth, url: contact.userLinkFourth },
+    { title: contact.userLinkTitleFifth, url: contact.userLinkFifth },
+  ].filter((link) => link.title.trim() && link.url.trim());
 
   return (
     <View className="p-5 h-full justify-between">
@@ -82,6 +126,7 @@ export default function PreviewProfileScreen() {
         <View className="gap-3 w-full items-center mt-6">
           <View className="w-full justify-between items-center flex-row">
             <SecondaryCard
+              icon={CalllIcon}
               text="Call"
               disabled={!phoneDigits}
               onPress={() =>
@@ -90,6 +135,7 @@ export default function PreviewProfileScreen() {
             />
 
             <SecondaryCard
+              icon={WhatsappIcon}
               text="WhatsApp"
               disabled={!whatsappDigits}
               onPress={() =>
@@ -99,6 +145,7 @@ export default function PreviewProfileScreen() {
             />
 
             <SecondaryCard
+              icon={EmailIcon}
               text="Email"
               disabled={!contact.email}
               onPress={() =>
@@ -108,6 +155,9 @@ export default function PreviewProfileScreen() {
           </View>
 
           <View className="w-full rounded-2xl h-1 bg-[#1A1A1A]" />
+          {profileLinks.map((link) => (
+            <LinkItem key={`${link.title}-${link.url}`} title={link.title} url={link.url} />
+          ))}
         </View>
       </View>
 
@@ -124,7 +174,7 @@ export default function PreviewProfileScreen() {
           </Pressable>
         )}
 
-        {isExistingContactFlow && (
+        {isExistingContactFlow && "id" in contact && (
           <Pressable
             onPress={() => {
               deleteContact(contact);

@@ -1,28 +1,7 @@
-export type StoredUser = {
-  name: string;
-  gender: "male" | "female" | "neutral";
-  email: string;
-  phone: string;
-  whatsapp: string;
-  profession: string;
-  bio: string;
+import { Contact, UserData } from "../../types/user.types";
 
-  userLinkFirst: string;
-  userLinkSecond: string;
-  userLinkThird: string;
-  userLinkFourth: string;
-  userLinkFifth: string;
-
-  userLinkTitleFirst: string;
-  userLinkTitleSecond: string;
-  userLinkTitleThird: string;
-  userLinkTitleFourth: string;
-  userLinkTitleFifth: string;
-};
-
-export type StoredContact = StoredUser & {
-  id: string;
-};
+export type StoredUser = UserData;
+export type StoredContact = Contact;
 
 const normalizeText = (value: string = ""): string => {
   return value.trim().replace(/\s+/g, " ");

@@ -4,7 +4,6 @@ import { useEffect, useState, useContext } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
 import { initStorage } from "./src/lib/storage/storage.mmkv";
-import { initQRCrypto } from "./src/lib/qr/qr.crypto";
 
 import UserContextProvider from "./src/context/user/UserContextProvider";
 import LoadingContextProvider from "./src/context/loading/LoadingContextProvider";
@@ -40,7 +39,6 @@ export default function App() {
   useEffect(() => {
     async function boot() {
       await initStorage();
-      await initQRCrypto();
       setReady(true);
     }
 

@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import QRCode from "react-native-qrcode-svg";
+import { useEffect, useState } from "react";
 import {
   decodeUserQRPayload,
   generateUserQRPayload,
@@ -12,12 +13,39 @@ import MaleIcon from "../../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../../assets/avatar/female-avatar.svg";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
+import { UserData } from "../../types/user.types";
 
 export default function MyQRScreen() {
   const navigation = useNavigation<any>();
-  const qrPayload = generateUserQRPayload();
-  const userData = decodeUserQRPayload(qrPayload);
-  const gender = decodeUserQRPayload(qrPayload)?.gender;
+  const [qrPayload, setQrPayload] = useState<string | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    let active = true;
+
+    const hydrateQR = async () => {
+      const payload = await generateUserQRPayload();
+      if (!active) return;
+
+      setQrPayload(payload);
+      if (!payload) {
+        setUserData(null);
+        return;
+      }
+
+      const decoded = await decodeUserQRPayload(payload);
+      if (!active) return;
+      setUserData(decoded);
+    };
+
+    hydrateQR();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const gender = userData?.gender;
 
   const iconMap = {
     male: MaleIcon,

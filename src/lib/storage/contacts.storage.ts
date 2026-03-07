@@ -5,7 +5,7 @@ import {
   serializeContactsData,
 } from "./storage.utils";
 import { STORAGE_KEYS } from "./storage.keys";
-import { Contact, UserData } from "./user.storage";
+import { Contact, UserData } from "../../types/user.types";
 
 export const initializeContactsStorage = () => {
   const storage = getStorage();

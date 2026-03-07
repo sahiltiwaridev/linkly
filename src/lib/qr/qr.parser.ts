@@ -3,23 +3,30 @@ import {
   serializeUserData,
 } from "../storage/storage.utils";
 import { getUser } from "../storage/user.storage";
+import { UserData } from "../../types/user.types";
 import { encryptQR, decryptQR } from "./qr.crypto";
 
 const QR_PREFIX = "LINKLY_V1:";
 
-export const generateUserQRPayload = (): string | null => {
+export const generateUserQRPayload = async (): Promise<string | null> => {
   const user = getUser();
   if (!user) return null;
   const serialized = serializeUserData(user);
-  const encrypted = encryptQR(serialized);
+  const encrypted = await encryptQR(serialized);
   return `${QR_PREFIX}${encrypted}`;
 };
 
-export const decodeUserQRPayload = (payload: string | null) => {
+export const decodeUserQRPayload = async (
+  payload: string | null,
+): Promise<UserData | null> => {
   if (!payload) return null;
-  if (!payload.startsWith(QR_PREFIX)) return null;
-  const encrypted = payload.replace(QR_PREFIX, "");
-  const decrypted = decryptQR(encrypted);
+
+  const normalizedPayload = payload.trim();
+  const encrypted = normalizedPayload.startsWith(QR_PREFIX)
+    ? normalizedPayload.slice(QR_PREFIX.length)
+    : normalizedPayload;
+
+  const decrypted = await decryptQR(encrypted);
   if (!decrypted) return null;
 
   try {

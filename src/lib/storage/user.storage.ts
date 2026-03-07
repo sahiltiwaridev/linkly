@@ -2,31 +2,9 @@ import { getStorage } from "./storage.mmkv";
 import { STORAGE_KEYS } from "./storage.keys";
 import { deserializeUserData, serializeUserData } from "./storage.utils";
 import { initializeContactsStorage } from "./contacts.storage";
+import { Contact, UserData } from "../../types/user.types";
 
-export type UserData = {
-  name: string;
-  gender: "male" | "female" | "neutral";
-  profession: string;
-  email: string;
-  bio: string;
-  phone: string;
-  whatsapp: string;
-
-  userLinkFirst: string;
-  userLinkSecond: string;
-  userLinkThird: string;
-  userLinkFourth: string;
-  userLinkFifth: string;
-
-  userLinkTitleFirst: string;
-  userLinkTitleSecond: string;
-  userLinkTitleThird: string;
-  userLinkTitleFourth: string;
-  userLinkTitleFifth: string;
-};
-export type Contact = UserData & {
-  id: string;
-};
+export type { UserData, Contact } from "../../types/user.types";
 
 export const createUser = (user: UserData) => {
   const storage = getStorage();
