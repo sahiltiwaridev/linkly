@@ -53,7 +53,9 @@ export const phoneValidator = (value: string): string | null => {
 const hasLinkPairError = (title: string, url: string) => {
   const trimmedTitle = title.trim();
   const trimmedUrl = url.trim();
-  return Boolean((trimmedUrl && !trimmedTitle) || (trimmedTitle && !trimmedUrl));
+  return Boolean(
+    (trimmedUrl && !trimmedTitle) || (trimmedTitle && !trimmedUrl),
+  );
 };
 
 export const validateDraft = (draft: EditProfileDraft) => {
@@ -78,34 +80,44 @@ export const getShortNameError = (nameError: string | null) => {
   return "Invalid name";
 };
 
-export const createDraftFromUser = (user: UserData): EditProfileDraft => ({
-  name: user.name,
-  gender: user.gender,
-  profession: user.profession,
-  bio: user.bio,
-  phone: user.phone,
-  whatsapp: user.whatsapp,
-  email: user.email,
-  userLinkFirst: user.userLinkFirst,
-  userLinkSecond: user.userLinkSecond,
-  userLinkThird: user.userLinkThird,
-  userLinkFourth: user.userLinkFourth,
-  userLinkFifth: user.userLinkFifth,
-  userLinkTitleFirst: user.userLinkTitleFirst,
-  userLinkTitleSecond: user.userLinkTitleSecond,
-  userLinkTitleThird: user.userLinkTitleThird,
-  userLinkTitleFourth: user.userLinkTitleFourth,
-  userLinkTitleFifth: user.userLinkTitleFifth,
-});
+export const createDraftFromUser = (user: UserData): EditProfileDraft => {
+  if (!user) return EMPTY_DRAFT;
 
-export const hasDraftChanges = (draft: EditProfileDraft, user: UserData | null) => {
+  return {
+    name: user.name || "",
+    gender: user.gender || "neutral",
+    profession: user.profession || "",
+    bio: user.bio || "",
+    phone: user.phone || "",
+    whatsapp: user.whatsapp || "",
+    email: user.email || "",
+    userLinkFirst: user.userLinkFirst || "",
+    userLinkSecond: user.userLinkSecond || "",
+    userLinkThird: user.userLinkThird || "",
+    userLinkFourth: user.userLinkFourth || "",
+    userLinkFifth: user.userLinkFifth || "",
+    userLinkTitleFirst: user.userLinkTitleFirst || "",
+    userLinkTitleSecond: user.userLinkTitleSecond || "",
+    userLinkTitleThird: user.userLinkTitleThird || "",
+    userLinkTitleFourth: user.userLinkTitleFourth || "",
+    userLinkTitleFifth: user.userLinkTitleFifth || "",
+  };
+};
+
+export const hasDraftChanges = (
+  draft: EditProfileDraft,
+  user: UserData | null,
+) => {
   if (!user) return false;
   const current = createDraftFromUser(user);
   const keys = Object.keys(current) as Array<keyof EditProfileDraft>;
   return keys.some((key) => draft[key] !== current[key]);
 };
 
-export const buildUpdatedUser = (current: UserData, draft: EditProfileDraft): UserData => ({
+export const buildUpdatedUser = (
+  current: UserData,
+  draft: EditProfileDraft,
+): UserData => ({
   ...current,
   ...draft,
 });

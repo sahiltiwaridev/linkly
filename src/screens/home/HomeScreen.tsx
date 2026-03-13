@@ -54,7 +54,7 @@ export default function HomeScreen() {
           </View>
           <NextIcon width={32} height={32} fill={"#ffffff"} />
         </Pressable>
-        <View className="flex-row justify-between items-center">
+        <View className="flex-row justify-between items-center gap-3">
           <PrimaryCard
             icon={QRIcon}
             text="My QR"
@@ -74,4 +74,3 @@ export default function HomeScreen() {
     </View>
   );
 }
-

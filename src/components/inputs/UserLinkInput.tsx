@@ -8,15 +8,7 @@ import XIcon from "../../assets/icons/x.svg";
 import PrimaryInput from "./PrimaryInput";
 import SecondaryInput from "./SecondaryInput";
 import IconSelector from "./IconSelector";
-
-type UserLinkInputProps = {
-  titleValue: string;
-  urlValue: string;
-  onChangeTitle: (text: string) => void;
-  onChangeUrl: (text: string) => void;
-  titlePlaceholder?: string;
-  urlPlaceholder?: string;
-};
+import { UserLinkInputProps } from "../../types/link.types";
 
 const getIconFromUrl = (url: string) => {
   const value = url.toLowerCase();

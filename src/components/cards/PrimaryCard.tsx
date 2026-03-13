@@ -13,8 +13,7 @@ export default function PrimaryCard({
 }: PrimaryCardProps) {
   return (
     <Pressable
-      className="w-48 h-36 justify-center items-center rounded-xl 
-        bg-[#1A1A1A] gap-3"
+      className="flex-1 h-36 justify-center items-center rounded-xl bg-[#1A1A1A] gap-3"
       {...rest}
     >
       <View className="bg-[#0F0F0F] w-14 h-14 justify-center items-center rounded-full">

@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import QRCode from "react-native-qrcode-svg";
-import { useEffect, useState } from "react";
+import { useState, useCallback } from "react";
 import {
   decodeUserQRPayload,
   generateUserQRPayload,
@@ -12,7 +12,7 @@ import LockIcon from "../../assets/icons/secure.svg";
 import MaleIcon from "../../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../../assets/avatar/female-avatar.svg";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { UserData } from "../../types/user.types";
 
 export default function MyQRScreen() {
@@ -20,32 +20,37 @@ export default function MyQRScreen() {
   const [qrPayload, setQrPayload] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
 
-  useEffect(() => {
-    let active = true;
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
 
-    const hydrateQR = async () => {
-      const payload = await generateUserQRPayload();
-      if (!active) return;
+      const hydrateQR = async () => {
+        const payload = await generateUserQRPayload();
+        if (!active) return;
 
-      setQrPayload(payload);
-      if (!payload) {
-        setUserData(null);
-        return;
-      }
+        setQrPayload(payload);
+        if (!payload) {
+          setUserData(null);
+          return;
+        }
 
-      const decoded = await decodeUserQRPayload(payload);
-      if (!active) return;
-      setUserData(decoded);
-    };
+        const decoded = await decodeUserQRPayload(payload);
+        if (!active) return;
+        setUserData(decoded);
+      };
 
-    hydrateQR();
+      hydrateQR();
 
-    return () => {
-      active = false;
-    };
-  }, []);
+      return () => {
+        active = false;
+      };
+    }, []),
+  );
 
-  const gender = userData?.gender;
+  const gender = (userData?.gender ?? "neutral") as
+    | "male"
+    | "female"
+    | "neutral";
 
   const iconMap = {
     male: MaleIcon,
@@ -53,11 +58,11 @@ export default function MyQRScreen() {
     neutral: NutralIcon,
   };
 
-  const SelectedIcon = iconMap[gender as keyof typeof iconMap];
+  const SelectedIcon = iconMap[gender];
 
   if (!qrPayload) {
     return (
-      <View className="flex justify-center items-center h-full gap-5">
+      <View className="flex-1 justify-center items-center h-full gap-5">
         <ErrorIcon width={72} height={72} fill="#e53e3e" />
         <Text className="text-white font-semibold text-2xl">
           Unable to generate QR code
@@ -98,4 +103,3 @@ export default function MyQRScreen() {
     </View>
   );
 }
-

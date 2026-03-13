@@ -1,9 +1,11 @@
-import {
-  BackHandler,
-  Keyboard,
-  View,
-} from "react-native";
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import { BackHandler, Keyboard, View } from "react-native";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 import userContext from "../../context/user/user.context";
 import Header from "../../components/layout/Header";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
@@ -34,6 +36,7 @@ import {
 
 export default function EditProfileScreen() {
   const navigation = useNavigation<any>();
+  const scrollRef = useRef<any>(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const [showUpdateConfirm, setShowUpdateConfirm] = useState(false);
   const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
@@ -111,14 +114,24 @@ export default function EditProfileScreen() {
     setShowConfirm(false);
   };
 
-  useEffect(() => {
-    const userData = getUser();
+  useFocusEffect(
+    useCallback(() => {
+      const userData = getUser();
+      console.log("Loaded user data:", userData); // Debug log
 
-    if (userData) {
-      setUserProfile(userData);
-      setDraft(createDraftFromUser(userData));
-    }
-  }, []);
+      if (userData) {
+        setUserProfile(userData);
+        const draftData = createDraftFromUser(userData);
+        console.log("Draft created:", draftData); // Debug log
+        setDraft(draftData);
+      } else {
+        setUserProfile(null);
+        setDraft(EMPTY_DRAFT);
+      }
+
+      setTimeout(() => scrollRef.current?.scrollToPosition(0, 0, false), 50);
+    }, []),
+  );
 
   const applyProfileUpdate = () => {
     if (!canSave || !userProfile) return;
@@ -127,6 +140,8 @@ export default function EditProfileScreen() {
       const refreshed = getUser();
       setUserProfile(refreshed);
       setShowUpdateConfirm(false);
+      // Show success message or navigate back
+      navigation.goBack();
     } catch {
       alert("Something went wrong! Please try again.");
     }
@@ -140,13 +155,15 @@ export default function EditProfileScreen() {
           backButtonProps={{ onPress: handleAttemptBack }}
         />
         <KeyboardAwareScrollView
+          ref={scrollRef}
           style={{ flex: 1 }}
           contentContainerStyle={{ paddingBottom: 180, flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
           enableOnAndroid
           enableAutomaticScroll
-          enableResetScrollToCoords={false}
+          enableResetScrollToCoords={true}
+          resetScrollToCoords={{ x: 0, y: 0 }}
           keyboardOpeningTime={250}
           extraScrollHeight={120}
           extraHeight={150}
@@ -194,7 +211,8 @@ export default function EditProfileScreen() {
                 {
                   titleValue: draft.userLinkTitleSecond,
                   urlValue: draft.userLinkSecond,
-                  onChangeTitle: (text) => setField("userLinkTitleSecond", text),
+                  onChangeTitle: (text) =>
+                    setField("userLinkTitleSecond", text),
                   onChangeUrl: (text) => setField("userLinkSecond", text),
                   urlPlaceholder: "e.g. https://github.com/username",
                 },
@@ -208,7 +226,8 @@ export default function EditProfileScreen() {
                 {
                   titleValue: draft.userLinkTitleFourth,
                   urlValue: draft.userLinkFourth,
-                  onChangeTitle: (text) => setField("userLinkTitleFourth", text),
+                  onChangeTitle: (text) =>
+                    setField("userLinkTitleFourth", text),
                   onChangeUrl: (text) => setField("userLinkFourth", text),
                   urlPlaceholder: "e.g. https://x.com/username",
                 },
@@ -273,5 +292,3 @@ export default function EditProfileScreen() {
     </View>
   );
 }
-
-

@@ -19,52 +19,41 @@ export default function SavedProfilesScreen() {
     }, []),
   );
 
-  if (allContacts.length === 0) {
-    return (
-      <View className="items-center mt-20 gap-2">
-        <Text className="text-[#B3B3B3] text-lg">No saved contacts yet</Text>
-        <Text className="text-[#777] text-sm">Scan a Linkly QR to add one</Text>
-      </View>
-    );
-  }
-
   return (
-    <View className="p-5">
-      <Header currentScreenName={"Saved Contacs"} />
+    <View className="flex-1 p-5">
+      <Header currentScreenName={"Saved Contacts"} />
 
       <FlatList
         data={allContacts}
+        className="flex-1"
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: 20,
+        }}
         keyExtractor={(item, index) => item.id ?? `contact-${index}`}
         renderItem={({ item }) => (
-          <SavedContactItem itemName={item.name} itemID={item.id} itemProfession={item.profession}/>
-          // <View>
-          //   <Text>{item.name}</Text>
-
-          //   <Pressable
-          //     onPress={() =>
-          //       navigation.navigate("PreviewProfileScreen", {
-          //         contactId: item.id,
-          //       })
-          //     }
-          //   >
-          //     <Text>View</Text>
-          //   </Pressable>
-          // </View>
+          <SavedContactItem
+            itemName={item.name}
+            itemID={item.id}
+            itemProfession={item.profession}
+          />
         )}
         ListEmptyComponent={
-          <>
-            <Text className="pt-80 self-center text-white text-2xl">
+          <View className="flex-1 justify-center items-center py-20">
+            <Text className="font-bold text-white text-2xl text-center mb-2">
               No saved contacts yet
             </Text>
-            <Text className="pb-92 self-center text-[#B3B3B3] text-lg">
+            <Text className="text-[#B3B3B3] text-lg text-center mb-6">
               Scan a Linkly QR to add one
             </Text>
-            <PrimaryButton
-              onPress={() => navigation.navigate("ScanQRScreen")}
-              text="Scan QR"
-              icon={ScanIcon}
-            />
-          </>
+            <View className="w-full bottom-0 absolute">
+              <PrimaryButton
+                onPress={() => navigation.navigate("ScanQRScreen")}
+                text="Scan QR"
+                icon={ScanIcon}
+              />
+            </View>
+          </View>
         }
       />
     </View>
