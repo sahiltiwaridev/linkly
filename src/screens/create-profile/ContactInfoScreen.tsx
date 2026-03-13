@@ -18,23 +18,13 @@ const phoneValidator = (value: string): string | null => {
 
 export default function ContactInfoScreen() {
   const navigation = useNavigation<any>();
-  const {
-    phone,
-    setPhone,
-    whatsapp,
-    setWhatsapp,
-    email,
-    setEmail,
-    resetAccount,
-  } = useAccount();
+  const { phone, setPhone, email, setEmail, resetAccount } = useAccount();
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
-  const [whatsappError, setWhatsappError] = useState<string | null>(null);
   const shortEmailError = emailError ? "Invalid email" : null;
   const shortPhoneError = phoneError ? "Invalid number" : null;
-  const shortWhatsappError = whatsappError ? "Invalid WhatsApp" : null;
 
-  const canProceed = !emailError && !phoneError && !whatsappError;
+  const canProceed = !emailError && !phoneError;
 
   const handleBack = useCallback(() => {
     resetAccount();
@@ -53,111 +43,69 @@ export default function ContactInfoScreen() {
   );
 
   return (
-    <View className="flex-1 p-5">
-      <KeyboardAwareScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingBottom: 100,
-        }}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        enableOnAndroid
-        enableAutomaticScroll
-        extraScrollHeight={120}
-        extraHeight={150}
-        enableResetScrollToCoords={false}
-      >
-        <View className="flex-1 justify-between">
-          <View className="gap-4">
-            <Header
-              currentScreenName={"Contact Info"}
-              backButtonProps={{ onPress: handleBack }}
-            />
+    <View className="p-5 h-full justify-between">
+      <View className="gap-4">
+        <Header
+          currentScreenName={"Contact Info"}
+          backButtonProps={{ onPress: handleBack }}
+        />
 
-            <View className="items-center">
-              <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center">
-                <ContactIcon width={50} height={50} fill="#4f8cff" />
-              </View>
-            </View>
-
-            <View className="gap-1">
-              <View className="flex-row items-center justify-between">
-                <Text className="text-white text-xl font-bold">Phone</Text>
-                {shortPhoneError && (
-                  <Text className="text-red-600 text-sm">
-                    {shortPhoneError}
-                  </Text>
-                )}
-              </View>
-              <PrimaryInput
-                value={phone}
-                onChangeText={(text) => {
-                  const digits = text.replace(/\D/g, "").slice(0, 10);
-                  setPhone(digits);
-                  setPhoneError(phoneValidator(digits));
-                }}
-                placeholder="e.g. 9876543210"
-                keyboardType="number-pad"
-                maxLength={10}
-              />
-            </View>
-
-            <View className="gap-1">
-              <View className="flex-row items-center justify-between">
-                <Text className="text-white text-xl font-bold">WhatsApp</Text>
-                {shortWhatsappError && (
-                  <Text className="text-red-600 text-sm">
-                    {shortWhatsappError}
-                  </Text>
-                )}
-              </View>
-              <PrimaryInput
-                value={whatsapp}
-                onChangeText={(text) => {
-                  const digits = text.replace(/\D/g, "").slice(0, 10);
-                  setWhatsapp(digits);
-                  setWhatsappError(phoneValidator(digits));
-                }}
-                placeholder="e.g. 9876543210"
-                keyboardType="number-pad"
-                maxLength={10}
-              />
-            </View>
-
-            <View className="gap-1">
-              <View className="flex-row items-center justify-between">
-                <Text className="text-white text-xl font-bold">Email</Text>
-                {shortEmailError && (
-                  <Text className="text-red-600 text-sm">
-                    {shortEmailError}
-                  </Text>
-                )}
-              </View>
-              <PrimaryInput
-                value={email}
-                onChangeText={(text) => {
-                  setEmail(text);
-                  setEmailError(userEmailValidator(text));
-                }}
-                placeholder="e.g. name@example.com"
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-            </View>
-          </View>
-
-          <View className="mt-8">
-            <PrimaryButton
-              icon={NextIcon}
-              text="Next"
-              disabled={!canProceed}
-              onPress={() => {
-                navigation.navigate("ProfileLinksScreen");
-              }}
-            />
+        <View className="items-center">
+          <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center">
+            <ContactIcon width={50} height={50} fill="#4f8cff" />
           </View>
         </View>
-      </KeyboardAwareScrollView>
+
+        <View className="gap-1">
+          <View className="flex-row items-center justify-between">
+            <Text className="text-white text-xl font-bold">Phone</Text>
+            {shortPhoneError && (
+              <Text className="text-red-600 text-sm">{shortPhoneError}</Text>
+            )}
+          </View>
+          <PrimaryInput
+            value={phone}
+            onChangeText={(text) => {
+              const digits = text.replace(/\D/g, "").slice(0, 10);
+              setPhone(digits);
+              setPhoneError(phoneValidator(digits));
+            }}
+            placeholder="e.g. 9876543210"
+            keyboardType="number-pad"
+            maxLength={10}
+          />
+        </View>
+
+        <View className="gap-1">
+          <View className="flex-row items-center justify-between">
+            <Text className="text-white text-xl font-bold">Email</Text>
+            {shortEmailError && (
+              <Text className="text-red-600 text-sm">{shortEmailError}</Text>
+            )}
+          </View>
+          <PrimaryInput
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+              setEmailError(userEmailValidator(text));
+            }}
+            placeholder="e.g. name@example.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+      </View>
+
+      <View className="mt-8">
+        <PrimaryButton
+          icon={NextIcon}
+          text="Next"
+          disabled={!canProceed}
+          onPress={() => {
+            navigation.navigate("ProfileLinksScreen");
+          }}
+        />
+      </View>
     </View>
   );
 }

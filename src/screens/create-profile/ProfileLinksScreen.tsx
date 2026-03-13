@@ -1,4 +1,4 @@
-import { useContext, useCallback } from "react";
+import { useContext, useCallback, useState } from "react";
 import { View, Text, BackHandler } from "react-native";
 import ContactIcon from "../../assets/icons/contacts.svg";
 import LockIcon from "../../assets/icons/secure.svg";
@@ -10,16 +10,18 @@ import userContext from "../../context/user/user.context";
 import { createUser } from "../../lib/storage/user.storage";
 import Header from "../../components/layout/Header";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import ConfirmModal from "../../components/modals/ConfirmModal";
 
 export default function ProfileLinksScreen() {
   const navigation = useNavigation<any>();
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+
   const {
     name,
     gender,
     profession,
     email,
     phone,
-    whatsapp,
     bio,
     userLinkFirst,
     setUserLinkFirst,
@@ -64,14 +66,12 @@ export default function ProfileLinksScreen() {
         profession,
         bio,
         phone,
-        whatsapp,
-
+        whatsapp: "", // Empty string for WhatsApp in create flow
         userLinkFirst,
         userLinkSecond,
         userLinkThird,
         userLinkFourth,
         userLinkFifth,
-
         userLinkTitleFirst,
         userLinkTitleSecond,
         userLinkTitleThird,
@@ -116,11 +116,12 @@ export default function ProfileLinksScreen() {
           urlPlaceholder="e.g. https://github.com/username"
         />
       </View>
+
       <View className="items-center gap-3">
         <PrimaryButton
           icon={SaveIcon}
           text="Save Profile"
-          onPress={saveUserData}
+          onPress={() => setShowSaveConfirm(true)}
         />
         <View className="flex-row items-center gap-1">
           <LockIcon width={12} height={12} fill={"#4f8cff"} />
@@ -129,8 +130,19 @@ export default function ProfileLinksScreen() {
           </Text>
         </View>
       </View>
+
+      <ConfirmModal
+        visible={showSaveConfirm}
+        title="Save Profile?"
+        message="Don't worry! You can always edit your details in the edit profile screen later."
+        confirmText="Save"
+        cancelText="Review"
+        onConfirm={() => {
+          setShowSaveConfirm(false);
+          saveUserData();
+        }}
+        onCancel={() => setShowSaveConfirm(false)}
+      />
     </View>
   );
 }
-
-
