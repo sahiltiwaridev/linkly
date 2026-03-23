@@ -3,14 +3,19 @@ import { useCallback } from "react";
 import Header from "../../components/layout/Header";
 import AboutIcon from "../../assets/icons/about.svg";
 import NextIcon from "../../assets/icons/next.svg";
-import { useAccount } from "../../context/account/AccountContextProvider";
+import { useAccountStore } from "../../store/accountStore";
 import PrimaryInput from "../../components/inputs/PrimaryInput";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 export default function AboutInfoScreen() {
   const navigation = useNavigation<any>();
-  const { profession, setProfession, bio, setBio, resetAccount } = useAccount();
+
+  const profession = useAccountStore((state:any) => state.profession);
+  const setProfession = useAccountStore((state:any) => state.setProfession);
+  const bio = useAccountStore((state:any) => state.bio);
+  const setBio = useAccountStore((state:any) => state.setBio);
+  const resetAccount = useAccountStore((state:any) => state.resetAccount);
 
   const handleBack = useCallback(() => {
     resetAccount();
@@ -27,6 +32,7 @@ export default function AboutInfoScreen() {
       return () => sub.remove();
     }, [handleBack]),
   );
+
   return (
     <View className="p-5 h-full justify-between">
       <View className="gap-4">
@@ -76,5 +82,3 @@ export default function AboutInfoScreen() {
     </View>
   );
 }
-
-

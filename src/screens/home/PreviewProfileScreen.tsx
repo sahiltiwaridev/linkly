@@ -61,12 +61,10 @@ export default function PreviewProfileScreen() {
           <Text className="text-white text-2xl font-bold text-center">
             Not a valid contact
           </Text>
-
           <Text className="text-[#B3B3B3] text-lg text-center">
             Please scan a valid Linkly QR code.
           </Text>
         </View>
-
         <PrimaryButton
           icon={ScanIcon}
           text="Scan Again"
@@ -90,12 +88,13 @@ export default function PreviewProfileScreen() {
 
   const phoneDigits = contact.phone?.replace(/\D/g, "") ?? "";
   const whatsappDigits = contact.whatsapp?.replace(/\D/g, "") ?? "";
+
   const profileLinks: UserLinkPair[] = [
-    { title: contact.userLinkTitleFirst, url: contact.userLinkFirst },
-    { title: contact.userLinkTitleSecond, url: contact.userLinkSecond },
-    { title: contact.userLinkTitleThird, url: contact.userLinkThird },
-    { title: contact.userLinkTitleFourth, url: contact.userLinkFourth },
-    { title: contact.userLinkTitleFifth, url: contact.userLinkFifth },
+    { title: contact.linkOneTitle, url: contact.linkOneUrl },
+    { title: contact.linkTwoTitle, url: contact.linkTwoUrl },
+    { title: contact.linkThreeTitle, url: contact.linkThreeUrl },
+    { title: contact.linkFourTitle, url: contact.linkFourUrl },
+    { title: contact.linkFiveTitle, url: contact.linkFiveUrl },
   ].filter((link) => link.title.trim() && link.url.trim());
 
   return (
@@ -133,7 +132,6 @@ export default function PreviewProfileScreen() {
                 phoneDigits && Linking.openURL(`tel:${phoneDigits}`)
               }
             />
-
             <SecondaryCard
               icon={WhatsappIcon}
               text="WhatsApp"
@@ -143,7 +141,6 @@ export default function PreviewProfileScreen() {
                 Linking.openURL(`https://wa.me/${whatsappDigits}`)
               }
             />
-
             <SecondaryCard
               icon={EmailIcon}
               text="Email"

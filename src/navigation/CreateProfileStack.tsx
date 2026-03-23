@@ -5,12 +5,12 @@ import BasicInfoScreen from "../screens/create-profile/BasicInfoScreen";
 import AboutInfoScreen from "../screens/create-profile/AboutInfoScreen";
 import ContactInfoScreen from "../screens/create-profile/ContactInfoScreen";
 import ProfileLinksScreen from "../screens/create-profile/ProfileLinksScreen";
-import { useAccount } from "../context/account/AccountContextProvider";
+import { useAccountStore } from "../store/accountStore";
 
 const Stack = createNativeStackNavigator();
 
 export default function CreateProfileStack() {
-  const { resetAccount } = useAccount();
+  const resetAccount = useAccountStore((state:any) => state.resetAccount);
 
   useEffect(() => {
     const sub = AppState.addEventListener("change", (state) => {

@@ -1,12 +1,6 @@
 import { BackHandler, Keyboard, View } from "react-native";
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
-import userContext from "../../context/user/user.context";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useUserStore } from "../../store/userStore";
 import Header from "../../components/layout/Header";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import DeleteIcon from "../../assets/icons/trash.svg";
@@ -33,6 +27,7 @@ import {
   hasDraftChanges,
   validateDraft,
 } from "./editProfile.helpers";
+import { useAccountStore } from "../../store/accountStore";
 
 export default function EditProfileScreen() {
   const navigation = useNavigation<any>();
@@ -44,11 +39,11 @@ export default function EditProfileScreen() {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [draft, setDraft] = useState<EditProfileDraft>(EMPTY_DRAFT);
 
-  const userCtx = useContext(userContext);
+  const setHasAccount = useUserStore((state) => state.setHasAccount);
+
   const { nameError, phoneError, whatsappError, emailError, linkError } =
     validateDraft(draft);
   const shortNameError = getShortNameError(nameError);
-
   const shortPhoneError = phoneError ? "Invalid number" : null;
   const shortWhatsappError = whatsappError ? "Invalid WhatsApp" : null;
   const shortEmailError = emailError ? "Invalid email" : null;
@@ -107,23 +102,22 @@ export default function EditProfileScreen() {
       hideSub.remove();
     };
   }, []);
+  const resetAccount = useAccountStore((state:any) => state.resetAccount);
 
   const handleDeleteProfile = () => {
     removeUser();
-    userCtx?.setHasAccount(false);
+    resetAccount();
+    setHasAccount(false);
     setShowConfirm(false);
   };
 
   useFocusEffect(
     useCallback(() => {
       const userData = getUser();
-      console.log("Loaded user data:", userData); // Debug log
 
       if (userData) {
         setUserProfile(userData);
-        const draftData = createDraftFromUser(userData);
-        console.log("Draft created:", draftData); // Debug log
-        setDraft(draftData);
+        setDraft(createDraftFromUser(userData));
       } else {
         setUserProfile(null);
         setDraft(EMPTY_DRAFT);
@@ -140,7 +134,6 @@ export default function EditProfileScreen() {
       const refreshed = getUser();
       setUserProfile(refreshed);
       setShowUpdateConfirm(false);
-      // Show success message or navigate back
       navigation.goBack();
     } catch {
       alert("Something went wrong! Please try again.");
@@ -202,40 +195,38 @@ export default function EditProfileScreen() {
             <EditProfileLinksSection
               links={[
                 {
-                  titleValue: draft.userLinkTitleFirst,
-                  urlValue: draft.userLinkFirst,
-                  onChangeTitle: (text) => setField("userLinkTitleFirst", text),
-                  onChangeUrl: (text) => setField("userLinkFirst", text),
+                  titleValue: draft.linkOneTitle,
+                  urlValue: draft.linkOneUrl,
+                  onChangeTitle: (text) => setField("linkOneTitle", text),
+                  onChangeUrl: (text) => setField("linkOneUrl", text),
                   urlPlaceholder: "e.g. https://instagram.com/username",
                 },
                 {
-                  titleValue: draft.userLinkTitleSecond,
-                  urlValue: draft.userLinkSecond,
-                  onChangeTitle: (text) =>
-                    setField("userLinkTitleSecond", text),
-                  onChangeUrl: (text) => setField("userLinkSecond", text),
+                  titleValue: draft.linkTwoTitle,
+                  urlValue: draft.linkTwoUrl,
+                  onChangeTitle: (text) => setField("linkTwoTitle", text),
+                  onChangeUrl: (text) => setField("linkTwoUrl", text),
                   urlPlaceholder: "e.g. https://github.com/username",
                 },
                 {
-                  titleValue: draft.userLinkTitleThird,
-                  urlValue: draft.userLinkThird,
-                  onChangeTitle: (text) => setField("userLinkTitleThird", text),
-                  onChangeUrl: (text) => setField("userLinkThird", text),
+                  titleValue: draft.linkThreeTitle,
+                  urlValue: draft.linkThreeUrl,
+                  onChangeTitle: (text) => setField("linkThreeTitle", text),
+                  onChangeUrl: (text) => setField("linkThreeUrl", text),
                   urlPlaceholder: "e.g. https://linkedin.com/in/username",
                 },
                 {
-                  titleValue: draft.userLinkTitleFourth,
-                  urlValue: draft.userLinkFourth,
-                  onChangeTitle: (text) =>
-                    setField("userLinkTitleFourth", text),
-                  onChangeUrl: (text) => setField("userLinkFourth", text),
+                  titleValue: draft.linkFourTitle,
+                  urlValue: draft.linkFourUrl,
+                  onChangeTitle: (text) => setField("linkFourTitle", text),
+                  onChangeUrl: (text) => setField("linkFourUrl", text),
                   urlPlaceholder: "e.g. https://x.com/username",
                 },
                 {
-                  titleValue: draft.userLinkTitleFifth,
-                  urlValue: draft.userLinkFifth,
-                  onChangeTitle: (text) => setField("userLinkTitleFifth", text),
-                  onChangeUrl: (text) => setField("userLinkFifth", text),
+                  titleValue: draft.linkFiveTitle,
+                  urlValue: draft.linkFiveUrl,
+                  onChangeTitle: (text) => setField("linkFiveTitle", text),
+                  onChangeUrl: (text) => setField("linkFiveUrl", text),
                   urlPlaceholder: "e.g. https://your-website.com",
                 },
               ]}

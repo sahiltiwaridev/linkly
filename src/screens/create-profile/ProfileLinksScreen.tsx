@@ -1,12 +1,12 @@
-import { useContext, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { View, Text, BackHandler } from "react-native";
 import ContactIcon from "../../assets/icons/contacts.svg";
 import LockIcon from "../../assets/icons/secure.svg";
 import SaveIcon from "../../assets/icons/save.svg";
-import { useAccount } from "../../context/account/AccountContextProvider";
+import { useAccountStore } from "../../store/accountStore";
+import { useUserStore } from "../../store/userStore";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import UserLinkInput from "../../components/inputs/UserLinkInput";
-import userContext from "../../context/user/user.context";
 import { createUser } from "../../lib/storage/user.storage";
 import Header from "../../components/layout/Header";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -16,30 +16,53 @@ export default function ProfileLinksScreen() {
   const navigation = useNavigation<any>();
   const [showSaveConfirm, setShowSaveConfirm] = useState(false);
 
-  const {
-    name,
-    gender,
-    profession,
-    email,
-    phone,
-    bio,
-    userLinkFirst,
-    setUserLinkFirst,
-    userLinkSecond,
-    setUserLinkSecond,
-    userLinkThird,
-    userLinkTitleFirst,
-    setUserLinkTitleFirst,
-    userLinkTitleSecond,
-    setUserLinkTitleSecond,
-    userLinkTitleThird,
-    userLinkFourth,
-    userLinkFifth,
-    userLinkTitleFourth,
-    userLinkTitleFifth,
-    resetAccount,
-  } = useAccount();
-  const { setHasAccount } = useContext(userContext)!;
+  const name = useAccountStore((state: any) => state.name);
+  const gender = useAccountStore((state: any) => state.gender);
+  const profession = useAccountStore((state: any) => state.profession);
+  const bio = useAccountStore((state: any) => state.bio);
+  const email = useAccountStore((state: any) => state.email);
+  const phone = useAccountStore((state: any) => state.phone);
+  const whatsapp = useAccountStore((state: any) => state.whatsapp);
+
+  const linkOneUrl = useAccountStore((state: any) => state.linkOneUrl);
+  const setLinkOneUrl = useAccountStore((state: any) => state.setLinkOneUrl);
+  const linkOneTitle = useAccountStore((state: any) => state.linkOneTitle);
+  const setLinkOneTitle = useAccountStore(
+    (state: any) => state.setLinkOneTitle,
+  );
+
+  const linkTwoUrl = useAccountStore((state: any) => state.linkTwoUrl);
+  const setLinkTwoUrl = useAccountStore((state: any) => state.setLinkTwoUrl);
+  const linkTwoTitle = useAccountStore((state: any) => state.linkTwoTitle);
+  const setLinkTwoTitle = useAccountStore(
+    (state: any) => state.setLinkTwoTitle,
+  );
+
+  const linkThreeUrl = useAccountStore((state: any) => state.linkThreeUrl);
+  const setLinkThreeUrl = useAccountStore(
+    (state: any) => state.setLinkThreeUrl,
+  );
+  const linkThreeTitle = useAccountStore((state: any) => state.linkThreeTitle);
+  const setLinkThreeTitle = useAccountStore(
+    (state: any) => state.setLinkThreeTitle,
+  );
+
+  const linkFourUrl = useAccountStore((state: any) => state.linkFourUrl);
+  const setLinkFourUrl = useAccountStore((state: any) => state.setLinkFourUrl);
+  const linkFourTitle = useAccountStore((state: any) => state.linkFourTitle);
+  const setLinkFourTitle = useAccountStore(
+    (state: any) => state.setLinkFourTitle,
+  );
+
+  const linkFiveUrl = useAccountStore((state: any) => state.linkFiveUrl);
+  const setLinkFiveUrl = useAccountStore((state: any) => state.setLinkFiveUrl);
+  const linkFiveTitle = useAccountStore((state: any) => state.linkFiveTitle);
+  const setLinkFiveTitle = useAccountStore(
+    (state: any) => state.setLinkFiveTitle,
+  );
+
+  const resetAccount = useAccountStore((state: any) => state.resetAccount);
+  const setHasAccount = useUserStore((state: any) => state.setHasAccount);
 
   const handleBack = useCallback(() => {
     resetAccount();
@@ -66,17 +89,17 @@ export default function ProfileLinksScreen() {
         profession,
         bio,
         phone,
-        whatsapp: "", // Empty string for WhatsApp in create flow
-        userLinkFirst,
-        userLinkSecond,
-        userLinkThird,
-        userLinkFourth,
-        userLinkFifth,
-        userLinkTitleFirst,
-        userLinkTitleSecond,
-        userLinkTitleThird,
-        userLinkTitleFourth,
-        userLinkTitleFifth,
+        whatsapp,
+        linkOneUrl,
+        linkOneTitle,
+        linkTwoUrl,
+        linkTwoTitle,
+        linkThreeUrl,
+        linkThreeTitle,
+        linkFourUrl,
+        linkFourTitle,
+        linkFiveUrl,
+        linkFiveTitle,
       });
       setHasAccount(true);
     } catch {
@@ -100,18 +123,18 @@ export default function ProfileLinksScreen() {
           Share any other platforms?
         </Text>
         <UserLinkInput
-          titleValue={userLinkTitleFirst}
-          urlValue={userLinkFirst}
-          onChangeTitle={setUserLinkTitleFirst}
-          onChangeUrl={setUserLinkFirst}
+          titleValue={linkOneTitle}
+          urlValue={linkOneUrl}
+          onChangeTitle={setLinkOneTitle}
+          onChangeUrl={setLinkOneUrl}
           titlePlaceholder="Link title"
           urlPlaceholder="e.g. https://instagram.com/username"
         />
         <UserLinkInput
-          titleValue={userLinkTitleSecond}
-          urlValue={userLinkSecond}
-          onChangeTitle={setUserLinkTitleSecond}
-          onChangeUrl={setUserLinkSecond}
+          titleValue={linkTwoTitle}
+          urlValue={linkTwoUrl}
+          onChangeTitle={setLinkTwoTitle}
+          onChangeUrl={setLinkTwoUrl}
           titlePlaceholder="Link title"
           urlPlaceholder="e.g. https://github.com/username"
         />

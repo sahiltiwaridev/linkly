@@ -1,19 +1,17 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import userContext from "../context/user/user.context";
+import { useUserStore } from "../store/userStore";
 import OnboardingStack from "./OnboardingStack";
 import HomeStack from "./HomeStack";
 
 const Stack = createNativeStackNavigator();
 
 export default function RootStack() {
-  const userCtx = useContext(userContext);
+  const { hasAccount, isUserInitialized, initialize } = useUserStore();
 
-  if (!userCtx) {
-    throw new Error("RootStack must be wrapped in UserContextProvider");
-  }
-
-  const { hasAccount, isUserInitialized } = userCtx;
+  useEffect(() => {
+    initialize();
+  }, []);
 
   if (!isUserInitialized) return null;
 

@@ -3,7 +3,7 @@ import Header from "../../components/layout/Header";
 import ContactIcon from "../../assets/icons/contacts.svg";
 import NextIcon from "../../assets/icons/next.svg";
 import PrimaryInput from "../../components/inputs/PrimaryInput";
-import { useAccount } from "../../context/account/AccountContextProvider";
+import { useAccountStore } from "../../store/accountStore";
 import { userEmailValidator } from "../../lib/validation/user.validators";
 import { useState, useCallback } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
@@ -18,7 +18,13 @@ const phoneValidator = (value: string): string | null => {
 
 export default function ContactInfoScreen() {
   const navigation = useNavigation<any>();
-  const { phone, setPhone, email, setEmail, resetAccount } = useAccount();
+
+  const phone = useAccountStore((state:any) => state.phone);
+  const setPhone = useAccountStore((state:any) => state.setPhone);
+  const email = useAccountStore((state:any) => state.email);
+  const setEmail = useAccountStore((state:any) => state.setEmail);
+  const resetAccount = useAccountStore((state:any) => state.resetAccount);
+
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const shortEmailError = emailError ? "Invalid email" : null;

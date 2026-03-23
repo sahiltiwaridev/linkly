@@ -6,21 +6,30 @@ import MaleIcon from "../../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../../assets/avatar/female-avatar.svg";
 import NextIcon from "../../assets/icons/next.svg";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { useAccount } from "../../context/account/AccountContextProvider";
+import { useAccountStore } from "../../store/accountStore";
 import PrimaryInput from "../../components/inputs/PrimaryInput";
 import { userNameValidator } from "../../lib/validation/user.validators";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
+import { Gender } from "../../types/user.types";
 
 export default function BasicInfoScreen() {
   const navigation = useNavigation<any>();
-  const { name, setName, gender, setGender, resetAccount } = useAccount();
+
+  const name = useAccountStore((state: any) => state.name);
+  const setName = useAccountStore((state: any) => state.setName);
+  const gender = useAccountStore((state: any) => state.gender);
+  const setGender = useAccountStore((state: any) => state.setGender);
+  const resetAccount = useAccountStore((state: any) => state.resetAccount);
+
   const [nameError, setNameError] = useState<string | null>(null);
+
   const iconMap = {
     male: MaleIcon,
     female: FemaleIcon,
     neutral: NutralIcon,
   };
-  const SelectedIcon = iconMap[gender];
+
+  const SelectedIcon = iconMap[gender as Gender];
   const canProceed = !nameError && name.length > 0;
   const shortNameError = !nameError
     ? null
@@ -114,5 +123,3 @@ export default function BasicInfoScreen() {
     </View>
   );
 }
-
-

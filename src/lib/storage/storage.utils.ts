@@ -17,17 +17,17 @@ const sanitizeUserFields = (user: StoredUser): StoredUser => {
     profession: normalizeText(user.profession),
     bio: normalizeText(user.bio),
 
-    userLinkFirst: normalizeText(user.userLinkFirst),
-    userLinkSecond: normalizeText(user.userLinkSecond),
-    userLinkThird: normalizeText(user.userLinkThird),
-    userLinkFourth: normalizeText(user.userLinkFourth),
-    userLinkFifth: normalizeText(user.userLinkFifth),
+    linkOneUrl: normalizeText(user.linkOneUrl),
+    linkTwoUrl: normalizeText(user.linkTwoUrl),
+    linkThreeUrl: normalizeText(user.linkThreeUrl),
+    linkFourUrl: normalizeText(user.linkFourUrl),
+    linkFiveUrl: normalizeText(user.linkFiveUrl),
 
-    userLinkTitleFirst: normalizeText(user.userLinkTitleFirst),
-    userLinkTitleSecond: normalizeText(user.userLinkTitleSecond),
-    userLinkTitleThird: normalizeText(user.userLinkTitleThird),
-    userLinkTitleFourth: normalizeText(user.userLinkTitleFourth),
-    userLinkTitleFifth: normalizeText(user.userLinkTitleFifth),
+    linkOneTitle: normalizeText(user.linkOneTitle),
+    linkTwoTitle: normalizeText(user.linkTwoTitle),
+    linkThreeTitle: normalizeText(user.linkThreeTitle),
+    linkFourTitle: normalizeText(user.linkFourTitle),
+    linkFiveTitle: normalizeText(user.linkFiveTitle),
   };
 };
 

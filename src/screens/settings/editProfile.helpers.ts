@@ -12,16 +12,16 @@ export type EditProfileDraft = {
   phone: string;
   whatsapp: string;
   email: string;
-  userLinkFirst: string;
-  userLinkSecond: string;
-  userLinkThird: string;
-  userLinkFourth: string;
-  userLinkFifth: string;
-  userLinkTitleFirst: string;
-  userLinkTitleSecond: string;
-  userLinkTitleThird: string;
-  userLinkTitleFourth: string;
-  userLinkTitleFifth: string;
+  linkOneUrl: string;
+  linkOneTitle: string;
+  linkTwoUrl: string;
+  linkTwoTitle: string;
+  linkThreeUrl: string;
+  linkThreeTitle: string;
+  linkFourUrl: string;
+  linkFourTitle: string;
+  linkFiveUrl: string;
+  linkFiveTitle: string;
 };
 
 export const EMPTY_DRAFT: EditProfileDraft = {
@@ -32,16 +32,16 @@ export const EMPTY_DRAFT: EditProfileDraft = {
   phone: "",
   whatsapp: "",
   email: "",
-  userLinkFirst: "",
-  userLinkSecond: "",
-  userLinkThird: "",
-  userLinkFourth: "",
-  userLinkFifth: "",
-  userLinkTitleFirst: "",
-  userLinkTitleSecond: "",
-  userLinkTitleThird: "",
-  userLinkTitleFourth: "",
-  userLinkTitleFifth: "",
+  linkOneUrl: "",
+  linkOneTitle: "",
+  linkTwoUrl: "",
+  linkTwoTitle: "",
+  linkThreeUrl: "",
+  linkThreeTitle: "",
+  linkFourUrl: "",
+  linkFourTitle: "",
+  linkFiveUrl: "",
+  linkFiveTitle: "",
 };
 
 export const phoneValidator = (value: string): string | null => {
@@ -64,11 +64,11 @@ export const validateDraft = (draft: EditProfileDraft) => {
   const whatsappError = phoneValidator(draft.whatsapp);
   const emailError = userEmailValidator(draft.email);
   const linkError =
-    hasLinkPairError(draft.userLinkTitleFirst, draft.userLinkFirst) ||
-    hasLinkPairError(draft.userLinkTitleSecond, draft.userLinkSecond) ||
-    hasLinkPairError(draft.userLinkTitleThird, draft.userLinkThird) ||
-    hasLinkPairError(draft.userLinkTitleFourth, draft.userLinkFourth) ||
-    hasLinkPairError(draft.userLinkTitleFifth, draft.userLinkFifth);
+    hasLinkPairError(draft.linkOneTitle, draft.linkOneUrl) ||
+    hasLinkPairError(draft.linkTwoTitle, draft.linkTwoUrl) ||
+    hasLinkPairError(draft.linkThreeTitle, draft.linkThreeUrl) ||
+    hasLinkPairError(draft.linkFourTitle, draft.linkFourUrl) ||
+    hasLinkPairError(draft.linkFiveTitle, draft.linkFiveUrl);
 
   return { nameError, phoneError, whatsappError, emailError, linkError };
 };
@@ -91,16 +91,16 @@ export const createDraftFromUser = (user: UserData): EditProfileDraft => {
     phone: user.phone || "",
     whatsapp: user.whatsapp || "",
     email: user.email || "",
-    userLinkFirst: user.userLinkFirst || "",
-    userLinkSecond: user.userLinkSecond || "",
-    userLinkThird: user.userLinkThird || "",
-    userLinkFourth: user.userLinkFourth || "",
-    userLinkFifth: user.userLinkFifth || "",
-    userLinkTitleFirst: user.userLinkTitleFirst || "",
-    userLinkTitleSecond: user.userLinkTitleSecond || "",
-    userLinkTitleThird: user.userLinkTitleThird || "",
-    userLinkTitleFourth: user.userLinkTitleFourth || "",
-    userLinkTitleFifth: user.userLinkTitleFifth || "",
+    linkOneUrl: user.linkOneUrl || "",
+    linkOneTitle: user.linkOneTitle || "",
+    linkTwoUrl: user.linkTwoUrl || "",
+    linkTwoTitle: user.linkTwoTitle || "",
+    linkThreeUrl: user.linkThreeUrl || "",
+    linkThreeTitle: user.linkThreeTitle || "",
+    linkFourUrl: user.linkFourUrl || "",
+    linkFourTitle: user.linkFourTitle || "",
+    linkFiveUrl: user.linkFiveUrl || "",
+    linkFiveTitle: user.linkFiveTitle || "",
   };
 };
 

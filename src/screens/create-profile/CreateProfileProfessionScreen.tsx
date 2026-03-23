@@ -1,26 +1,17 @@
 import { Text, View } from "react-native";
-import React from "react";
 import PrimaryInput from "../../components/inputs/PrimaryInput";
-import { useAccount } from "../../context/account/AccountContextProvider";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useAccountStore } from "../../store/accountStore";
 import { useNavigation } from "@react-navigation/native";
 import NextIcon from "../../assets/icons/next.svg";
 import JobIcon from "../../assets/icons/job.svg";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 
-type RootStackParamList = {
-  CreateProfileGenderScreen: undefined;
-  CreateProfileEmailScreen: undefined;
-};
-
-type NavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  "CreateProfileGenderScreen"
->;
-
 export default function CreateProfileProfessionScreen() {
-  const navigation = useNavigation<NavigationProp>();
-  const { profession, setProfession } = useAccount();
+  const navigation = useNavigation<any>();
+
+  const profession = useAccountStore((state:any) => state.profession);
+  const setProfession = useAccountStore((state:any) => state.setProfession);
+
   return (
     <View className="h-full w-full p-5 justify-between">
       <View className="w-full gap-5 items-center">
@@ -40,10 +31,9 @@ export default function CreateProfileProfessionScreen() {
         icon={NextIcon}
         text="Next"
         onPress={() => {
-          navigation.navigate("CreateProfileEmailScreen");
+          navigation.navigate("ContactInfoScreen");
         }}
       />
     </View>
   );
 }
-

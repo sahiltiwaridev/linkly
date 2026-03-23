@@ -8,16 +8,18 @@ export type UserData = {
   bio: string;
   phone: string;
   whatsapp: string;
-  userLinkFirst: string;
-  userLinkSecond: string;
-  userLinkThird: string;
-  userLinkFourth: string;
-  userLinkFifth: string;
-  userLinkTitleFirst: string;
-  userLinkTitleSecond: string;
-  userLinkTitleThird: string;
-  userLinkTitleFourth: string;
-  userLinkTitleFifth: string;
+
+  linkOneUrl: string;
+  linkTwoUrl: string;
+  linkThreeUrl: string;
+  linkFourUrl: string;
+  linkFiveUrl: string;
+
+  linkOneTitle: string;
+  linkTwoTitle: string;
+  linkThreeTitle: string;
+  linkFourTitle: string;
+  linkFiveTitle: string;
 };
 
 export type Contact = UserData & {

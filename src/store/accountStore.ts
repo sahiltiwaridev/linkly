@@ -1,13 +1,14 @@
 import { create } from "zustand";
-import { Gender } from "../types/user.types";
+import { Gender, UserData } from "../types/user.types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: UserData = {
   name: "",
   gender: "neutral" as Gender,
   profession: "",
   bio: "",
   phone: "",
   email: "",
+  whatsapp: "",
   linkOneUrl: "",
   linkOneTitle: "",
   linkTwoUrl: "",
@@ -29,16 +30,18 @@ export const useAccountStore = create((set) => ({
   setBio: (bio: string) => set({ bio }),
   setPhone: (phone: string) => set({ phone }),
   setEmail: (email: string) => set({ email }),
+  setWhatsapp: (whatsapp: string) => set({ whatsapp }),
 
   setLinkOneUrl: (linkOneUrl: string) => set({ linkOneUrl }),
-  setLinkOneTitle: (linkOneTitle: string) => set({ linkOneTitle }),
   setLinkTwoUrl: (linkTwoUrl: string) => set({ linkTwoUrl }),
-  setLinkTwoTitle: (linkTwoTitle: string) => set({ linkTwoTitle }),
   setLinkThreeUrl: (linkThreeUrl: string) => set({ linkThreeUrl }),
-  setLinkThreeTitle: (linkThreeTitle: string) => set({ linkThreeTitle }),
   setLinkFourUrl: (linkFourUrl: string) => set({ linkFourUrl }),
-  setLinkFourTitle: (linkFourTitle: string) => set({ linkFourTitle }),
   setLinkFiveUrl: (linkFiveUrl: string) => set({ linkFiveUrl }),
+
+  setLinkOneTitle: (linkOneTitle: string) => set({ linkOneTitle }),
+  setLinkTwoTitle: (linkTwoTitle: string) => set({ linkTwoTitle }),
+  setLinkThreeTitle: (linkThreeTitle: string) => set({ linkThreeTitle }),
+  setLinkFourTitle: (linkFourTitle: string) => set({ linkFourTitle }),
   setLinkFiveTitle: (linkFiveTitle: string) => set({ linkFiveTitle }),
 
   resetAccount: () => set(INITIAL_STATE),

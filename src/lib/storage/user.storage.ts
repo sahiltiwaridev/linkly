@@ -2,7 +2,7 @@ import { getStorage } from "./storage.mmkv";
 import { STORAGE_KEYS } from "./storage.keys";
 import { deserializeUserData, serializeUserData } from "./storage.utils";
 import { initializeContactsStorage } from "./contacts.storage";
-import { Contact, UserData } from "../../types/user.types";
+import { UserData } from "../../types/user.types";
 
 export type { UserData, Contact } from "../../types/user.types";
 
@@ -17,16 +17,16 @@ export const createUser = (user: UserData) => {
     whatsapp: user.whatsapp || "",
     profession: user.profession || "",
     bio: user.bio || "",
-    userLinkFirst: user.userLinkFirst || "",
-    userLinkSecond: user.userLinkSecond || "",
-    userLinkThird: user.userLinkThird || "",
-    userLinkFourth: user.userLinkFourth || "",
-    userLinkFifth: user.userLinkFifth || "",
-    userLinkTitleFirst: user.userLinkTitleFirst || "",
-    userLinkTitleSecond: user.userLinkTitleSecond || "",
-    userLinkTitleThird: user.userLinkTitleThird || "",
-    userLinkTitleFourth: user.userLinkTitleFourth || "",
-    userLinkTitleFifth: user.userLinkTitleFifth || "",
+    linkOneUrl: user.linkOneUrl || "",
+    linkTwoUrl: user.linkTwoUrl || "",
+    linkThreeUrl: user.linkThreeUrl || "",
+    linkFourUrl: user.linkFourUrl || "",
+    linkFiveUrl: user.linkFiveUrl || "",
+    linkOneTitle: user.linkOneTitle || "",
+    linkTwoTitle: user.linkTwoTitle || "",
+    linkThreeTitle: user.linkThreeTitle || "",
+    linkFourTitle: user.linkFourTitle || "",
+    linkFiveTitle: user.linkFiveTitle || "",
   });
 
   storage.set(STORAGE_KEYS.USER_PROFILE, userString);
@@ -44,16 +44,16 @@ export const updateUser = (user: UserData) => {
     whatsapp: user.whatsapp || "",
     profession: user.profession || "",
     bio: user.bio || "",
-    userLinkFirst: user.userLinkFirst || "",
-    userLinkSecond: user.userLinkSecond || "",
-    userLinkThird: user.userLinkThird || "",
-    userLinkFourth: user.userLinkFourth || "",
-    userLinkFifth: user.userLinkFifth || "",
-    userLinkTitleFirst: user.userLinkTitleFirst || "",
-    userLinkTitleSecond: user.userLinkTitleSecond || "",
-    userLinkTitleThird: user.userLinkTitleThird || "",
-    userLinkTitleFourth: user.userLinkTitleFourth || "",
-    userLinkTitleFifth: user.userLinkTitleFifth || "",
+    linkOneUrl: user.linkOneUrl || "",
+    linkTwoUrl: user.linkTwoUrl || "",
+    linkThreeUrl: user.linkThreeUrl || "",
+    linkFourUrl: user.linkFourUrl || "",
+    linkFiveUrl: user.linkFiveUrl || "",
+    linkOneTitle: user.linkOneTitle || "",
+    linkTwoTitle: user.linkTwoTitle || "",
+    linkThreeTitle: user.linkThreeTitle || "",
+    linkFourTitle: user.linkFourTitle || "",
+    linkFiveTitle: user.linkFiveTitle || "",
   });
 
   storage.set(STORAGE_KEYS.USER_PROFILE, userString);
