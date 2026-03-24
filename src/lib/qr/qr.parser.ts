@@ -8,29 +8,22 @@ import { encryptQR, decryptQR } from "./qr.crypto";
 
 const QR_PREFIX = "LINKLY_V1:";
 
-export const generateUserQRPayload = async (): Promise<string | null> => {
+// qr.parser.ts
+export const generateUserQRPayload = (): string | null => {
   const user = getUser();
   if (!user) return null;
   const serialized = serializeUserData(user);
-  const encrypted = await encryptQR(serialized);
-  return `${QR_PREFIX}${encrypted}`;
+  return `${QR_PREFIX}${serialized}`;
 };
 
-export const decodeUserQRPayload = async (
-  payload: string | null,
-): Promise<UserData | null> => {
+export const decodeUserQRPayload = (payload: string | null): UserData | null => {
   if (!payload) return null;
-
   const normalizedPayload = payload.trim();
-  const encrypted = normalizedPayload.startsWith(QR_PREFIX)
+  const data = normalizedPayload.startsWith(QR_PREFIX)
     ? normalizedPayload.slice(QR_PREFIX.length)
     : normalizedPayload;
-
-  const decrypted = await decryptQR(encrypted);
-  if (!decrypted) return null;
-
   try {
-    const parsed = deserializeUserData(decrypted);
+    const parsed = deserializeUserData(data);
     if (!parsed?.name) return null;
     return parsed;
   } catch {

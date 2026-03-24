@@ -24,8 +24,8 @@ export default function MyQRScreen() {
     useCallback(() => {
       let active = true;
 
-      const hydrateQR = async () => {
-        const payload = await generateUserQRPayload();
+      const hydrateQR = () => {
+        const payload = generateUserQRPayload();
         if (!active) return;
 
         setQrPayload(payload);
@@ -34,7 +34,7 @@ export default function MyQRScreen() {
           return;
         }
 
-        const decoded = await decodeUserQRPayload(payload);
+        const decoded = decodeUserQRPayload(payload);
         if (!active) return;
         setUserData(decoded);
       };
@@ -86,11 +86,19 @@ export default function MyQRScreen() {
           <Text className="text-[#B3B3B3] text-xl">{userData?.profession}</Text>
         </View>
       </View>
-      <View className="h-96 w-90 justify-center items-center bg-[#1A1A1A] rounded-2xl gap-3">
-        <QRCode value={qrPayload} size={280} />
-        <View className="flex-row justify-center items-center gap-3">
+      <View className="h-96 w-90 justify-center items-center rounded-2xl gap-3">
+        <View className="bg-white p-4 rounded-2xl">
+          <QRCode
+            value={qrPayload}
+            size={260}
+            backgroundColor="white"
+            color="black"
+          />
+        </View>
+
+        <View className="flex-row justify-center items-center gap-2 opacity-80">
           <LockIcon width={12} height={12} fill={"#4f8cff"} />
-          <Text className="text-[#B3B3B3]">Offline & Secure</Text>
+          <Text className="text-[#B3B3B3] text-sm">Offline & Secure</Text>
         </View>
       </View>
       <PrimaryButton

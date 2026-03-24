@@ -15,7 +15,7 @@ export default function SavedContactItem({
 }: SavedContactItemProps) {
   const navigation = useNavigation<any>();
   return (
-    <View className="w-full flex-row justify-between bg-[#1A1A1A] p-3 items-center rounded-xl">
+    <View className="w-full flex-row justify-between bg-[#1A1A1A] p-3 mb-3 items-center rounded-xl">
       <View>
         <Text className="text-white font-bold text-xl">{itemName}</Text>
         <Text className="text-[#b3b3b3] text-lg">

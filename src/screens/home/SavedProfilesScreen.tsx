@@ -8,7 +8,6 @@ import { Contact } from "../../types/user.types";
 import NoSavedContact from "../../components/layout/EmptyContactsState";
 
 export default function SavedProfilesScreen() {
-  const navigation = useNavigation<any>();
   const [allContacts, setAllContacts] = useState<Contact[]>([]);
 
   useFocusEffect(
@@ -20,7 +19,9 @@ export default function SavedProfilesScreen() {
 
   return (
     <View className="flex-1 p-5">
-      <Header currentScreenName={"Saved Contacts"} />
+      <View className="w-full pb-14">
+        <Header currentScreenName={"Saved Contacts"} />
+      </View>
 
       <FlatList
         data={allContacts}

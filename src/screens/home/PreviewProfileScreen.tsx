@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Linking } from "react-native";
+import { View, Text, Pressable, Linking, ScrollView } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { addContact, deleteContact } from "../../lib/storage/contacts.storage";
@@ -23,7 +23,12 @@ import { UserLinkPair } from "../../types/link.types";
 export default function PreviewProfileScreen() {
   const navigation = useNavigation<any>();
   const route =
-    useRoute<RouteProp<{ PreviewProfileScreen: PreviewProfileRouteParams }, "PreviewProfileScreen">>();
+    useRoute<
+      RouteProp<
+        { PreviewProfileScreen: PreviewProfileRouteParams },
+        "PreviewProfileScreen"
+      >
+    >();
   const [isResolvingSource, setIsResolvingSource] = useState(true);
   const [source, setSource] = useState<PreviewProfileResult | null>(null);
 
@@ -98,67 +103,74 @@ export default function PreviewProfileScreen() {
   ].filter((link) => link.title.trim() && link.url.trim());
 
   return (
-    <View className="p-5 h-full justify-between">
-      <View className="items-center">
-        <View className="pb-10 w-full">
-          <Header currentScreenName={"Profile Preview"} />
-        </View>
+    <View className="flex-1 p-5">
+      <Header currentScreenName={"Profile Preview"} />
 
-        <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
-          {SelectedIcon && (
-            <SelectedIcon width={70} height={70} fill="#4f8cff" />
-          )}
-        </View>
-
-        <Text className="text-white text-2xl font-bold">{contact.name}</Text>
-
-        {contact.profession && (
-          <Text className="text-[#B3B3B3] text-lg font-semibold">
-            {contact.profession}
-          </Text>
-        )}
-
-        {contact.bio && (
-          <Text className="text-white text-center mt-2">{contact.bio}</Text>
-        )}
-
-        <View className="gap-3 w-full items-center mt-6">
-          <View className="w-full justify-between items-center flex-row">
-            <SecondaryCard
-              icon={CalllIcon}
-              text="Call"
-              disabled={!phoneDigits}
-              onPress={() =>
-                phoneDigits && Linking.openURL(`tel:${phoneDigits}`)
-              }
-            />
-            <SecondaryCard
-              icon={WhatsappIcon}
-              text="WhatsApp"
-              disabled={!whatsappDigits}
-              onPress={() =>
-                whatsappDigits &&
-                Linking.openURL(`https://wa.me/${whatsappDigits}`)
-              }
-            />
-            <SecondaryCard
-              icon={EmailIcon}
-              text="Email"
-              disabled={!contact.email}
-              onPress={() =>
-                contact.email && Linking.openURL(`mailto:${contact.email}`)
-              }
-            />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingVertical: 20 }}
+      >
+        <View className="items-center">
+          <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
+            {SelectedIcon && (
+              <SelectedIcon width={70} height={70} fill="#4f8cff" />
+            )}
           </View>
 
-          <View className="w-full rounded-2xl h-1 bg-[#1A1A1A]" />
-          {profileLinks.map((link) => (
-            <LinkItem key={`${link.title}-${link.url}`} title={link.title} url={link.url} />
-          ))}
-        </View>
-      </View>
+          <Text className="text-white text-2xl font-bold">{contact.name}</Text>
 
-      <View>
+          {contact.profession && (
+            <Text className="text-[#B3B3B3] text-lg font-semibold">
+              {contact.profession}
+            </Text>
+          )}
+
+          {contact.bio && (
+            <Text className="text-white text-center mt-2">{contact.bio}</Text>
+          )}
+
+          <View className="gap-3 w-full items-center mt-6">
+            <View className="w-full justify-between items-center flex-row">
+              <SecondaryCard
+                icon={CalllIcon}
+                text="Call"
+                disabled={!phoneDigits}
+                onPress={() =>
+                  phoneDigits && Linking.openURL(`tel:${phoneDigits}`)
+                }
+              />
+              <SecondaryCard
+                icon={WhatsappIcon}
+                text="WhatsApp"
+                disabled={!whatsappDigits}
+                onPress={() =>
+                  whatsappDigits &&
+                  Linking.openURL(`https://wa.me/${whatsappDigits}`)
+                }
+              />
+              <SecondaryCard
+                icon={EmailIcon}
+                text="Email"
+                disabled={!contact.email}
+                onPress={() =>
+                  contact.email && Linking.openURL(`mailto:${contact.email}`)
+                }
+              />
+            </View>
+
+            <View className="w-full rounded-2xl h-1 bg-[#1A1A1A]" />
+            {profileLinks.map((link) => (
+              <LinkItem
+                key={`${link.title}-${link.url}`}
+                title={link.title}
+                url={link.url}
+              />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+
+      <View className="pt-3">
         {isScannedFlow && (
           <Pressable
             onPress={() => {
