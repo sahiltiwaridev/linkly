@@ -1,11 +1,12 @@
 import { View, Text, Pressable } from "react-native";
-import { CameraView } from "expo-camera";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { useQRScanner } from "../../lib/qr/qr.scanner";
 import { useEffect, useState, useCallback } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import NoCameraIcon from "../../assets/icons/no-camera.svg";
 import RequestingCameraIcon from "../../assets/icons/requesting.svg";
 import CloseIcon from "../../assets/icons/close.svg";
+import Header from "../../components/layout/Header";
 
 function AnimatedDots() {
   const [dots, setDots] = useState("");
@@ -30,13 +31,12 @@ function AnimatedDots() {
 
 export default function QRScannerView() {
   const navigation = useNavigation<any>();
-  const { permission, isScanLocked, handleQRCodeScanned, resetScan } =
-    useQRScanner();
+  const { isScanLocked, handleQRCodeScanned, resetScan } = useQRScanner();
   const [scannedData, setScannedData] = useState<string | null>(null);
+  const [permission, requestPermission] = useCameraPermissions();
 
   useEffect(() => {
     if (!scannedData) return;
-
     navigation.navigate("PreviewProfileScreen", {
       result: scannedData,
     });
@@ -48,6 +48,45 @@ export default function QRScannerView() {
       resetScan();
     }, [resetScan]),
   );
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!permission?.granted) {
+        requestPermission();
+      }
+    }, [permission]),
+  );
+
+  if (!permission) {
+    return (
+      <View className="flex-1 p-5">
+        <Header currentScreenName="Scan QR" />
+        <View className="flex-1 items-center justify-center gap-3">
+          <RequestingCameraIcon width={72} height={72} fill="#4f8cff" />
+          <Text className="text-white font-semibold text-2xl">
+            Requesting permission...
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  if (!permission.granted) {
+    return (
+      <View className="flex-1 p-5">
+        <Header currentScreenName="Scan QR" />
+        <View className="flex-1 items-center justify-center gap-3">
+          <NoCameraIcon width={72} height={72} fill="#4f8cff" />
+          <Text className="text-white font-semibold text-2xl">
+            Camera permission denied
+          </Text>
+          <Text className="text-[#B3B3B3] text-lg text-center">
+            Grant camera access from settings to use the scanner.
+          </Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View className="flex-1">
@@ -64,7 +103,7 @@ export default function QRScannerView() {
 
       <Pressable
         onPress={() => navigation.goBack()}
-        className="absolute inset-0 top-5 left-5 bg-[#1A1A1A] rounded-4xl w-32 h-14 items-center justify-center flex-row gap-3"
+        className="absolute top-5 left-5 bg-[#1A1A1A] rounded-4xl w-32 h-14 items-center justify-center flex-row gap-3"
       >
         <CloseIcon width={24} height={24} fill={"#4f8cff"} />
         <Text className="text-[#B3B3B3] text-lg font-semibold">Close</Text>
