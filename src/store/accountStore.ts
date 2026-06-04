@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Gender, UserData } from "../types/user.types";
 
-type AccountStore = UserData & {
+export type AccountStore = UserData & {
   setName: (name: string) => void;
   setGender: (gender: Gender) => void;
   setProfession: (profession: string) => void;

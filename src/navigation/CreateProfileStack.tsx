@@ -6,11 +6,12 @@ import AboutInfoScreen from "../screens/create-profile/AboutInfoScreen";
 import ContactInfoScreen from "../screens/create-profile/ContactInfoScreen";
 import ProfileLinksScreen from "../screens/create-profile/ProfileLinksScreen";
 import { useAccountStore } from "../store/accountStore";
+import { AccountStore } from "../store/accountStore";
 
 const Stack = createNativeStackNavigator();
 
 export default function CreateProfileStack() {
-  const resetAccount = useAccountStore((state:any) => state.resetAccount);
+  const resetAccount = useAccountStore((state: AccountStore) => state.resetAccount);
 
   useEffect(() => {
     const sub = AppState.addEventListener("change", (state) => {
