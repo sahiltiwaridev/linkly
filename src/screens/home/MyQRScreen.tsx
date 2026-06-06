@@ -24,17 +24,17 @@ export default function MyQRScreen() {
     useCallback(() => {
       let active = true;
 
-      const hydrateQR = () => {
-        const payload = generateUserQRPayload();
+      const hydrateQR = async () => {
+        const payload = await generateUserQRPayload();
         if (!active) return;
 
-        setQrPayload(payload);
+         setQrPayload(payload);
         if (!payload) {
           setUserData(null);
           return;
         }
 
-        const decoded = decodeUserQRPayload(payload);
+        const decoded = await decodeUserQRPayload(payload);
         if (!active) return;
         setUserData(decoded);
       };
