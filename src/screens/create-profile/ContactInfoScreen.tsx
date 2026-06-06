@@ -23,16 +23,21 @@ export default function ContactInfoScreen() {
 
   const phone = useAccountStore((state: AccountStore) => state.phone);
   const setPhone = useAccountStore((state: AccountStore) => state.setPhone);
+  const whatsapp = useAccountStore((state: AccountStore) => state.whatsapp);
+  const setWhatsapp = useAccountStore((state: AccountStore) => state.setWhatsapp);
   const email = useAccountStore((state: AccountStore) => state.email);
   const setEmail = useAccountStore((state: AccountStore) => state.setEmail);
   const resetAccount = useAccountStore((state: AccountStore) => state.resetAccount);
 
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [whatsappError, setWhatsappError] = useState<string | null>(null);
+
   const shortEmailError = emailError ? "Invalid email" : null;
   const shortPhoneError = phoneError ? "Invalid number" : null;
+  const shortWhatsappError = whatsappError ? "Invalid number" : null;
 
-  const canProceed = !emailError && !phoneError;
+  const canProceed = !emailError && !phoneError && !whatsappError;
 
   const handleBack = useCallback(() => {
     resetAccount();
@@ -92,6 +97,25 @@ export default function ContactInfoScreen() {
                 setPhoneError(phoneValidator(digits));
               }}
               placeholder="e.g. 9876543210"
+              keyboardType="number-pad"
+              maxLength={10}
+            />
+          </View>
+          <View className="gap-1">
+            <View className="flex-row items-center justify-between">
+              <Text className="text-white text-xl font-bold">WhatsApp</Text>
+              {shortWhatsappError && (
+                <Text className="text-red-600 text-sm">{shortWhatsappError}</Text>
+              )}
+            </View>
+            <PrimaryInput
+              value={whatsapp}
+              onChangeText={(text) => {
+                const digits = text.replace(/\D/g, "").slice(0, 10);
+                setWhatsapp(digits);
+                setWhatsappError(phoneValidator(digits));
+              }}
+              placeholder="e.g. 9876543210 (WhatsApp number)"
               keyboardType="number-pad"
               maxLength={10}
             />
