@@ -59,7 +59,7 @@ export default function HomeScreen() {
             icon={QRIcon}
             text="My QR"
             onPress={() => {
-              navigation.navigate("MyQRScreen");
+              navigation.navigate("SelectFieldsScreen");
             }}
           />
           <PrimaryCard
