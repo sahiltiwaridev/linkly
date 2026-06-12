@@ -1,4 +1,4 @@
-import { View, Text, Pressable, BackHandler, Keyboard } from "react-native";
+import { View, Text, Pressable, BackHandler, Keyboard, TextInput } from "react-native";
 import { useState, useCallback, useEffect } from "react";
 import Header from "../../components/layout/Header";
 import NutralIcon from "../../assets/icons/user.svg";
@@ -22,6 +22,10 @@ export default function BasicInfoScreen() {
   const setName = useAccountStore((state: AccountStore) => state.setName);
   const gender = useAccountStore((state: AccountStore) => state.gender);
   const setGender = useAccountStore((state: AccountStore) => state.setGender);
+  const profession = useAccountStore((state: AccountStore) => state.profession);
+  const setProfession = useAccountStore((state: AccountStore) => state.setProfession);
+  const bio = useAccountStore((state: AccountStore) => state.bio);
+  const setBio = useAccountStore((state: AccountStore) => state.setBio);
   const resetAccount = useAccountStore((state: AccountStore) => state.resetAccount);
 
   const [nameError, setNameError] = useState<string | null>(null);
@@ -66,7 +70,7 @@ export default function BasicInfoScreen() {
   return (
     <View className="flex-1 p-5">
       <Header
-        currentScreenName={"Basic Info"}
+        currentScreenName={"Personal Info"}
         backButtonProps={{ onPress: handleBack }}
       />
       <KeyboardAwareScrollView
@@ -122,6 +126,30 @@ export default function BasicInfoScreen() {
               </Pressable>
             </View>
           </View>
+          <View className="gap-2">
+            <Text className="text-white text-2xl font-bold">What you do</Text>
+            <PrimaryInput
+              value={profession}
+              onChangeText={setProfession}
+              placeholder={"e.g. Software Engineer"}
+            />
+          </View>
+          <View className="gap-2">
+            <View className="flex-row justify-between">
+              <Text className="text-white text-2xl font-bold">Quick intro</Text>
+              <Text className="text-[#B3B3B3] text-right mt-2">{bio.length}/150</Text>
+            </View>
+            <TextInput
+              value={bio}
+              onChangeText={setBio}
+              placeholder="Briefly describe yourself"
+              className="bg-[#222222] p-5 h-32 w-full text-white rounded-md"
+              multiline
+              textAlignVertical="top"
+              placeholderTextColor="#B3B3B3"
+              maxLength={150}
+            />
+          </View>
         </View>
       </KeyboardAwareScrollView>
       {!keyboardVisible && (
@@ -129,7 +157,7 @@ export default function BasicInfoScreen() {
           icon={NextIcon}
           text="Next"
           disabled={!canProceed}
-          onPress={() => navigation.navigate("AboutInfoScreen")}
+          onPress={() => navigation.navigate("ContactInfoScreen")}
         />
       )}
     </View>

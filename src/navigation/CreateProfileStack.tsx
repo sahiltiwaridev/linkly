@@ -2,9 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect } from "react";
 import { AppState } from "react-native";
 import BasicInfoScreen from "../screens/create-profile/BasicInfoScreen";
-import AboutInfoScreen from "../screens/create-profile/AboutInfoScreen";
 import ContactInfoScreen from "../screens/create-profile/ContactInfoScreen";
-import ProfileLinksScreen from "../screens/create-profile/ProfileLinksScreen";
 import { useAccountStore } from "../store/accountStore";
 import { AccountStore } from "../store/accountStore";
 
@@ -26,9 +24,7 @@ export default function CreateProfileStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BasicInfoScreen" component={BasicInfoScreen} />
-      <Stack.Screen name="AboutInfoScreen" component={AboutInfoScreen} />
       <Stack.Screen name="ContactInfoScreen" component={ContactInfoScreen} />
-      <Stack.Screen name="ProfileLinksScreen" component={ProfileLinksScreen} />
     </Stack.Navigator>
   );
 }
