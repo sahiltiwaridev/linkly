@@ -1,5 +1,6 @@
 import { TextInput, TextInputProps } from "react-native";
 import React from "react";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 
 type SecondaryInputProps = {
   value: string;
@@ -13,9 +14,19 @@ export default function SecondaryInput({
   placeholder,
   ...textInputProps
 }: SecondaryInputProps) {
+  const { sizes } = useResponsive();
+
   return (
     <TextInput
-      className="bg-[#222222] w-[85%] h-12 text-white rounded-md p-3"
+      style={{
+        backgroundColor: '#222222',
+        width: '100%',
+        height: sizes.buttonSm,
+        color: '#ffffff',
+        borderRadius: 12,
+        paddingHorizontal: sizes.spacing.md,
+        paddingVertical: sizes.spacing.sm,
+      }}
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}

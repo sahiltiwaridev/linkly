@@ -2,13 +2,13 @@ import { View, Text } from "react-native";
 import React from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import QRIcon from "../../assets/icons/qr.svg";
 import UserIcon from "../../assets/icons/user.svg";
 import ShareIcon from "../../assets/icons/share.svg";
 import CreateIcon from "../../assets/icons/add.svg";
 import FeatureHighlighter from "../../components/onboarding/FeatureHighlighter";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 
 type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -23,13 +23,32 @@ type WelcomeScreenNavigationProp = NativeStackNavigationProp<
 
 export default function WelcomeScreen() {
   const navigation = useNavigation<WelcomeScreenNavigationProp>();
+  const { sizes } = useResponsive();
 
   return (
-    <View className="justify-between h-full w-full p-5">
-      <View className="w-full items-center gap-5">
-        <View className="bg-[#1a1a1a] items-center justify-center h-60 w-full rounded-xl">
-          <View className="bg-[#4f8cff]/15 w-52 h-52 rounded-full items-center justify-center">
-            <QRIcon width={80} height={80} fill={"#4f8cff"} />
+    <View style={{ flex: 1, justifyContent: 'space-between', width: '100%', padding: sizes.spacing.lg }}>
+      <View style={{ width: '100%', alignItems: 'center', gap: sizes.spacing.lg }}>
+        <View
+          style={{
+            backgroundColor: '#1a1a1a',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: sizes.containerMd * 1.2,
+            width: '100%',
+            borderRadius: 18,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: 'rgba(79, 140, 255, 0.15)',
+              width: sizes.qrMedium,
+              height: sizes.qrMedium,
+              borderRadius: sizes.qrMedium / 2,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <QRIcon width={sizes.iconXl} height={sizes.iconXl} fill={"#4f8cff"} />
           </View>
         </View>
         <View className="items-center">

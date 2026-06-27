@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { addContact, deleteContact } from "../../lib/storage/contacts.storage";
 import { resolvePreviewProfileSource } from "../../lib/utils/contact.source";
 import Header from "../../components/layout/Header";
-import CalllIcon from "../../assets/icons/call.svg";
+import CallIcon from "../../assets/icons/call.svg";
 import WhatsappIcon from "../../assets/icons/whatsapp.svg";
 import EmailIcon from "../../assets/icons/mail.svg";
 import NutralIcon from "../../assets/icons/user.svg";
@@ -111,7 +111,16 @@ export default function PreviewProfileScreen() {
         contentContainerStyle={{ paddingVertical: 20 }}
       >
         <View className="items-center">
-          <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
+          <View
+            style={{
+              backgroundColor: 'rgba(79, 140, 255, 0.15)',
+              width: 140,
+              height: 140,
+              borderRadius: 70,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {SelectedIcon && (
               <SelectedIcon width={70} height={70} fill="#4f8cff" />
             )}
@@ -132,7 +141,7 @@ export default function PreviewProfileScreen() {
           <View className="gap-3 w-full items-center mt-6">
             <View className="w-full justify-between items-center flex-row">
               <SecondaryCard
-                icon={CalllIcon}
+                icon={CallIcon}
                 text="Call"
                 disabled={!phoneDigits}
                 onPress={() =>

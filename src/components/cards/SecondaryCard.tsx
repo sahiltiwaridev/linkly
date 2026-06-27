@@ -1,5 +1,6 @@
 import { View, Text, Pressable, PressableProps } from "react-native";
 import React from "react";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 
 type SecondaryCardProps = {
   text: string;
@@ -12,18 +13,37 @@ export default function SecondaryCard({
   disabled,
   ...rest
 }: SecondaryCardProps) {
+  const { sizes } = useResponsive();
+  const iconContainerSize = sizes.iconLg;
+
   return (
     <Pressable
       disabled={disabled}
-      className={`w-32 h-36 justify-center items-center rounded-xl 
-         gap-3 ${disabled ? "bg-[#1A1A1A]/50" : "bg-[#1A1A1A]"}`}
+      style={{
+        minWidth: Math.max(sizes.containerSm, 100),
+        minHeight: sizes.containerMd,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 12,
+        gap: 12,
+        backgroundColor: disabled ? 'rgba(26, 26, 26, 0.5)' : '#1A1A1A',
+      }}
       {...rest}
     >
-      <View className="bg-[#0F0F0F] w-14 h-14 justify-center items-center rounded-full">
+      <View
+        style={{
+          backgroundColor: '#0F0F0F',
+          width: iconContainerSize,
+          height: iconContainerSize,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: iconContainerSize / 2,
+        }}
+      >
         {Icon && (
           <Icon
-            width={18}
-            height={18}
+            width={sizes.iconMd}
+            height={sizes.iconMd}
             fill="#ffffff"
             opacity={disabled ? 0.6 : 1}
           />

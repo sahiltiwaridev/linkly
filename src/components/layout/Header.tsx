@@ -1,6 +1,7 @@
 import { View, Text, Pressable, PressableProps } from "react-native";
 import BackIcon from "../../assets/icons/back.svg";
 import { useNavigation } from "@react-navigation/native";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 
 type HeaderProps = {
   currentScreenName: string;
@@ -12,15 +13,21 @@ export default function Header({
   backButtonProps,
 }: HeaderProps) {
   const navigation = useNavigation();
+  const { sizes } = useResponsive();
 
   return (
-    <View className="flex-row justify-between items-center pb-5">
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: sizes.spacing.lg }}>
       <Pressable
         onPress={() => navigation.goBack()}
-        className="flex-row items-center gap-2 w-20"
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: sizes.spacing.sm,
+          width: sizes.iconXl * 3,
+        }}
         {...backButtonProps}
       >
-        <BackIcon width={24} height={24} fill="#4f8cff" />
+        <BackIcon width={sizes.iconLg} height={sizes.iconLg} fill="#4f8cff" />
         <Text className="text-[#B3B3B3] text-xl">Back</Text>
       </Pressable>
 
@@ -32,7 +39,7 @@ export default function Header({
         {currentScreenName}
       </Text>
 
-      <View className="w-20" />
+      <View style={{ width: sizes.iconXl * 3 }} />
     </View>
   );
 }

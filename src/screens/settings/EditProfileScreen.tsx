@@ -150,7 +150,7 @@ export default function EditProfileScreen() {
         <KeyboardAwareScrollView
           ref={scrollRef}
           style={{ flex: 1 }}
-          contentContainerStyle={{ paddingBottom: 180, flexGrow: 1 }}
+          contentContainerStyle={{ paddingBottom: 20, flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
           enableOnAndroid

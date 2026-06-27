@@ -6,6 +6,7 @@ import LockIcon from "../../assets/icons/secure.svg";
 import PrimaryInput from "../../components/inputs/PrimaryInput";
 import { useAccountStore } from "../../store/accountStore";
 import { AccountStore } from "../../store/accountStore";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 import { userEmailValidator } from "../../lib/validation/user.validators";
 import { useState, useCallback, useEffect } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
@@ -63,6 +64,7 @@ export default function ContactInfoScreen() {
   const linkFiveTitle = useAccountStore((state: AccountStore) => state.linkFiveTitle);
   const setLinkFiveTitle = useAccountStore((state: AccountStore) => state.setLinkFiveTitle);
   const setHasAccount = useUserStore((state) => state.setHasAccount);
+  const { sizes } = useResponsive();
 
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
@@ -128,8 +130,17 @@ export default function ContactInfoScreen() {
       >
         <View className="gap-4 mt-4">
           <View className="items-center">
-            <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center">
-              <ContactIcon width={50} height={50} fill="#4f8cff" />
+            <View
+              style={{
+                width: sizes.avatarLg,
+                height: sizes.avatarLg,
+                borderRadius: sizes.avatarLg / 2,
+                backgroundColor: 'rgba(79, 140, 255, 0.15)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ContactIcon width={sizes.iconXl} height={sizes.iconXl} fill="#4f8cff" />
             </View>
           </View>
           <View className="gap-1">

@@ -4,6 +4,7 @@ import PrimaryInput from "../inputs/PrimaryInput";
 import NutralIcon from "../../assets/icons/user.svg";
 import MaleIcon from "../../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../../assets/avatar/female-avatar.svg";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 
 type Gender = "male" | "female" | "neutral";
 
@@ -37,29 +38,56 @@ export default function EditProfileBasicSection({
   };
 
   const SelectedIcon = iconMap[gender];
+  const { sizes } = useResponsive();
 
   return (
     <>
-      <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center self-center">
-        {SelectedIcon && <SelectedIcon width={50} height={50} fill="#4f8cff" />}
+      <View
+        style={{
+          width: sizes.avatarLg,
+          height: sizes.avatarLg,
+          borderRadius: sizes.avatarLg / 2,
+          backgroundColor: 'rgba(79, 140, 255, 0.15)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          alignSelf: 'center',
+        }}
+      >
+        {SelectedIcon && (
+          <SelectedIcon width={sizes.iconXl} height={sizes.iconXl} fill="#4f8cff" />
+        )}
       </View>
 
       <View className="gap-2">
         <Text className="text-white text-2xl font-bold">Gender</Text>
-        <View className="flex-row w-full h-12 justify-between">
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: sizes.spacing.sm }}>
           <Pressable
-            className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
-            onPress={() => onChangeGender("male")}
+            style={{
+              flex: 1,
+              backgroundColor: '#222222',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 12,
+              paddingVertical: sizes.spacing.sm,
+            }}
+            onPress={() => onChangeGender('male')}
           >
-            <Text style={{ color: gender === "male" ? "#4F8CFF" : "#ffffff" }}>
+            <Text style={{ color: gender === 'male' ? '#4F8CFF' : '#ffffff' }}>
               Male
             </Text>
           </Pressable>
           <Pressable
-            className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
-            onPress={() => onChangeGender("female")}
+            style={{
+              flex: 1,
+              backgroundColor: '#222222',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 12,
+              paddingVertical: sizes.spacing.sm,
+            }}
+            onPress={() => onChangeGender('female')}
           >
-            <Text style={{ color: gender === "female" ? "#4F8CFF" : "#ffffff" }}>
+            <Text style={{ color: gender === 'female' ? '#4F8CFF' : '#ffffff' }}>
               Female
             </Text>
           </Pressable>
@@ -96,7 +124,14 @@ export default function EditProfileBasicSection({
           value={bio}
           onChangeText={onChangeBio}
           placeholder="Briefly describe yourself"
-          className="bg-[#222222] p-5 h-32 w-full text-white rounded-md"
+          style={{
+            backgroundColor: '#222222',
+            padding: sizes.spacing.lg,
+            minHeight: sizes.containerSm,
+            width: '100%',
+            color: '#ffffff',
+            borderRadius: 12,
+          }}
           multiline
           textAlignVertical="top"
           placeholderTextColor="#B3B3B3"

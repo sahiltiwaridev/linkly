@@ -1,4 +1,5 @@
 import { Pressable, Text, View, PressableProps } from "react-native";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 
 type PrimaryButtonProps = {
   text: string;
@@ -11,19 +12,26 @@ export default function PrimaryButton({
   disabled,
   ...rest
 }: PrimaryButtonProps) {
+  const { sizes } = useResponsive();
+
   return (
     <Pressable
       disabled={disabled}
-      className={`w-full h-14 justify-center items-center rounded-xl ${
-        disabled ? "bg-[#4f8cff]/50" : "bg-[#4f8cff]"
-      }`}
+      style={{
+        width: '100%',
+        height: sizes.buttonMd,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 12,
+        backgroundColor: disabled ? 'rgba(79, 140, 255, 0.5)' : '#4f8cff',
+      }}
       {...rest}
     >
       <View className="flex-row justify-center items-center gap-2">
         {Icon && (
           <Icon
-            width={18}
-            height={18}
+            width={sizes.iconMd}
+            height={sizes.iconMd}
             fill="#ffffff"
             opacity={disabled ? 0.6 : 1}
           />

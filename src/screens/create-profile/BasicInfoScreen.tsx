@@ -7,6 +7,7 @@ import FemaleIcon from "../../assets/avatar/female-avatar.svg";
 import NextIcon from "../../assets/icons/next.svg";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useAccountStore } from "../../store/accountStore";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 import { AccountStore } from "../../store/accountStore";
 import PrimaryInput from "../../components/inputs/PrimaryInput";
 import { userNameValidator } from "../../lib/validation/user.validators";
@@ -36,6 +37,7 @@ export default function BasicInfoScreen() {
     neutral: NutralIcon,
   };
 
+  const { sizes } = useResponsive();
   const SelectedIcon = iconMap[gender as Gender];
   const canProceed = !nameError && name.length > 0;
   const shortNameError = !nameError
@@ -85,8 +87,19 @@ export default function BasicInfoScreen() {
       >
         <View className="gap-4 mt-4">
           <View className="items-center">
-            <View className="bg-[#4f8cff]/15 w-28 h-28 rounded-full items-center justify-center">
-              {SelectedIcon && <SelectedIcon width={50} height={50} fill="#4f8cff" />}
+            <View
+              style={{
+                width: sizes.avatarLg,
+                height: sizes.avatarLg,
+                borderRadius: sizes.avatarLg / 2,
+                backgroundColor: 'rgba(79, 140, 255, 0.15)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {SelectedIcon && (
+                <SelectedIcon width={sizes.iconXl} height={sizes.iconXl} fill="#4f8cff" />
+              )}
             </View>
           </View>
           <View className="gap-2">
@@ -107,20 +120,34 @@ export default function BasicInfoScreen() {
           </View>
           <View className="gap-2">
             <Text className="text-white text-2xl font-bold">Gender</Text>
-            <View className="flex-row w-full h-12 justify-between">
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: sizes.spacing.sm }}>
               <Pressable
-                className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
-                onPress={() => setGender("male")}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#222222',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 12,
+                  paddingVertical: sizes.spacing.sm,
+                }}
+                onPress={() => setGender('male')}
               >
-                <Text style={{ color: gender === "male" ? "#4F8CFF" : "#ffffff" }}>
+                <Text style={{ color: gender === 'male' ? '#4F8CFF' : '#ffffff' }}>
                   Male
                 </Text>
               </Pressable>
               <Pressable
-                className="bg-[#222222] w-[49%] h-fit items-center justify-center rounded-md"
-                onPress={() => setGender("female")}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#222222',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 12,
+                  paddingVertical: sizes.spacing.sm,
+                }}
+                onPress={() => setGender('female')}
               >
-                <Text style={{ color: gender === "female" ? "#4F8CFF" : "#ffffff" }}>
+                <Text style={{ color: gender === 'female' ? '#4F8CFF' : '#ffffff' }}>
                   Female
                 </Text>
               </Pressable>
@@ -143,7 +170,14 @@ export default function BasicInfoScreen() {
               value={bio}
               onChangeText={setBio}
               placeholder="Briefly describe yourself"
-              className="bg-[#222222] p-5 h-32 w-full text-white rounded-md"
+              style={{
+                backgroundColor: '#222222',
+                padding: sizes.spacing.lg,
+                minHeight: sizes.containerSm,
+                width: '100%',
+                color: '#ffffff',
+                borderRadius: 12,
+              }}
               multiline
               textAlignVertical="top"
               placeholderTextColor="#B3B3B3"

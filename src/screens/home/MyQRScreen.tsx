@@ -8,6 +8,7 @@ import {
 } from "../../lib/qr/qr.parser";
 import ErrorIcon from "../../assets/icons/error.svg";
 import NutralIcon from "../../assets/icons/user.svg";
+import { useResponsive } from "../../lib/utils/responsive.utils";
 import EditIcon from "../../assets/icons/edit.svg";
 import LockIcon from "../../assets/icons/secure.svg";
 import MaleIcon from "../../assets/avatar/male-avatar.svg";
@@ -19,6 +20,7 @@ import { UserData } from "../../types/user.types";
 export default function MyQRScreen() {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
+  const { sizes, width } = useResponsive();
   const selectedFields: SelectedFields | undefined = route.params?.selectedFields;
 
   const [qrPayload, setQrPayload] = useState<string | null>(null);
@@ -75,9 +77,18 @@ export default function MyQRScreen() {
   return (
     <View className="h-full justify-between items-center gap-10 p-5">
       <View className="items-center gap-3">
-        <View className="bg-[#4f8cff]/15 w-40 h-40 rounded-full items-center justify-center">
+        <View
+          style={{
+            width: sizes.avatarMd,
+            height: sizes.avatarMd,
+            borderRadius: sizes.avatarMd / 2,
+            backgroundColor: 'rgba(79, 140, 255, 0.15)',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           {SelectedIcon && (
-            <SelectedIcon width={70} height={70} fill="#4f8cff" />
+            <SelectedIcon width={Math.min(sizes.iconXl, sizes.avatarMd * 0.4)} height={Math.min(sizes.iconXl, sizes.avatarMd * 0.4)} fill="#4f8cff" />
           )}
         </View>
         <View className="items-center">
@@ -87,11 +98,11 @@ export default function MyQRScreen() {
           <Text className="text-[#B3B3B3] text-xl">{userData?.profession}</Text>
         </View>
       </View>
-      <View className="h-96 w-90 justify-center items-center rounded-2xl gap-3">
+      <View className="justify-center items-center gap-3">
         <View className="bg-white p-4 rounded-2xl">
           <QRCode
             value={qrPayload}
-            size={260}
+            size={Math.min(sizes.qrLarge, width * 0.8 - 16)}
             backgroundColor="white"
             color="black"
           />

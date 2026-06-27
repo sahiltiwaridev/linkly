@@ -122,7 +122,7 @@ export default function AboutScreen() {
           </Text>
           <Text
             className="text-[#4f8cff] text-lg"
-            onPress={() => Linking.openURL("https://your-portfolio-link.com")}
+            onPress={() => Linking.openURL("https://portfolio-six-chi-kmc4bfrxcz.vercel.app/")}
           >
             Visit Linkly Website
           </Text>
