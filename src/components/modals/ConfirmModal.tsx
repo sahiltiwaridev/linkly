@@ -35,15 +35,19 @@ export default function ConfirmModal({
           <Text className="text-[#B3B3B3] text-base">{message}</Text>
 
           <View className="flex-row justify-end gap-6">
-            <Pressable onPress={onCancel}>
-              <Text className="text-[#B3B3B3] text-lg">{cancelText}</Text>
-            </Pressable>
+            {cancelText ? (
+              <Pressable onPress={onCancel}>
+                <Text className="text-[#B3B3B3] text-lg">{cancelText}</Text>
+              </Pressable>
+            ) : null}
 
-            <Pressable onPress={onConfirm}>
-              <Text className="text-[#e53e3e] text-lg font-bold">
-                {confirmText}
-              </Text>
-            </Pressable>
+            {confirmText ? (
+              <Pressable onPress={onConfirm}>
+                <Text className="text-[#e53e3e] text-lg font-bold">
+                  {confirmText}
+                </Text>
+              </Pressable>
+            ) : null}
           </View>
         </View>
       </View>

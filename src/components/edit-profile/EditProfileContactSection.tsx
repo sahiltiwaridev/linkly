@@ -37,7 +37,7 @@ export default function EditProfileContactSection({
         <PrimaryInput
           value={phone}
           onChangeText={onChangePhone}
-          placeholder="e.g. 9876543210"
+          placeholder="Enter your phone number"
           keyboardType="number-pad"
           maxLength={10}
         />
@@ -53,7 +53,7 @@ export default function EditProfileContactSection({
         <PrimaryInput
           value={whatsapp}
           onChangeText={onChangeWhatsapp}
-          placeholder="e.g. 9876543210"
+          placeholder="Enter your WhatsApp number"
           keyboardType="number-pad"
           maxLength={10}
         />
@@ -69,7 +69,7 @@ export default function EditProfileContactSection({
         <PrimaryInput
           value={email}
           onChangeText={onChangeEmail}
-          placeholder="e.g. name@example.com"
+          placeholder="Enter your email address"
           keyboardType="email-address"
           autoCapitalize="none"
         />

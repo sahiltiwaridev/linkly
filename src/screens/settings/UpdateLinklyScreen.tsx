@@ -136,8 +136,8 @@ export default function UpdateLinklyScreen({ navigation }: any) {
 
       <ConfirmModal
         visible={showOfflineModal}
-        title="You're Offline"
-        message="You're currently offline. Linkly works without internet, but checking for updates needs a connection."
+        title="You’re offline"
+        message="A connection is needed to check for updates, but Linkly still works normally without internet."
         cancelText="Close"
         confirmText=""
         onCancel={() => setShowOfflineModal(false)}

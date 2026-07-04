@@ -157,7 +157,7 @@ export default function ContactInfoScreen() {
                 setPhone(digits);
                 setPhoneError(phoneValidator(digits));
               }}
-              placeholder="e.g. 9876543210"
+              placeholder="Enter your phone number"
               keyboardType="number-pad"
               maxLength={10}
             />
@@ -176,7 +176,7 @@ export default function ContactInfoScreen() {
                 setWhatsapp(digits);
                 setWhatsappError(phoneValidator(digits));
               }}
-              placeholder="e.g. 9876543210 (WhatsApp number)"
+              placeholder="Enter your WhatsApp number"
               keyboardType="number-pad"
               maxLength={10}
             />
@@ -194,7 +194,7 @@ export default function ContactInfoScreen() {
                 setEmail(text);
                 setEmailError(userEmailValidator(text));
               }}
-              placeholder="e.g. name@example.com"
+              placeholder="Enter your email address"
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -243,8 +243,8 @@ export default function ContactInfoScreen() {
       )}
       <ConfirmModal
         visible={showSaveConfirm}
-        title="Save Profile?"
-        message="Don't worry! You can always edit your details in the edit profile screen later."
+        title="Save your profile?"
+        message="Your details will be stored on this device and you can update them later from the edit profile screen."
         confirmText="Save"
         cancelText="Review"
         onConfirm={() => { setShowSaveConfirm(false); saveUserData(); }}

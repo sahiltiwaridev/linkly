@@ -115,7 +115,7 @@ export default function BasicInfoScreen() {
                 setName(text);
                 setNameError(userNameValidator(text));
               }}
-              placeholder={"e.g. Tony Stark"}
+              placeholder="Enter your full name"
             />
           </View>
           <View className="gap-2">
@@ -158,7 +158,7 @@ export default function BasicInfoScreen() {
             <PrimaryInput
               value={profession}
               onChangeText={setProfession}
-              placeholder={"e.g. Software Engineer"}
+              placeholder="Enter your profession or role"
             />
           </View>
           <View className="gap-2">
@@ -169,7 +169,7 @@ export default function BasicInfoScreen() {
             <TextInput
               value={bio}
               onChangeText={setBio}
-              placeholder="Briefly describe yourself"
+              placeholder="Write a short intro about yourself"
               style={{
                 backgroundColor: '#222222',
                 padding: sizes.spacing.lg,

@@ -249,8 +249,8 @@ export default function EditProfileScreen() {
           </View>
           <ConfirmModal
             visible={showConfirm}
-            title="Delete Profile?"
-            message="This will permanently remove your profile and all local data. This action cannot be undone."
+            title="Delete this profile?"
+            message="This will remove your saved profile and its local data from this device."
             confirmText="Delete"
             cancelText="Cancel"
             onConfirm={handleDeleteProfile}
@@ -260,8 +260,8 @@ export default function EditProfileScreen() {
       </View>
       <ConfirmModal
         visible={showDiscardConfirm}
-        title="Discard changes?"
-        message="You have unsaved changes. Going back will discard them."
+        title="Discard your changes?"
+        message="Any unsaved edits will be lost if you leave this screen."
         confirmText="Discard"
         cancelText="Stay"
         onConfirm={() => {
@@ -272,8 +272,8 @@ export default function EditProfileScreen() {
       />
       <ConfirmModal
         visible={showUpdateConfirm}
-        title="Update profile?"
-        message="Do you want to save these profile changes?"
+        title="Save these changes?"
+        message="This will update your saved profile with the new details you entered."
         confirmText="Update"
         cancelText="Cancel"
         onConfirm={applyProfileUpdate}

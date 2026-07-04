@@ -103,7 +103,7 @@ export default function EditProfileBasicSection({
       <PrimaryInput
         value={name}
         onChangeText={onChangeName}
-        placeholder="e.g. Tony Stark"
+        placeholder="Enter your full name"
       />
 
       <View className="gap-2">
@@ -111,7 +111,7 @@ export default function EditProfileBasicSection({
         <PrimaryInput
           value={profession}
           onChangeText={onChangeProfession}
-          placeholder="e.g. Software Engineer"
+          placeholder="Enter your profession or role"
         />
       </View>
 
@@ -123,7 +123,7 @@ export default function EditProfileBasicSection({
         <TextInput
           value={bio}
           onChangeText={onChangeBio}
-          placeholder="Briefly describe yourself"
+          placeholder="Write a short intro about yourself"
           style={{
             backgroundColor: '#222222',
             padding: sizes.spacing.lg,

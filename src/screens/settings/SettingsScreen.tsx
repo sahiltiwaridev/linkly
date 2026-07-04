@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import SettingsListItem from "../../components/settings/SettingsListItem";
 import EditIcon from "../../assets/icons/edit.svg";
 import UserManualIcon from "../../assets/icons/user-manual.svg";
@@ -9,11 +9,9 @@ import UpdateIcon from "../../assets/icons/update.svg";
 import QRIcon from "../../assets/icons/qr.svg";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/layout/Header";
-import ConfirmModal from "../../components/modals/ConfirmModal";
 
 export default function SettingsScreen() {
   const navigation = useNavigation<any>();
-  const [showEntryModal, setShowEntryModal] = useState(false);
   const version = Constants.expoConfig?.version ?? "1.0.0";
 
   return (
@@ -36,7 +34,7 @@ export default function SettingsScreen() {
             heading={"Update Linkly"}
             text={"Check for the latest version"}
             onPress={() => {
-              setShowEntryModal(true);
+              navigation.navigate("UpdateLinklyScreen");
             }}
           />
           <SettingsListItem
@@ -58,19 +56,6 @@ export default function SettingsScreen() {
         </View>
       </View>
 
-      {/* Entry Msg */}
-      <ConfirmModal
-        visible={showEntryModal}
-        title="Work in Progress"
-        message="This page is still under development. Some features may not work as expected."
-        cancelText="Go Back"
-        confirmText="Continue"
-        onCancel={() => setShowEntryModal(false)}
-        onConfirm={() => {
-          setShowEntryModal(false);
-          navigation.navigate("UpdateLinklyScreen");
-        }}
-      />
       <View>
         <View className="justify-center items-center gap-2">
           <View
