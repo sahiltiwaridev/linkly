@@ -6,6 +6,7 @@ type UserStore = {
   isUserInitialized: boolean;
   setHasAccount: (hasAccount: boolean) => void;
   initialize: () => void;
+  reset: () => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -18,4 +19,6 @@ export const useUserStore = create<UserStore>((set) => ({
     const user = getUser();
     set({ hasAccount: !!user, isUserInitialized: true });
   },
+
+  reset: () => set({ hasAccount: false, isUserInitialized: true }),
 }));

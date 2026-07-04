@@ -33,11 +33,11 @@ function AnimatedDots() {
 export default function QRScannerView() {
   const navigation = useNavigation<any>();
   const { isScanLocked, handleQRCodeScanned, resetScan } = useQRScanner();
-  const { sizes, width, height } = useResponsive();
+  const { width, height } = useResponsive();
   const [scannedData, setScannedData] = useState<string | null>(null);
+  const [scanError, setScanError] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
-  // Responsive scanner frame size (max 80% of smallest dimension)
   const scannerFrameSize = Math.min(width * 0.8, height * 0.7);
   const cornerSize = scannerFrameSize * 0.1;
   const cornerBorder = cornerSize * 0.15;
@@ -52,6 +52,7 @@ export default function QRScannerView() {
   useFocusEffect(
     useCallback(() => {
       setScannedData(null);
+      setScanError(null);
       resetScan();
     }, [resetScan]),
   );
@@ -103,24 +104,32 @@ export default function QRScannerView() {
         barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
         onBarcodeScanned={({ data }) => {
           if (isScanLocked) return;
-          const result = handleQRCodeScanned(data);
-          if (result) setScannedData(result);
+          const trimmed = data?.trim();
+          if (!trimmed) {
+            setScanError("Could not read this QR code.");
+            return;
+          }
+          const result = handleQRCodeScanned(trimmed);
+          if (result) {
+            setScanError(null);
+            setScannedData(result);
+          }
         }}
       />
 
       <Pressable
         onPress={() => navigation.goBack()}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 20,
           left: 20,
-          backgroundColor: '#1A1A1A',
+          backgroundColor: "#1A1A1A",
           borderRadius: 24,
           paddingHorizontal: 12,
           paddingVertical: 8,
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
           gap: 12,
         }}
       >
@@ -135,57 +144,57 @@ export default function QRScannerView() {
         <View style={{ width: scannerFrameSize, height: scannerFrameSize }}>
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               left: 0,
               width: cornerSize,
               height: cornerSize,
               borderTopWidth: cornerBorder,
               borderLeftWidth: cornerBorder,
-              borderTopColor: '#4f8cff',
-              borderLeftColor: '#4f8cff',
+              borderTopColor: "#4f8cff",
+              borderLeftColor: "#4f8cff",
               borderTopLeftRadius: 16,
             }}
           />
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               right: 0,
               width: cornerSize,
               height: cornerSize,
               borderTopWidth: cornerBorder,
               borderRightWidth: cornerBorder,
-              borderTopColor: '#4f8cff',
-              borderRightColor: '#4f8cff',
+              borderTopColor: "#4f8cff",
+              borderRightColor: "#4f8cff",
               borderTopRightRadius: 16,
             }}
           />
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               bottom: 0,
               left: 0,
               width: cornerSize,
               height: cornerSize,
               borderBottomWidth: cornerBorder,
               borderLeftWidth: cornerBorder,
-              borderBottomColor: '#4f8cff',
-              borderLeftColor: '#4f8cff',
+              borderBottomColor: "#4f8cff",
+              borderLeftColor: "#4f8cff",
               borderBottomLeftRadius: 16,
             }}
           />
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               bottom: 0,
               right: 0,
               width: cornerSize,
               height: cornerSize,
               borderBottomWidth: cornerBorder,
               borderRightWidth: cornerBorder,
-              borderBottomColor: '#4f8cff',
-              borderRightColor: '#4f8cff',
+              borderBottomColor: "#4f8cff",
+              borderRightColor: "#4f8cff",
               borderBottomRightRadius: 16,
             }}
           />
@@ -194,19 +203,23 @@ export default function QRScannerView() {
 
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: 60,
-          alignSelf: 'center',
-          backgroundColor: '#1A1A1A',
+          alignSelf: "center",
+          backgroundColor: "#1A1A1A",
           borderRadius: 24,
           paddingHorizontal: 16,
           paddingVertical: 12,
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <View>
-          {isScanLocked ? (
+          {scanError ? (
+            <Text className="text-red-400 text-lg font-semibold tracking-wide">
+              {scanError}
+            </Text>
+          ) : isScanLocked ? (
             <Text className="text-white text-lg font-semibold tracking-wide">
               Scanned
             </Text>

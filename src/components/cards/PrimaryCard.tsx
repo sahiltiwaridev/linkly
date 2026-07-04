@@ -20,26 +20,17 @@ export default function PrimaryCard({
       style={{
         flex: 1,
         minHeight: sizes.containerMd,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         borderRadius: 12,
-        backgroundColor: '#1A1A1A',
+        backgroundColor: "#1A1A1A",
         gap: 12,
       }}
       {...rest}
     >
-      <View
-        style={{
-          backgroundColor: '#0F0F0F',
-          width: iconContainerSize,
-          height: iconContainerSize,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: iconContainerSize / 2,
-        }}
-      >
-        {Icon && <Icon width={sizes.iconMd} height={sizes.iconMd} fill="#ffffff" />}
-      </View>
+      {Icon && (
+        <Icon width={sizes.iconMd} height={sizes.iconMd} fill="#ffffff" />
+      )}
       <Text className="text-white text-lg">{text}</Text>
     </Pressable>
   );

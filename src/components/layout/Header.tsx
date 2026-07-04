@@ -16,14 +16,14 @@ export default function Header({
   const { sizes } = useResponsive();
 
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: sizes.spacing.lg }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: sizes.spacing.sm }}>
       <Pressable
         onPress={() => navigation.goBack()}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           gap: sizes.spacing.sm,
-          width: sizes.iconXl * 3,
+          marginRight: sizes.spacing.md,
         }}
         {...backButtonProps}
       >
@@ -32,14 +32,12 @@ export default function Header({
       </Pressable>
 
       <Text
-        className="text-white text-2xl font-bold flex-1 text-center"
+        className="text-white text-2xl font-bold"
         numberOfLines={1}
         adjustsFontSizeToFit
       >
         {currentScreenName}
       </Text>
-
-      <View style={{ width: sizes.iconXl * 3 }} />
     </View>
   );
 }

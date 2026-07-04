@@ -56,9 +56,12 @@ export const decodeUserQRPayload = async (
 ): Promise<UserData | null> => {
   if (!payload) return null;
   const normalizedPayload = payload.trim();
+  if (!normalizedPayload) return null;
+
   const data = normalizedPayload.startsWith(QR_PREFIX)
     ? normalizedPayload.slice(QR_PREFIX.length)
     : normalizedPayload;
+
   try {
     const decrypted = await decryptQR(data);
     if (!decrypted) return null;

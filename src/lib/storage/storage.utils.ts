@@ -7,27 +7,48 @@ const normalizeText = (value: string = ""): string => {
   return value.trim().replace(/\s+/g, " ");
 };
 
-const sanitizeUserFields = (user: StoredUser): StoredUser => {
+const emptyUserData = (): StoredUser => ({
+  name: "",
+  gender: "neutral",
+  email: "",
+  phone: "",
+  whatsapp: "",
+  profession: "",
+  bio: "",
+  linkOneUrl: "",
+  linkTwoUrl: "",
+  linkThreeUrl: "",
+  linkFourUrl: "",
+  linkFiveUrl: "",
+  linkOneTitle: "",
+  linkTwoTitle: "",
+  linkThreeTitle: "",
+  linkFourTitle: "",
+  linkFiveTitle: "",
+});
+
+const sanitizeUserFields = (user: Partial<StoredUser> | null | undefined): StoredUser => {
+  const base = emptyUserData();
+  if (!user || typeof user !== "object") return base;
+
   return {
-    name: normalizeText(user.name),
-    gender: user.gender,
-    email: normalizeText(user.email).toLowerCase(),
-    phone: normalizeText(user.phone),
-    whatsapp: normalizeText(user.whatsapp),
-    profession: normalizeText(user.profession),
-    bio: normalizeText(user.bio),
-
-    linkOneUrl: normalizeText(user.linkOneUrl),
-    linkTwoUrl: normalizeText(user.linkTwoUrl),
-    linkThreeUrl: normalizeText(user.linkThreeUrl),
-    linkFourUrl: normalizeText(user.linkFourUrl),
-    linkFiveUrl: normalizeText(user.linkFiveUrl),
-
-    linkOneTitle: normalizeText(user.linkOneTitle),
-    linkTwoTitle: normalizeText(user.linkTwoTitle),
-    linkThreeTitle: normalizeText(user.linkThreeTitle),
-    linkFourTitle: normalizeText(user.linkFourTitle),
-    linkFiveTitle: normalizeText(user.linkFiveTitle),
+    name: normalizeText(typeof user.name === "string" ? user.name : base.name),
+    gender: user.gender ?? base.gender,
+    email: normalizeText(typeof user.email === "string" ? user.email : base.email).toLowerCase(),
+    phone: normalizeText(typeof user.phone === "string" ? user.phone : base.phone),
+    whatsapp: normalizeText(typeof user.whatsapp === "string" ? user.whatsapp : base.whatsapp),
+    profession: normalizeText(typeof user.profession === "string" ? user.profession : base.profession),
+    bio: normalizeText(typeof user.bio === "string" ? user.bio : base.bio),
+    linkOneUrl: normalizeText(typeof user.linkOneUrl === "string" ? user.linkOneUrl : base.linkOneUrl),
+    linkTwoUrl: normalizeText(typeof user.linkTwoUrl === "string" ? user.linkTwoUrl : base.linkTwoUrl),
+    linkThreeUrl: normalizeText(typeof user.linkThreeUrl === "string" ? user.linkThreeUrl : base.linkThreeUrl),
+    linkFourUrl: normalizeText(typeof user.linkFourUrl === "string" ? user.linkFourUrl : base.linkFourUrl),
+    linkFiveUrl: normalizeText(typeof user.linkFiveUrl === "string" ? user.linkFiveUrl : base.linkFiveUrl),
+    linkOneTitle: normalizeText(typeof user.linkOneTitle === "string" ? user.linkOneTitle : base.linkOneTitle),
+    linkTwoTitle: normalizeText(typeof user.linkTwoTitle === "string" ? user.linkTwoTitle : base.linkTwoTitle),
+    linkThreeTitle: normalizeText(typeof user.linkThreeTitle === "string" ? user.linkThreeTitle : base.linkThreeTitle),
+    linkFourTitle: normalizeText(typeof user.linkFourTitle === "string" ? user.linkFourTitle : base.linkFourTitle),
+    linkFiveTitle: normalizeText(typeof user.linkFiveTitle === "string" ? user.linkFiveTitle : base.linkFiveTitle),
   };
 };
 
@@ -37,7 +58,12 @@ export const serializeUserData = (param: StoredUser): string => {
 };
 
 export const deserializeUserData = (param: string): StoredUser => {
-  return JSON.parse(param);
+  try {
+    const parsed = JSON.parse(param);
+    return sanitizeUserFields(parsed);
+  } catch {
+    return emptyUserData();
+  }
 };
 
 export const serializeContactsData = (param: StoredContact[]): string => {
@@ -50,5 +76,11 @@ export const serializeContactsData = (param: StoredContact[]): string => {
 };
 
 export const deserializeContactsData = (param: string): StoredContact[] => {
-  return JSON.parse(param);
+  try {
+    const parsed = JSON.parse(param);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item): item is StoredContact => Boolean(item && typeof item === "object"));
+  } catch {
+    return [];
+  }
 };

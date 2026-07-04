@@ -12,14 +12,14 @@ export default function PrimaryButton({
   disabled,
   ...rest
 }: PrimaryButtonProps) {
-  const { sizes } = useResponsive();
+  const { sizes, ui } = useResponsive();
 
   return (
     <Pressable
       disabled={disabled}
       style={{
         width: '100%',
-        height: sizes.buttonMd,
+        height: ui.buttonHeight,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 12,
@@ -37,9 +37,12 @@ export default function PrimaryButton({
           />
         )}
         <Text
-          className={`text-white font-semibold text-lg ${
-            disabled ? "opacity-60" : ""
-          }`}
+          style={{
+            color: '#ffffff',
+            fontSize: ui.bodyFontSize,
+            fontWeight: '600',
+            opacity: disabled ? 0.6 : 1,
+          }}
         >
           {text}
         </Text>

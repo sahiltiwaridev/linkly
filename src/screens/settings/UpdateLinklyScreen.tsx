@@ -29,7 +29,6 @@ const isNewer = (latest: string, current: string): boolean => {
 
 export default function UpdateLinklyScreen({ navigation }: any) {
   const appVersion = Constants.expoConfig?.version ?? Constants.manifest?.version ?? "Unknown";
-  // const appVersion = "0.9.0";
 
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [updateData, setUpdateData] = useState<UpdateData | null>(null);

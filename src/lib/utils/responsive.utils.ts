@@ -30,6 +30,16 @@ type ResponsiveSizes = {
   spacing: ResponsiveSpacing;
 };
 
+type ResponsiveUI = {
+  deviceType: 'small' | 'standard' | 'large';
+  buttonHeight: number;
+  inputHeight: number;
+  titleFontSize: number;
+  bodyFontSize: number;
+  labelFontSize: number;
+  screenPadding: number;
+};
+
 type ResponsiveResult = {
   width: number;
   height: number;
@@ -40,6 +50,7 @@ type ResponsiveResult = {
   isTablet: boolean;
   sizes: ResponsiveSizes;
   spacing: ResponsiveSpacing;
+  ui: ResponsiveUI;
   getPadding: () => { horizontal: number; vertical: number; screen: number };
   responsiveFontSize: (baseSize: number) => number;
   responsiveSize: (baseSize: number) => number;
@@ -79,18 +90,23 @@ export const useResponsive = (): ResponsiveResult => {
     xxl: responsiveSize(32),
   };
 
+  const deviceType: ResponsiveUI['deviceType'] = width < 360 ? 'small' : width < 420 ? 'standard' : 'large';
+
+  const buttonHeight = deviceType === 'small' ? 44 : deviceType === 'standard' ? 48 : 54;
+  const inputHeight = deviceType === 'small' ? 44 : deviceType === 'standard' ? 48 : 54;
+
   const sizes: ResponsiveSizes = {
     iconXs: responsiveSize(16),
     iconSm: responsiveSize(20),
     iconMd: responsiveSize(24),
     iconLg: responsiveSize(32),
     iconXl: responsiveSize(48),
-    avatarSm: responsiveSize(56),
-    avatarMd: responsiveSize(80),
-    avatarLg: responsiveSize(112),
-    buttonSm: responsiveSize(40),
-    buttonMd: responsiveSize(48),
-    buttonLg: responsiveSize(56),
+    avatarSm: responsiveSize(72),
+    avatarMd: responsiveSize(112),
+    avatarLg: responsiveSize(144),
+    buttonSm: buttonHeight - 4,
+    buttonMd: buttonHeight,
+    buttonLg: buttonHeight + 6,
     qrSmall: Math.min(responsiveSize(160), width * 0.7),
     qrMedium: Math.min(responsiveSize(220), width * 0.7),
     qrLarge: Math.min(responsiveSize(260), width * 0.7),
@@ -98,6 +114,16 @@ export const useResponsive = (): ResponsiveResult => {
     containerSm: Math.min(responsiveSize(192), width * 0.7),
     containerMd: Math.min(responsiveSize(144), width * 0.7),
     spacing,
+  };
+
+  const ui: ResponsiveUI = {
+    deviceType,
+    buttonHeight,
+    inputHeight,
+    titleFontSize: deviceType === 'small' ? 26 : deviceType === 'standard' ? 28 : 30,
+    bodyFontSize: deviceType === 'small' ? 14 : deviceType === 'standard' ? 15 : 16,
+    labelFontSize: deviceType === 'small' ? 12 : deviceType === 'standard' ? 13 : 14,
+    screenPadding: deviceType === 'small' ? 16 : deviceType === 'standard' ? 20 : 24,
   };
 
   const getPadding = () => ({
@@ -116,6 +142,7 @@ export const useResponsive = (): ResponsiveResult => {
     isTablet,
     sizes,
     spacing,
+    ui,
     getPadding,
     responsiveFontSize,
     responsiveSize,

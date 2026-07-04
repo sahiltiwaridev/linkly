@@ -20,8 +20,13 @@ export default function App() {
 
   useEffect(() => {
     async function boot() {
-      await initStorage();
-      setReady(true);
+      try {
+        await initStorage();
+      } catch (error) {
+        console.warn("Storage initialization failed:", error);
+      } finally {
+        setReady(true);
+      }
     }
 
     boot();

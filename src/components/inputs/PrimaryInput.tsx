@@ -14,18 +14,19 @@ export default function PrimaryInput({
   placeholder,
   ...textInputProps
 }: PrimaryInputProps) {
-  const { sizes } = useResponsive();
+  const { sizes, ui } = useResponsive();
 
   return (
     <TextInput
       style={{
         backgroundColor: '#222222',
         width: '100%',
-        height: sizes.buttonMd,
+        height: ui.inputHeight,
         color: '#ffffff',
         borderRadius: 12,
         paddingHorizontal: sizes.spacing.md,
         paddingVertical: sizes.spacing.sm,
+        fontSize: ui.bodyFontSize,
       }}
       value={value}
       onChangeText={onChangeText}

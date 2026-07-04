@@ -20,29 +20,26 @@ export default function SettingsListItem({
   return (
     <Pressable
       style={{
-        backgroundColor: '#1A1A1A',
-        flexDirection: 'row',
+        backgroundColor: "#1A1A1A",
+        flexDirection: "row",
         padding: sizes.spacing.md,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
         borderRadius: 16,
       }}
       {...rest}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: sizes.spacing.md }}>
-        <View
-          style={{
-            backgroundColor: 'rgba(79, 140, 255, 0.25)',
-            width: sizes.iconLg,
-            height: sizes.iconLg,
-            borderRadius: sizes.iconLg / 2,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {Icon && <Icon width={sizes.iconMd} height={sizes.iconMd} fill="#4f8cff" />}
-        </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: sizes.spacing.md,
+        }}
+      >
+        {Icon && (
+          <Icon width={sizes.iconMd} height={sizes.iconMd} fill="#4f8cff" />
+        )}
         <View>
           <Text className="text-white font-bold text-lg">{heading}</Text>
           <Text className="text-[#B3B3B3]">{text}</Text>

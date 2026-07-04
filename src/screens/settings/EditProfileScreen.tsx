@@ -40,6 +40,7 @@ export default function EditProfileScreen() {
   const [draft, setDraft] = useState<EditProfileDraft>(EMPTY_DRAFT);
 
   const setHasAccount = useUserStore((state) => state.setHasAccount);
+  const resetUserStore = useUserStore((state) => state.reset);
 
   const { nameError, phoneError, whatsappError, emailError, linkError } =
     validateDraft(draft);
@@ -105,10 +106,16 @@ export default function EditProfileScreen() {
   const resetAccount = useAccountStore((state:any) => state.resetAccount);
 
   const handleDeleteProfile = () => {
-    removeUser();
-    resetAccount();
-    setHasAccount(false);
-    setShowConfirm(false);
+    try {
+      removeUser();
+      resetAccount();
+      setHasAccount(false);
+      resetUserStore();
+      setShowConfirm(false);
+      navigation.goBack();
+    } catch {
+      alert("Something went wrong! Please try again.");
+    }
   };
 
   useFocusEffect(

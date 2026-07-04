@@ -13,13 +13,13 @@ export default function SecondaryButton({
 
   ...rest
 }: SecondaryButtonProps) {
-  const { sizes } = useResponsive();
+  const { sizes, ui } = useResponsive();
 
   return (
     <Pressable
       style={{
         width: '100%',
-        height: sizes.buttonMd,
+        height: ui.buttonHeight,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 12,
@@ -29,7 +29,7 @@ export default function SecondaryButton({
     >
       <View className="flex-row justify-center items-center gap-2">
         {Icon && <Icon width={sizes.iconMd} height={sizes.iconMd} fill="#ffffff" />}
-        <Text className="text-white font-semibold text-lg ">{text}</Text>
+        <Text style={{ color: '#ffffff', fontSize: ui.bodyFontSize, fontWeight: '600' }}>{text}</Text>
       </View>
     </Pressable>
   );
