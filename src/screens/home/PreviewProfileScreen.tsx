@@ -79,7 +79,28 @@ export default function PreviewProfileScreen() {
     );
   }
 
-  const { contact, isScannedFlow, isExistingContactFlow } = source;
+  const { contact, isScannedFlow, isExistingContactFlow, isOwnProfileFlow } = source;
+
+  if (isOwnProfileFlow) {
+    return (
+      <View className="flex-1 justify-between items-center p-5">
+        <View></View>
+        <View className="gap-3">
+          <Text className="text-white text-2xl font-bold text-center">
+            You are scanning your own profile
+          </Text>
+          <Text className="text-[#B3B3B3] text-lg text-center">
+            You scanned your own QR code.
+          </Text>
+        </View>
+        <PrimaryButton
+          icon={ScanIcon}
+          text="Scan Again"
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+    );
+  }
 
   const gender = contact.gender;
 

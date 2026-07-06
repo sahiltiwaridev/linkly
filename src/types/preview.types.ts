@@ -11,4 +11,5 @@ export type PreviewProfileResult = {
   contact: PreviewContact | null;
   isScannedFlow: boolean;
   isExistingContactFlow: boolean;
+  isOwnProfileFlow: boolean;
 };
