@@ -12,7 +12,6 @@ import ScanIcon from "../../assets/icons/qr-scan.svg";
 import MaleIcon from "../../assets/avatar/male-avatar.svg";
 import FemaleIcon from "../../assets/avatar/female-avatar.svg";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
-import SecondaryCard from "../../components/cards/SecondaryCard";
 import LinkItem from "../../components/layout/LinkItem";
 import {
   PreviewProfileResult,
@@ -159,33 +158,43 @@ export default function PreviewProfileScreen() {
             <Text className="text-white text-center mt-2">{contact.bio}</Text>
           )}
 
-          <View className="gap-3 w-full items-center mt-6">
-            <View className="w-full justify-between items-center flex-row">
-              <SecondaryCard
-                icon={CallIcon}
-                text="Call"
-                disabled={!phoneDigits}
-                onPress={() =>
-                  phoneDigits && Linking.openURL(`tel:${phoneDigits}`)
-                }
-              />
-              <SecondaryCard
-                icon={WhatsappIcon}
-                text="WhatsApp"
-                disabled={!whatsappDigits}
-                onPress={() =>
-                  whatsappDigits &&
-                  Linking.openURL(`https://wa.me/${whatsappDigits}`)
-                }
-              />
-              <SecondaryCard
-                icon={EmailIcon}
-                text="Email"
-                disabled={!contact.email}
-                onPress={() =>
-                  contact.email && Linking.openURL(`mailto:${contact.email}`)
-                }
-              />
+          <View className="gap-5 w-full items-center mt-6">
+            <View className="w-full justify-evenly items-center flex-row">
+              {[
+                {
+                  icon: CallIcon,
+                  disabled: !phoneDigits,
+                  onPress: () => phoneDigits && Linking.openURL(`tel:${phoneDigits}`),
+                },
+                {
+                  icon: WhatsappIcon,
+                  disabled: !whatsappDigits,
+                  onPress: () =>
+                    whatsappDigits && Linking.openURL(`https://wa.me/${whatsappDigits}`),
+                },
+                {
+                  icon: EmailIcon,
+                  disabled: !contact.email,
+                  onPress: () =>
+                    contact.email && Linking.openURL(`mailto:${contact.email}`),
+                },
+              ].map(({ icon: Icon, disabled, onPress }, index) => (
+                <Pressable
+                  key={`quick-action-${index}`}
+                  disabled={disabled}
+                  onPress={onPress}
+                  className={`rounded-2xl p-7 mx-2 ${
+                    disabled ? "bg-[#1A1A1A]/60" : "bg-[#1A1A1A]"
+                  }`}
+                >
+                  <Icon
+                    width={22}
+                    height={22}
+                    fill="#ffffff"
+                    opacity={disabled ? 0.6 : 1}
+                  />
+                </Pressable>
+              ))}
             </View>
 
             <View className="w-full rounded-2xl h-1 bg-[#1A1A1A]" />

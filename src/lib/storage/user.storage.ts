@@ -4,6 +4,14 @@ import { deserializeUserData, serializeUserData } from "./storage.utils";
 import { initializeContactsStorage } from "./contacts.storage";
 import { UserData } from "../../types/user.types";
 
+const normalizeLinkValue = (value: string) => {
+  const trimmed = value.trim();
+
+  if (!trimmed) return "";
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+};
+
 export type { UserData, Contact } from "../../types/user.types";
 
 export const createUser = (user: UserData) => {
@@ -17,11 +25,11 @@ export const createUser = (user: UserData) => {
     whatsapp: user.whatsapp || "",
     profession: user.profession || "",
     bio: user.bio || "",
-    linkOneUrl: user.linkOneUrl || "",
-    linkTwoUrl: user.linkTwoUrl || "",
-    linkThreeUrl: user.linkThreeUrl || "",
-    linkFourUrl: user.linkFourUrl || "",
-    linkFiveUrl: user.linkFiveUrl || "",
+    linkOneUrl: normalizeLinkValue(user.linkOneUrl || ""),
+    linkTwoUrl: normalizeLinkValue(user.linkTwoUrl || ""),
+    linkThreeUrl: normalizeLinkValue(user.linkThreeUrl || ""),
+    linkFourUrl: normalizeLinkValue(user.linkFourUrl || ""),
+    linkFiveUrl: normalizeLinkValue(user.linkFiveUrl || ""),
     linkOneTitle: user.linkOneTitle || "",
     linkTwoTitle: user.linkTwoTitle || "",
     linkThreeTitle: user.linkThreeTitle || "",
@@ -44,11 +52,11 @@ export const updateUser = (user: UserData) => {
     whatsapp: user.whatsapp || "",
     profession: user.profession || "",
     bio: user.bio || "",
-    linkOneUrl: user.linkOneUrl || "",
-    linkTwoUrl: user.linkTwoUrl || "",
-    linkThreeUrl: user.linkThreeUrl || "",
-    linkFourUrl: user.linkFourUrl || "",
-    linkFiveUrl: user.linkFiveUrl || "",
+    linkOneUrl: normalizeLinkValue(user.linkOneUrl || ""),
+    linkTwoUrl: normalizeLinkValue(user.linkTwoUrl || ""),
+    linkThreeUrl: normalizeLinkValue(user.linkThreeUrl || ""),
+    linkFourUrl: normalizeLinkValue(user.linkFourUrl || ""),
+    linkFiveUrl: normalizeLinkValue(user.linkFiveUrl || ""),
     linkOneTitle: user.linkOneTitle || "",
     linkTwoTitle: user.linkTwoTitle || "",
     linkThreeTitle: user.linkThreeTitle || "",

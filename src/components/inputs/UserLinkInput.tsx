@@ -10,6 +10,25 @@ import SecondaryInput from "./SecondaryInput";
 import IconSelector from "./IconSelector";
 import { UserLinkInputProps } from "../../types/link.types";
 
+const isValidLinkUrl = (value: string) => {
+  const trimmed = value.trim();
+
+  if (!trimmed) return true;
+
+  if (/^(mailto|tel|sms):/i.test(trimmed)) return true;
+
+  if (trimmed.includes("@") && !trimmed.includes("://")) return false;
+
+  if (/^[\d+().\s-]+$/.test(trimmed)) return false;
+
+  try {
+    const url = new URL(trimmed.includes("://") ? trimmed : `https://${trimmed}`);
+    return Boolean(url.hostname);
+  } catch {
+    return false;
+  }
+};
+
 const getIconFromUrl = (url: string) => {
   const value = url.toLowerCase();
 
@@ -40,6 +59,8 @@ export default function UserLinkInput({
     errorMessage = "Please add a name for this link.";
   } else if (trimmedTitle && !trimmedUrl) {
     errorMessage = "Please paste the link URL.";
+  } else if (trimmedTitle && trimmedUrl && !isValidLinkUrl(trimmedUrl)) {
+    errorMessage = "Please enter a valid URL.";
   }
 
   return (

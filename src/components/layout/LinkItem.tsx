@@ -1,11 +1,11 @@
-import { View, Text, Pressable, Linking } from "react-native";
-import React from "react";
+import { Pressable, Text, Linking } from "react-native";
 
 import LinkIcon from "../../assets/icons/link.svg";
 import InstagramIcon from "../../assets/icons/instagram.svg";
 import GithubIcon from "../../assets/icons/github.svg";
 import LinkedinIcon from "../../assets/icons/linkedin.svg";
 import XIcon from "../../assets/icons/x.svg";
+
 import { LinkItemProps } from "../../types/link.types";
 
 const getIconFromUrl = (url: string) => {
@@ -19,20 +19,34 @@ const getIconFromUrl = (url: string) => {
   return LinkIcon;
 };
 
+const normalizeUrl = (value: string) => {
+  const trimmed = value.trim();
+
+  if (!trimmed) return "";
+
+  // Add https:// if the user didn't provide a scheme
+  if (!/^https?:\/\//i.test(trimmed)) {
+    return `https://${trimmed}`;
+  }
+
+  return trimmed;
+};
+
 export default function LinkItem({ url, title }: LinkItemProps) {
-  const SelectedIcon = getIconFromUrl(url);
+  const normalizedUrl = normalizeUrl(url);
+  const SelectedIcon = getIconFromUrl(normalizedUrl);
 
   const handleOpenLink = async () => {
-    try {
-      const supported = await Linking.canOpenURL(url);
+    if (!normalizedUrl) {
+      console.warn("Invalid URL:", url);
+      return;
+    }
 
-      if (supported) {
-        await Linking.openURL(url);
-      } else {
-        console.warn("Cannot open this URL:", url);
-      }
+    try {
+      console.log("Opening:", normalizedUrl);
+      await Linking.openURL(normalizedUrl);
     } catch (error) {
-      console.error("Error opening link:", error);
+      console.error("Failed to open URL:", normalizedUrl, error);
     }
   };
 

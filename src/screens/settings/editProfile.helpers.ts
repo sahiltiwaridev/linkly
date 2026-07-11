@@ -50,12 +50,34 @@ export const phoneValidator = (value: string): string | null => {
   return null;
 };
 
+const isValidLinkUrl = (value: string) => {
+  const trimmed = value.trim();
+
+  if (!trimmed) return true;
+
+  if (/^(mailto|tel|sms):/i.test(trimmed)) return true;
+
+  if (trimmed.includes("@") && !trimmed.includes("://")) return false;
+
+  if (/^[\d+().\s-]+$/.test(trimmed)) return false;
+
+  try {
+    const url = new URL(trimmed.includes("://") ? trimmed : `https://${trimmed}`);
+    return Boolean(url.hostname);
+  } catch {
+    return false;
+  }
+};
+
 const hasLinkPairError = (title: string, url: string) => {
   const trimmedTitle = title.trim();
   const trimmedUrl = url.trim();
-  return Boolean(
-    (trimmedUrl && !trimmedTitle) || (trimmedTitle && !trimmedUrl),
-  );
+
+  if (trimmedUrl && !trimmedTitle) return true;
+  if (trimmedTitle && !trimmedUrl) return true;
+  if (trimmedTitle && trimmedUrl && !isValidLinkUrl(trimmedUrl)) return true;
+
+  return false;
 };
 
 export const validateDraft = (draft: EditProfileDraft) => {
