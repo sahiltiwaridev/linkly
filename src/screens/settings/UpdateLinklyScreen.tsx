@@ -20,20 +20,27 @@ interface UpdateData {
 const isNewer = (latest: string, current: string): boolean => {
   const l = latest.split(".").map(Number);
   const c = current.split(".").map(Number);
+
   for (let i = 0; i < 3; i++) {
     if (l[i] > c[i]) return true;
     if (l[i] < c[i]) return false;
   }
+
   return false;
 };
 
 export default function UpdateLinklyScreen({ navigation }: any) {
-  const appVersion = Constants.expoConfig?.version ?? Constants.manifest?.version ?? "Unknown";
+  const appVersion =
+    Constants.expoConfig?.version ??
+    Constants.manifest?.version ??
+    "Unknown";
 
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [updateData, setUpdateData] = useState<UpdateData | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [showOfflineModal, setShowOfflineModal] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
 
   const checkInternet = async () => {
     const state = await Network.getNetworkStateAsync();
@@ -41,45 +48,62 @@ export default function UpdateLinklyScreen({ navigation }: any) {
   };
 
   const fetchUpdateData = async (): Promise<UpdateData | null> => {
-    const response = await fetch("https://linkly-website.vercel.app/src/public/update.json");
-    if (!response.ok) throw new Error("Failed to fetch");
-    const data: UpdateData = await response.json();
-    if (isNewer(data.latestVersion, appVersion)) {
-      return data;
+    const response = await fetch(
+      "https://linkly-website.vercel.app/src/public/update.json"
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch update.");
     }
-    return null;
+
+    const data: UpdateData = await response.json();
+
+    return isNewer(data.latestVersion, appVersion) ? data : null;
   };
 
   const handleCheckForUpdates = async () => {
-    const isOnline = await checkInternet();
-
-    if (!isOnline) {
-      setShowOfflineModal(true);
-      return;
-    }
+    setIsChecking(true);
 
     try {
+      const isOnline = await checkInternet();
+
+      if (!isOnline) {
+        setShowOfflineModal(true);
+        return;
+      }
+
       const data = await fetchUpdateData();
+
+      setHasChecked(true);
+
       if (data) {
         setUpdateAvailable(true);
         setUpdateData(data);
         setMessage(null);
       } else {
-        setMessage("You're on the latest version.");
+        setUpdateAvailable(false);
+        setUpdateData(null);
+        setMessage("You're using the latest version of Linkly.");
       }
     } catch {
-      setMessage("Unable to check for updates. Try again.");
+      setMessage("Couldn't check for updates. Please try again.");
+    } finally {
+      setIsChecking(false);
     }
   };
 
-  const handleUpdate = () => {
-    if (updateData?.apkUrl) {
-      Linking.openURL(updateData.apkUrl);
+  const handleUpdate = async () => {
+    if (!updateData?.apkUrl) return;
+
+    try {
+      await Linking.openURL(updateData.apkUrl);
+    } catch (error) {
+      console.error("Failed to open update URL:", error);
     }
   };
 
   return (
-    <View className="p-5 h-full justify-between">
+    <View className="flex-1 p-5 justify-between">
       <View>
         <View className="pb-10">
           <Header
@@ -92,7 +116,7 @@ export default function UpdateLinklyScreen({ navigation }: any) {
 
         <View className="gap-4">
           <Text className="text-lg text-[#B3B3B3]">
-            Current Version: {appVersion}
+            Installed Version: {appVersion}
           </Text>
 
           {message && (
@@ -104,24 +128,35 @@ export default function UpdateLinklyScreen({ navigation }: any) {
           {!updateAvailable ? (
             <>
               <Text className="text-lg text-[#B3B3B3]">
-                Manually check if a newer version is available.
+                Tap "Check for Updates" to see if a newer version of Linkly is
+                available.
               </Text>
+
               <Text className="text-lg text-[#B3B3B3]">
-                Updates may include improvements and new features.
+                Updates may include new features, performance improvements, and
+                bug fixes.
               </Text>
             </>
           ) : (
             <>
-              <Text className="text-lg text-green-500 font-semibold">
-                Update Available — v{updateData?.latestVersion}
+              <Text className="text-2xl text-green-500 font-bold">
+                A new version is available
               </Text>
-              {updateData?.releaseNotes?.map((note, index) => (
-                <Text key={index} className="text-lg text-[#B3B3B3]">
-                  • {note}
-                </Text>
-              ))}
-              <Text className="text-[#555] text-sm">
-                If prompted, allow installation from this source.
+
+              <Text className="text-lg text-[#B3B3B3]">
+                Version {updateData?.latestVersion}
+              </Text>
+
+              <View className="pt-2 gap-2">
+                {updateData?.releaseNotes.map((note, index) => (
+                  <Text key={index} className="text-lg text-[#B3B3B3]">
+                    • {note}
+                  </Text>
+                ))}
+              </View>
+
+              <Text className="text-sm text-[#666666] pt-2">
+                Tap "Install Update" to download the latest version of Linkly.
               </Text>
             </>
           )}
@@ -129,15 +164,24 @@ export default function UpdateLinklyScreen({ navigation }: any) {
       </View>
 
       <PrimaryButton
-        text={updateAvailable ? "Install Now" : "Check for updates"}
+        disabled={isChecking}
+        text={
+          isChecking
+            ? "..."
+            : updateAvailable
+            ? "Install Update"
+            : hasChecked
+            ? "Check Again"
+            : "Check for Updates"
+        }
         icon={updateAvailable ? UpdateIcon : CheckingIcon}
         onPress={updateAvailable ? handleUpdate : handleCheckForUpdates}
       />
 
       <ConfirmModal
         visible={showOfflineModal}
-        title="You’re offline"
-        message="A connection is needed to check for updates, but Linkly still works normally without internet."
+        title="No Internet Connection"
+        message="Connect to the internet to check for updates. Linkly will continue to work normally while you're offline."
         cancelText="Close"
         confirmText=""
         onCancel={() => setShowOfflineModal(false)}

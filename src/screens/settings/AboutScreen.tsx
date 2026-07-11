@@ -14,7 +14,7 @@ export default function AboutScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View className="pb-10">
-          <Header currentScreenName={"About Linkly"} />
+          <Header currentScreenName={"About"} />
         </View>
         <View className="mb-10 gap-3">
           <Text className={headingTextStyle}>About Linkly</Text>
@@ -112,17 +112,32 @@ export default function AboutScreen() {
           <Text
             className="text-[#4f8cff] text-lg"
             onPress={() =>
-              Linking.openURL("mailto:sahiltiwari.contactme@gmail.com")
+              Linking.openURL(
+                "https://portfolio-six-chi-kmc4bfrxcz.vercel.app/",
+              )
             }
           >
-            Send an Email
+            Visit My Website
           </Text>
           <Text className={paragraphTextStyle}>
             More technical details and project breakdown:
           </Text>
           <Text
             className="text-[#4f8cff] text-lg"
-            onPress={() => Linking.openURL("https://portfolio-six-chi-kmc4bfrxcz.vercel.app/")}
+            onPress={() =>
+              Linking.openURL(
+                "https://sahiltiwari.hashnode.dev/i-built-linkly-offline-qr-contact-sharing-app?utm_source=hashnode&utm_medium=feed",
+              )
+            }
+          >
+            Read Hashnode Article
+          </Text>
+          <Text className={paragraphTextStyle}>Or</Text>
+          <Text
+            className="text-[#4f8cff] text-lg"
+            onPress={() =>
+              Linking.openURL("https://linkly-website.vercel.app/")
+            }
           >
             Visit Linkly Website
           </Text>
@@ -131,5 +146,3 @@ export default function AboutScreen() {
     </View>
   );
 }
-
-
