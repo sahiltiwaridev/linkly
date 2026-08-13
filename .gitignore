@@ -42,3 +42,9 @@ yarn-error.*
 
 # ignore storage keys
 /config/storageKeys.ts
+
+# ignore generated files
+/linkly-release.keystore
+
+# ignore build files
+android/gradle.properties
