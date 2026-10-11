@@ -12,10 +12,17 @@ expo-env.d.ts
 # Native
 .kotlin/
 *.orig.*
+
+# Signing material: never commit
+/keys/
+/keystore.properties
+*.keystore
 *.jks
+*.backup
 *.p8
 *.p12
 *.key
+*.pem
 *.mobileprovision
 
 # Metro
@@ -28,7 +35,6 @@ yarn-error.*
 
 # macOS
 .DS_Store
-*.pem
 
 # local env files
 .env*.local
@@ -36,15 +42,9 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# generated native folders
+# generated native folders (recreated by prebuild + the signing plugin)
 /ios
 /android
 
 # ignore storage keys
 /config/storageKeys.ts
-
-# ignore generated files
-/linkly-release.keystore
-
-# ignore build files
-android/gradle.properties
