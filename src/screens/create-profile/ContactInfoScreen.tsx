@@ -1,4 +1,5 @@
 import { View, Text, BackHandler, Keyboard } from "react-native";
+import * as LocalAuthentication from "expo-local-authentication";
 import Header from "../../components/layout/Header";
 import ContactIcon from "../../assets/icons/contacts.svg";
 import SaveIcon from "../../assets/icons/save.svg";
@@ -8,6 +9,8 @@ import { useAccountStore } from "../../store/accountStore";
 import { AccountStore } from "../../store/accountStore";
 import { useResponsive } from "../../lib/utils/responsive.utils";
 import { userEmailValidator } from "../../lib/validation/user.validators";
+import { authenticate } from "../../lib/validation/biomatrics.validators";
+import { setBiometricLock } from "../../lib/storage/settings.storage";
 import { useState, useCallback, useEffect } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -27,6 +30,7 @@ export default function ContactInfoScreen() {
   const navigation = useNavigation<any>();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+  const [showBiomatricsConfirm, setShowBiomatricsConfirm] = useState(false);
 
   const name = useAccountStore((state: AccountStore) => state.name);
   const gender = useAccountStore((state: AccountStore) => state.gender);
@@ -110,6 +114,33 @@ export default function ContactInfoScreen() {
     } catch {
       alert("Something went wrong! Please try again.");
     }
+  };
+
+  // "Add Lock": make sure the phone has a screen lock and that the user can
+  // pass it right now. Only then turn the flag on and save the profile.
+  // On failure the modal stays open so they can retry or pick "Leave Unlocked".
+  const handleAddLock = async () => {
+    const hasHardware = await LocalAuthentication.hasHardwareAsync();
+    const enrolled = await LocalAuthentication.isEnrolledAsync();
+
+    if (!hasHardware || !enrolled) {
+      alert("Set up a screen lock (PIN, pattern or fingerprint) in your phone settings first.");
+      return;
+    }
+
+    const ok = await authenticate();
+    if (!ok) return;
+
+    setShowBiomatricsConfirm(false);
+    setBiometricLock(true);
+    saveUserData();
+  };
+
+  // "Leave Unlocked": still saves the profile, just without the lock.
+  const handleLeaveUnlocked = () => {
+    setShowBiomatricsConfirm(false);
+    setBiometricLock(false);
+    saveUserData();
   };
 
   return (
@@ -247,8 +278,18 @@ export default function ContactInfoScreen() {
         message="Your details will be stored on this device and you can update them later from the edit profile screen."
         confirmText="Save"
         cancelText="Review"
-        onConfirm={() => { setShowSaveConfirm(false); saveUserData(); }}
+        onConfirm={() => { setShowSaveConfirm(false); setShowBiomatricsConfirm(true); }}
         onCancel={() => setShowSaveConfirm(false)}
+      />
+
+      <ConfirmModal
+        visible={showBiomatricsConfirm}
+        title="Add your screen lock?"
+        message="Your phone lock will be used to lock this app. If you cancel, there will be no lock on your app."
+        confirmText="Add Lock"
+        cancelText="Leave Unlocked"
+        onConfirm={handleAddLock}
+        onCancel={handleLeaveUnlocked}
       />
     </View>
   );

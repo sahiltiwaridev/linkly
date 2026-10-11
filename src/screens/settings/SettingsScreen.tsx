@@ -12,7 +12,7 @@ import Header from "../../components/layout/Header";
 
 export default function SettingsScreen() {
   const navigation = useNavigation<any>();
-  const version = Constants.expoConfig?.version ?? "1.0.0";
+  const version = Constants.expoConfig?.version;
 
   return (
     <View className="justify-between h-full p-5">
@@ -47,12 +47,21 @@ export default function SettingsScreen() {
           />
           <SettingsListItem
             icon={AboutIcon}
+            heading={"Screen Lock"}
+            text={"Enable or disable screen lock for security"}
+            onPress={() => {
+              navigation.navigate("BiomatricsLockScreen");
+            }}
+          />
+          <SettingsListItem
+            icon={AboutIcon}
             heading={"About Linkly"}
             text={"App version, privacy and details"}
             onPress={() => {
               navigation.navigate("AboutScreen");
             }}
           />
+
         </View>
       </View>
 

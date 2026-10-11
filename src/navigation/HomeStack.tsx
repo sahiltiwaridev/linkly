@@ -10,6 +10,7 @@ import EditProfileScreen from "../screens/settings/EditProfileScreen";
 import UpdateLinklyScreen from "../screens/settings/UpdateLinklyScreen";
 import UserManualScreen from "../screens/settings/UserManualScreen";
 import AboutScreen from "../screens/settings/AboutScreen";
+import BiomatricsLockScreen from "../screens/settings/BiomatricsLockScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,8 @@ export default function HomeStack() {
       <Stack.Screen name="AboutScreen" component={AboutScreen} />
       <Stack.Screen name="UserManualScreen" component={UserManualScreen} />
       <Stack.Screen name="UpdateLinklyScreen" component={UpdateLinklyScreen} />
+      <Stack.Screen name="BiomatricsLockScreen" component={BiomatricsLockScreen} />
+
     </Stack.Navigator>
   );
 }

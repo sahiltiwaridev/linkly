@@ -9,6 +9,9 @@ import LoadingScreen from "./src/screens/onboarding/LoadingScreen";
 import TabletUnsupportedScreen from "./src/screens/TabletUnsupportedScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as Device from "expo-device";
+import { isBiometricLockEnabled } from "./src/lib/storage/settings.storage";
+import BiomatricsScreen from "./src/screens/home/LockScreen";
+import LockScreen from "./src/screens/home/LockScreen";
 
 const navTheme = {
   ...DefaultTheme,
@@ -21,11 +24,13 @@ const navTheme = {
 export default function App() {
   const [ready, setReady] = useState(false);
   const [isTablet, setIsTablet] = useState<boolean | null>(null);
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     async function boot() {
       try {
         await initStorage();
+        setLocked(isBiometricLockEnabled());
 
         let tablet = false;
         const nativeDeviceType = Device.deviceType;
@@ -57,13 +62,10 @@ export default function App() {
     boot();
   }, []);
 
-  if (!ready || isTablet === null) {
-    return <LoadingScreen />;
-  }
+if (!ready || isTablet === null) return <LoadingScreen />;
+if (isTablet) return <TabletUnsupportedScreen />;
+if (locked) return <LockScreen onUnlock={() => setLocked(false)} />;
 
-  if (isTablet) {
-    return <TabletUnsupportedScreen />;
-  }
 
   return (
     <SafeAreaProvider>
