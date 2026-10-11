@@ -1,11 +1,14 @@
 import { View, Text, ScrollView, Linking } from "react-native";
 import React from "react";
 import Header from "../../components/layout/Header";
+import Constants from "expo-constants";
 
 export default function AboutScreen() {
   const headingTextStyle = "text-white font-bold text-2xl";
   const paragraphTextStyle = "text-[#B3B3B3] text-lg leading-7";
   const sectionStyle = "gap-4 mb-12";
+  const version = Constants.expoConfig?.version;
+
 
   return (
     <View className="flex-1 p-5">
@@ -18,7 +21,7 @@ export default function AboutScreen() {
         </View>
         <View className="mb-10 gap-3">
           <Text className={headingTextStyle}>About Linkly</Text>
-          <Text className={paragraphTextStyle}>Version 1.0.0</Text>
+          <Text className={paragraphTextStyle}>Linkly v{version}</Text>
           <Text className={paragraphTextStyle}>
             Welcome. If you're exploring this page, you're probably curious
             about what this app really is beyond the QR screen.

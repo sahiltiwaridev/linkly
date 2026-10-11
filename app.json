@@ -2,7 +2,7 @@
   "expo": {
     "name": "linkly",
     "slug": "linkly",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -23,16 +23,20 @@
       "softwareKeyboardLayoutMode": "resize",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.sahiltiwari.linkly"
+      "package": "com.sahiltiwari.linkly",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./src/assets/icon.png"
     },
     "plugins": [
-      ["expo-secure-store"], ["expo-local-authentication",
+      ["expo-secure-store"],
+      [
+        "expo-local-authentication",
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
-    ]]
+      ]
+    ]
   }
 }
