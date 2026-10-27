@@ -38,30 +38,30 @@ export default function HomeScreen() {
             style={{
               width: circleLarge,
               height: circleLarge,
-              position: 'absolute',
+              position: "absolute",
               borderRadius: circleLarge / 2,
               borderWidth: 1,
-              borderColor: 'rgba(79, 140, 255, 0.25)',
+              borderColor: "rgba(79, 140, 255, 0.25)",
             }}
           />
           <View
             style={{
               width: circleMedium,
               height: circleMedium,
-              position: 'absolute',
+              position: "absolute",
               borderRadius: circleMedium / 2,
               borderWidth: 1,
-              borderColor: 'rgba(79, 140, 255, 0.5)',
+              borderColor: "rgba(79, 140, 255, 0.5)",
             }}
           />
           <View
             style={{
               width: circleSmall,
               height: circleSmall,
-              position: 'absolute',
+              position: "absolute",
               borderRadius: circleSmall / 2,
               borderWidth: 1,
-              borderColor: 'rgba(79, 140, 255, 0.75)',
+              borderColor: "rgba(79, 140, 255, 0.75)",
             }}
           />
           <ConnectingIcon width={iconSize} height={iconSize} fill="#4f8cff" />
@@ -81,13 +81,21 @@ export default function HomeScreen() {
           }}
         >
           <View className="flex-row items-center gap-3">
-            <ScannerIcon width={sizes.iconLg} height={sizes.iconLg} fill={"#ffffff"} />
+            <ScannerIcon
+              width={sizes.iconLg}
+              height={sizes.iconLg}
+              fill={"#ffffff"}
+            />
             <View>
               <Text className="text-white text-xl font-semibold">Scan QR</Text>
               <Text className="text-white">Connect with new people</Text>
             </View>
           </View>
-          <NextIcon width={sizes.iconLg} height={sizes.iconLg} fill={"#ffffff"} />
+          <NextIcon
+            width={sizes.iconLg}
+            height={sizes.iconLg}
+            fill={"#ffffff"}
+          />
         </Pressable>
         <View className="flex-row justify-between items-center gap-3">
           <PrimaryCard

@@ -8,6 +8,7 @@ import RequestingCameraIcon from "../../assets/icons/requesting.svg";
 import CloseIcon from "../../assets/icons/close.svg";
 import Header from "../../components/layout/Header";
 import { useResponsive } from "../../lib/utils/responsive.utils";
+import * as Haptics from "expo-haptics";
 
 function AnimatedDots() {
   const [dots, setDots] = useState("");
@@ -113,6 +114,7 @@ export default function QRScannerView() {
           if (result) {
             setScanError(null);
             setScannedData(result);
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           }
         }}
       />
@@ -215,17 +217,7 @@ export default function QRScannerView() {
         }}
       >
         <View>
-          {scanError ? (
-            <Text className="text-red-400 text-lg font-semibold tracking-wide">
-              {scanError}
-            </Text>
-          ) : isScanLocked ? (
-            <Text className="text-white text-lg font-semibold tracking-wide">
-              Scanned
-            </Text>
-          ) : (
-            <AnimatedDots />
-          )}
+          <AnimatedDots />
         </View>
       </View>
     </View>
