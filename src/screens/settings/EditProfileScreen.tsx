@@ -28,6 +28,7 @@ import {
   validateDraft,
 } from "./editProfile.helpers";
 import { useAccountStore } from "../../store/accountStore";
+import * as Haptics from "expo-haptics";
 
 export default function EditProfileScreen() {
   const navigation = useNavigation<any>();
@@ -103,7 +104,7 @@ export default function EditProfileScreen() {
       hideSub.remove();
     };
   }, []);
-  const resetAccount = useAccountStore((state:any) => state.resetAccount);
+  const resetAccount = useAccountStore((state: any) => state.resetAccount);
 
   const handleDeleteProfile = () => {
     try {
@@ -283,7 +284,10 @@ export default function EditProfileScreen() {
         <PrimaryButton
           text={"Save"}
           icon={SaveIcon}
-          onPress={() => setShowUpdateConfirm(true)}
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            setShowUpdateConfirm(true);
+          }}
           disabled={!canSave}
         />
       )}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Linking } from "react-native";
 import Constants from "expo-constants";
 import * as Network from "expo-network";
+import * as Haptics from "expo-haptics";
 
 import CheckingIcon from "../../assets/icons/rotate.svg";
 import UpdateIcon from "../../assets/icons/update.svg";
@@ -31,9 +32,7 @@ const isNewer = (latest: string, current: string): boolean => {
 
 export default function UpdateLinklyScreen({ navigation }: any) {
   const appVersion =
-    Constants.expoConfig?.version ??
-    Constants.manifest?.version ??
-    "Unknown";
+    Constants.expoConfig?.version ?? Constants.manifest?.version ?? "Unknown";
 
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [updateData, setUpdateData] = useState<UpdateData | null>(null);
@@ -49,7 +48,7 @@ export default function UpdateLinklyScreen({ navigation }: any) {
 
   const fetchUpdateData = async (): Promise<UpdateData | null> => {
     const response = await fetch(
-      "https://linkly-website.vercel.app/src/public/update.json"
+      "https://linkly-website.vercel.app/src/public/update.json",
     );
 
     if (!response.ok) {
@@ -69,6 +68,7 @@ export default function UpdateLinklyScreen({ navigation }: any) {
 
       if (!isOnline) {
         setShowOfflineModal(true);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         return;
       }
 
@@ -80,13 +80,16 @@ export default function UpdateLinklyScreen({ navigation }: any) {
         setUpdateAvailable(true);
         setUpdateData(data);
         setMessage(null);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       } else {
         setUpdateAvailable(false);
         setUpdateData(null);
         setMessage("You're using the latest version of Linkly.");
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       }
     } catch {
       setMessage("Couldn't check for updates. Please try again.");
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     } finally {
       setIsChecking(false);
     }
@@ -169,10 +172,10 @@ export default function UpdateLinklyScreen({ navigation }: any) {
           isChecking
             ? "..."
             : updateAvailable
-            ? "Install Update"
-            : hasChecked
-            ? "Check Again"
-            : "Check for Updates"
+              ? "Install Update"
+              : hasChecked
+                ? "Check Again"
+                : "Check for Updates"
         }
         icon={updateAvailable ? UpdateIcon : CheckingIcon}
         onPress={updateAvailable ? handleUpdate : handleCheckForUpdates}
